@@ -1,0 +1,154 @@
+{js:artTemplate}
+{js:my97date}
+<script src='{webroot:public/javascript/orderFormClass.js}'></script>
+<script>
+//创建订单表单实例
+orderFormInstance = new orderFormClass();
+
+//DOM加载完毕
+$(function(){
+	//虚拟商品更新
+	orderFormInstance.goodsType("{$this->goodsType}");
+
+	//商品价格
+	orderFormInstance.goodsSum = "{$this->final_sum}";
+
+	//收货地址数据
+	orderFormInstance.addressInit();
+
+	//免运费
+	orderFormInstance.freeFreight = {echo:JSON::encode($this->freeFreight)};
+});
+</script>
+
+<section class="breadcrumb">
+	<span>您当前的位置：</span> <a href="{url:}">首页</a> » 填写核对订单信息
+</section>
+
+<section class="cart_2">
+	<header class="cart_header">填写核对订单信息</header>
+	<form action='{url:/simple/cart3}' method='post' name='order_form' onsubmit='return orderFormInstance.isSubmit()'>
+
+		<section class="cart_item">
+			<h3>购买的商品</h3>
+			<div class="cart_prompts {if:empty($this->promotion)}none{/if}">
+				<strong>恭喜，您的订单已经满足了以下优惠活动！</strong>
+				<ol>
+					{foreach:items = $this->promotion}
+					<li>{$item['plan']}，{$item['info']}</li>
+					{/foreach}
+				</ol>
+			</div>
+			<div class="cart_item_goods qyj_cart">
+				<table>
+					<col width="225">
+					<col>
+					<col>
+					
+					<!-- 商品展示 开始-->
+					{foreach:items = $this->goodsList}
+						<tr>
+							<td class="bgfafafa">图片</td class="bgfafafa">
+							<td><img src="{url:/pic/thumb/img/$item[img]/w/66/h/66}" width="66px" height="66px" alt="{$item['name']}"></td>
+						</tr>
+						<tr>
+							<td class="bgfafafa">商品名称</td>
+							<td>
+								<a href="{url:/site/products/id/$item['goods_id']}" class="blue">{$item['name']}</a>
+								{if:isset($item['spec_array'])}
+								<p>
+								{set:$spec_array=goods_class::show_spec($item['spec_array']);}
+								{foreach:items=$spec_array item=$specValue key=$specName}
+									{$specName}：{$specValue} &nbsp&nbsp
+								{/foreach}
+								</p>
+								{/if}
+							</td>
+						</tr>
+						<tr>
+							<td class="bgfafafa">折扣</td>
+							<td><em>{$item['point']}</em></td>
+						</tr>
+						<tr>
+							<td class="bgfafafa">权益金类型</td>
+							<td><em>￥{$item['sell_price']}</em></td>
+						</tr>
+						<tr>
+							<td class="bgfafafa">权益金单价</td>
+							<td>减￥{$item['reduce']}</td>
+						</tr>
+						<tr>
+							<td class="bgfafafa">购买数量</td>
+							<td>{$item['count']}</td>
+						</tr>
+						<tr>
+							<td class="bgfafafa">应付金额</td>
+							<td id="deliveryFeeBox_{$item['goods_id']}_{$item['product_id']}_{$item['count']}"><em>￥{$item['sum']}</em></td>
+						</tr>
+					
+					{/foreach}
+					<!-- 商品展示 结束-->
+				</table>
+			</div>
+		</section>
+
+		<section class="cart_item" id="paymentBox">
+			<h3>支付方式</h3>
+			<div class="cart_item_pay">
+				<table width="100%" class="border_table">
+					<col width="330px">
+					<col>
+					{foreach:items = Api::run('getPaymentList')}
+					<tr>
+						<th>
+							<label>
+								<input class="radio" name="payment"  title="{$item['name']}" type="radio" value="{$item['id']}" />
+								<img src='{url:plugins$item['logo']}' width='160px' />{$item['name']}
+							</label>
+						</th>
+						<td>{$item['note']} </td>
+					</tr>
+					{/foreach}
+				</table>
+			</div>
+		</section>
+		
+	
+		<section class="cart_item">
+			<h3>结算信息</h3>
+			<div class="cart_item_count">
+				<div class="count">
+					{if:$this->final_sum != $this->sum}优惠后总金额{else:}商品总金额{/if}：<strong id='goodsSum'>{$this->final_sum}</strong> -
+					优惠券：<strong name='ticket_value'>0</strong> +
+					税金：<strong id='tax_fee'>0</strong> +
+					运费总计：<strong id='delivery_fee_show'>0</strong> +
+					保价：<strong id='protect_price_value'>0</strong> -
+					权益金：<strong id='qyj_price_value'>0</strong> 
+
+					{if:$this->spend_point > 0} + 消耗积分：<strong>{$this->spend_point}</strong>{/if}
+					<br>
+					
+					<div>
+						<div>
+						</div>
+						<table>
+							<col width="220">
+							<col>
+							<col width="250">
+							<tr>
+								<td>
+									<div class="all_count">
+										应付总额：<em>￥<span id='final_sum'>{$this->final_sum}</span></em> 元
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+		</section>
+		<div class="qyj_cart_tips">购买权益金下单并支付成功后，无法撤回，下单未付款10分钟自动取消订单。</div>
+		<label class="cart_topay_btn">
+			<input type="submit">
+			<span>确定无误，提交订单</span>
+		</label>
+	</form>
+</section>
