@@ -1,0 +1,77 @@
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="home-icon fa fa-home"></i>
+			<a href="#">合作方平台</a>
+		</li>
+		<li>
+			<a href="#">平台管理</a>
+		</li>
+		<li class="active">权益金类型配置</li>
+	</ul>
+</div>
+<div class="content">
+
+	<table class="table list-table">
+		<colgroup>
+			<col width="35px" />
+			<col width="190px" />
+			<col width="100px" />
+			<col width="100px" />
+			<col width="100px" />
+			<col width="200px" />
+		</colgroup>
+		<caption>
+			<a class="btn btn-default" href='{url:/partner/config_add}'>
+				<i class="fa fa-plus"></i>添加权益金配置
+			</a>
+		<caption>
+			<form name="searchuser" action="{url:/}" method="get" class="pull-right form-inline" style="margin:0">
+				<input type='hidden' name='controller' value='partner' />
+				<input type='hidden' name='action' value='user_list' />
+				<input type='hidden' name='appid' value='' />
+				名称：<input class="form-control" name="username" type="text" value="{$keywords}"/> 
+				<button class="btn btn-default"
+						type="submit">
+						<i class="fa fa-search"></i>搜 索
+						</button>
+			</form>
+		</caption>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>名称</th>
+				<th>标识</th>
+				<th>抵扣比例</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			{set:$resultData=$queryObj->find()}
+			{foreach:items=$resultData}
+			<tr>
+				<td>{$item['id']}</td>
+				<td>{$item['name']}</td>
+				<td>{$item['code']}</td>
+				<td>{$item['percent']}</td>
+				<td><a href="{url:/partner/config_edit/id/$item['id']}"><i class='operator fa fa-edit'></i></a></td>
+			</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</div>
+{$queryObj->getPageBar()}
+<script language="javascript">
+	//预加载
+	$(function () {
+		var formObj = new Form('searchuser');
+		formObj.init({
+			'search': '{$search}'
+		});
+		$('[name="name"]').val($('#search').val())
+		$('#search').change(function () {
+			$('[name="name"]').val($('#search').val())
+		});
+	})
+</script>

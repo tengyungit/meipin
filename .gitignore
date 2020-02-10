@@ -1,0 +1,8 @@
+config/
+runtime/
+backup/
+config/config.php
+lib/core/cache/redis_class.php
+config/.htaccess
+.vscode/
+.history/

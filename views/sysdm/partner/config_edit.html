@@ -1,0 +1,52 @@
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="home-icon fa fa-home"></i>
+			<a href="#">合作方平台</a>
+		</li>
+		<li>
+			<a href="#">平台管理</a>
+		</li>
+		<li class="active">编辑权益金类型配置</li>
+	</ul>
+</div>
+<div class="content">
+	<form action="{url:/partner/config_save}" method="post" enctype='multipart/form-data'>
+		<input name="id" value="" type="hidden" />
+		<table class="table form-table">
+			<colgroup>
+				<col width="60px" />
+				<col />
+			</colgroup>
+
+			<tr>
+				<th>名称：</th>
+				<td>
+					<input class="form-control" name="name" type="text" value="" pattern="required" />
+				</td>
+			</tr>
+			<tr>
+				<th>标识：</th>
+				<td>
+					<input class="form-control" name="code" type="text" value="" pattern="required" />
+				</td>
+			</tr>
+			<tr>
+				<th>抵扣比例：</th>
+				<td>
+					<input class="form-control" name="percent" type="text" value="" pattern="required" />
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><button class='btn btn-primary' type="submit">确定</button></td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+<script type="text/javascript">
+//表单回填
+var formObj = new Form();
+formObj.init({echo:JSON::encode($config)});
+</script>
