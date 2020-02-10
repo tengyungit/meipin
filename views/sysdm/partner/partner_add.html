@@ -1,0 +1,72 @@
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="home-icon fa fa-home"></i>
+			<a href="#">合作方平台</a>
+		</li>
+		<li>
+			<a href="#">平台管理</a>
+		</li>
+		<li class="active">编辑平台</li>
+	</ul>
+</div>
+<div class="content">
+	<form action="{url:/partner/partner_save}" method="post" enctype='multipart/form-data'>
+
+		<table class="table form-table">
+			<colgroup>
+				<col width="60px" />
+				<col />
+			</colgroup>
+
+			<tr>
+				<th>平台名称：</th>
+				<td>
+					<input class="form-control" name="partner_name" type="text" value="" pattern="required" />
+				</td>
+			</tr>
+			<tr>
+				<th>联系人：</th>
+				<td>
+					<input class="form-control" name="contact" type="text" value="" pattern="required" />
+				</td>
+			</tr>
+			<tr>
+				<th>联系人电话：</th>
+				<td>
+					<input class="form-control" name="phone" type="text" value="" pattern="required" />
+				</td>
+			</tr>
+			<tr>
+				<th>状态</th>
+				<td>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="1" checked=checked >启用
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="2">停用
+                    </label>
+				</td>
+			</tr>
+			<tr>
+				<th>权益金配置</th>
+				<td>
+                   
+						{set:$config=Api::run('getPartnerConfigALL');}
+						{foreach:items=$config}
+						<label class="radio-inline">
+						<input type="checkbox" name="account_config[]" value="{$item['code']}" >{$item['name']}
+						</label>
+						{/foreach}
+                    
+				</td>
+			</tr>
+			<tr>
+				<td></td><td><button class='btn btn-primary' type="submit">确定</button></td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+<script type="text/javascript">
+</script>

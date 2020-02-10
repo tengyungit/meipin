@@ -1,0 +1,57 @@
+<div class="page" id="page-consult">
+    <header class="bar bar-nav pl-0 bg-red">
+        <a class="fa fa-arrow-left pull-left c-white" href="{url:/ucenter/index}"></a>
+        <h1 class="title c-white">权益金</h1>
+        <a class="fa fa-user pull-right c-white external" href="{url:/ucenter/index}"></a>
+    </header>
+    <div class="content bg-white bottom-0">
+        <div class="bg-red p-10">
+            <div class="col-100 c-white t-c p-5">
+                {foreach:items=$partner_account}
+                <span class="f-18"><em class="d-block f-12">{$item['partner_name']}权益金{$item['account_type']}</em>￥{$item['balance']}</span>
+                {/foreach}
+            </div>
+        </div>
+
+        <section class="cart_3 p-5 f-12">
+            <table style="table-layout: fixed;">
+                <colgroup>
+                    <col />
+                    <col width="27%" />
+                    <col width="32%" />
+                </colgroup>
+                <tr>
+                    <td>事件</td>
+                    <td>权益金类型</td>
+                    <td>变动金额</td>
+                    <td>时间</td>
+                </tr>
+                {set:$queryAccountLogList = Api::run('getPartnerAccoutLog',$this->user['user_id'])}
+                {foreach:items = $queryAccountLogList->find()}
+                <tr>
+                    <td>{$item['note']}</td>
+                    <td>{$item['account_type']}</td>
+                    <td>￥{$item['amount']}</td>
+                    <td>{echo:substr($item['time'],0,10)}</td>
+                </tr>
+                {/foreach}
+            </table>
+        </section>
+        {$queryAccountLogList->getPageBar()}
+
+        {if:!$items}
+        <section class="nothing t-c p-10 mt-10">
+            <i class="fa fa-smile-o mt-10 c-gray"></i>
+            <p class="d-block t-c f-14 mb-10">暂无记录</p>
+            <div class="content-padded">
+                <div class="row">
+                    <div class="col-50"> <a class="button button-danger" href="{url:/ucenter/index} ">个人中心</a>
+                    </div>
+                    <div class="col-50"> <a class="button button-danger external" href="{url:/site/index} ">网站首页</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {/if}
+    </div>
+</div>

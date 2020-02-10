@@ -1,0 +1,40 @@
+<header class="uc_head">
+	<h3 class="current"><a href="{url:/ucenter/account_log}">我发布的权益金转让</a></h3>
+</header>
+
+<section class="uc_table">
+	<table>
+	    <col />
+		<col width="110px" />
+		<col width="110px" />
+		<col width="110px" />
+		<col width="145px" />
+		<thead>
+			<tr>
+				<th>平台</th><th>存入金额</th><th>支出金额</th><th>当前金额</th><th>权益金类型</th><th>时间</th><th>备注</th>
+			</tr>
+		</thead>
+		<tbody>
+		    {set:$queryAccountLogList = Api::run('getPartnerAccoutLog',$this->user['user_id'])}
+			{foreach:items = $queryAccountLogList->find()}
+			<tr>
+				<td style="text-align:left;">{$item['partner_name']}</td>
+				<td>{echo:$item['amount'] > 0 ? $item['amount'].'元' : ''}</td>
+				<td>{echo:$item['amount'] < 0 ? $item['amount'].'元' : ''}</td>
+				<td><span class="red">{$item['amount_log']} 元</span></td>
+				<td>{$item['account_type']}</td>
+				<td>{$item['time']}</td>
+				<td>{$item['note']}</td>
+			</tr>
+			{/foreach}
+		</tbody>
+	</table>
+
+    {$queryAccountLogList->getPageBar()}
+
+    {if:!$items}
+    <div class="no_tip">
+    	暂无记录
+    </div>
+    {/if}
+</section>

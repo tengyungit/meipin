@@ -1,0 +1,319 @@
+<form action='{url:/simple/cart3}' class="form" method='post' name='order_form' onsubmit='return orderFormInstance.isSubmit()'>
+<div class="page" id="page-cart2">
+	<header class="bar bar-nav pl-0 bg-red">
+		<a class="fa fa-arrow-left pull-left c-white" href="{url:/}"></a>
+		<h1 class="title c-white">填写和提交订单信息</h1>
+		<a class="fa fa-home pull-right c-white external" href="{url:/site/index}"></a>
+	</header>
+	<div class="content bg-white">
+        <!--地址管理 开始-->
+        <div id="addressBox">
+            <!--门店自提开关-->
+            {if:$this->takeselfList}
+			<label class="switch f-r" style="position: absolute;top: 0.35rem;right: 0.8rem;z-index: 10;">
+				<input class="radio" class="option-input radio" style="position:relative" onchange="$('#myAddress').toggle();$('#myTakeself').toggle();$('[name=\'radio_address\']').prop('checked',false);$('[name=\'takeself\']').prop('checked',false);" type="checkbox" />
+				<span></span>
+			</label>
+			{/if}
+
+            <div id="myAddress">
+    			<div class="bg-gray p-5 f-14 border-b">
+    				收货人信息
+    			</div>
+    			<div class="p-0-10">
+    				<ul class="addr_list pt-10" id="addr_list">
+    					{foreach:items=$this->addressList}
+    					<li id="addressItem{$item['id']}" class="pos-r">
+    						<label class="d-block pos-r f-12">
+    							<input class="d-none" name="radio_address" type="radio" value="{$item['id']}" onclick="orderFormInstance.getDelivery({$item['province']});"/>
+    							<div class="address_info p-10 bg-gray mb-10 bd-radius">
+    								<strong>{$item['accept_name']}</strong> {$item['mobile']}
+    								<p>
+    									{$item['province_str']} {$item['city_str']} {$item['area_str']} {$item['address']}
+    								</p>
+    							</div>
+    						</label>
+    						<div class="col pos-a f-12">
+    							<a href="javascript:orderFormInstance.addressEdit({$item['id']});" class=" c-gray">修改</a>
+    							<a href="javascript:orderFormInstance.addressDel({$item['id']});" class=" c-gray">删除</a>
+    						</div>
+    					</li>
+    					{/foreach}
+    				</ul>
+    				<input type="button" onclick="orderFormInstance.addressAdd();" class="button button-fill button-danger size-l f-14 mt-10 mb-10" value="添加新地址">
+    				<!--收货地址项模板-->
+    				<script type='text/html' id='addressLiTemplate'>
+    					<li id="addressItem<%=item['id']%>" class="pos-r">
+    						<label class="d-block pos-r f-12">
+    							<input class="d-none" name="radio_address" type="radio" value="<%=item['id']%>" onclick="orderFormInstance.getDelivery(<%=item['province']%>);" />
+    							<div class="address_info p-10 bg-gray mb-10 bd-radius">
+    								<strong><%=item['accept_name']%></strong> <%=item['mobile']%>
+    								<p><%=item['province_str']%> <%=item['city_str']%> <%=item['area_str']%> <%=item['address']%></p>
+    							</div>
+    						</label>
+    						<div class="col pos-a f-12">
+    							<a href="javascript:orderFormInstance.addressEdit(<%=item['id']%>);">修改</a>
+    							<a href="javascript:orderFormInstance.addressDel(<%=item['id']%>);">删除</a>
+    						</div>
+    					</li>
+    				</script>
+    			</div>
+            </div>
+
+            {if:$this->takeselfList}
+            <div id="myTakeself" class="d-none">
+    			<div class="bg-gray p-5 f-14 border-b">
+    				门店自提
+    			</div>
+    			<div class="p-0-10">
+    				<ul class="addr_list pt-10" id="addr_list">
+    					{foreach:items=$this->takeselfList}
+    					<input type='hidden' name='accept_name' value='{$item['accept_name']}' />
+    					<input type='hidden'name='accept_mobile' value='{$item['accept_mobile']}' />
+    					<li class="pos-r">
+    						<label class="d-block pos-r f-12">
+    							<input class="d-none" name="takeself" type="radio" value="{$item['id']}" onclick="orderFormInstance.takeselfSelected({$item['id']});"/>
+    							<div class="address_info p-10 bg-gray mb-10 bd-radius">
+    								{$item['name']}
+    								<p>
+    									{$item['province_str']} {$item['city_str']} {$item['area_str']} {$item['address']} {$item['accept_name']} {$item['accept_mobile']}
+    								</p>
+    							</div>
+    						</label>
+    						<div class="col pos-a f-12">
+    							<a href="javascript:orderFormInstance.selectTakeself({$item['id']});" class=" c-gray">修改</a>
+    						</div>
+    					</li>
+    					{/foreach}
+    				</ul>
+    				<script type='text/html' id='takeselfLiTemplate'>
+    					<input type='hidden' name='accept_name' value='<%=item['accept_name']%>' />
+    					<input type='hidden'name='accept_mobile' value='<%=item['accept_mobile']%>' />
+    					<li class="pos-r">
+    						<label class="d-block pos-r f-12">
+    							<input class="d-none" name="takeself" type="radio" value="<%=item['id']%>" onclick="orderFormInstance.takeselfSelected(<%=item['id']%>);"/>
+    							<div class="address_info p-10 bg-gray mb-10 bd-radius">
+    								<%=item['name']%>
+    								<p>
+    									<%=item['province_str']%> <%=item['city_str']%> <%=item['area_str']%> <%=item['address']%> <%=item['accept_name']%> <%=item['accept_mobile']%>
+    								</p>
+    							</div>
+    						</label>
+    						<div class="col pos-a f-12">
+    							<a href="javascript:orderFormInstance.selectTakeself(<%=item['id']%>);" class=" c-gray">修改</a>
+    						</div>
+    					</li>
+    				</script>
+    			</div>
+            </div>
+            {/if}
+	    </div>
+		<!--地址管理 结束-->
+
+        <!--配送和支付方式 开始-->
+		<div class="cart_sect cart_2_delivery">
+
+    		<!--联系人 开始-->
+    		{if:!$this->takeselfList}
+    		{set:$contact = $addr ? current($addr) : []}
+    		<div id="contactBox" style="display:none;">
+    		    <div class="bg-gray p-5 f-14 border-b">联系人信息</div>
+    		    <div class="contact_box p-10 f-12">
+    		        <input type='text' name='accept_name' pattern='required' value='{$contact['accept_name']}' placeholder='真实姓名'  />
+    		        <input type='text' name='accept_mobile' pattern='mobi' value='{$contact['mobile']}' placeholder='手机号码'  />
+    		    </div>
+    		</div>
+    		{/if}
+    		<!--联系人 结束-->
+
+    		<!--服务时间 开始-->
+    		<div id="preorderBox" style="display:none;">
+    		    <div class="bg-gray p-5 f-14 border-b">选择日期</div>
+    		    <div class="preorder_box p-10 f-12">
+                    <input type='text' class='Wdate' autocomplete='off' id='start_date' name='start_date' onFocus="WdatePicker({'minDate':'%y-%M-%d','maxDate':'#F{ $dp.$D(\'end_date\',{d:-1}) }'})" value="" pattern='date' onchange='orderFormInstance.preorder();' placeholder='开始日期' />
+                    <input id='end_date' autocomplete='off' type='text' class='small Wdate' name='end_date' onFocus="WdatePicker({'minDate':'#F{ $dp.$D(\'start_date\',{d:1}) }','maxDate':'#F{ $dp.$D(\'start_date\',{d:30}) }'})" value="" pattern='date' onchange='orderFormInstance.preorder();' placeholder='结束日期' />
+    		    </div>
+
+    		    <ul id="preorderDetail" class='clearfix'></ul>
+    		</div>
+    		<!--服务时间 结束-->
+
+		    <div id="deliveryBox">
+				<div class="bg-gray p-5 f-14 border-b">
+					配送方式
+				</div>
+
+				<div class="delivery">
+					<ul class="p-0-10 mt-10 o-hidden">
+						{foreach:items = Api::run('getDeliveryList')}
+						<li class="pos-r">
+							<label class="d-block pos-r f-12">
+								<input class="d-none" type="radio" name="delivery_id" value="{$item['id']}" paytype="{$item['type']}" onchange='orderFormInstance.deliverySelected({$item['id']});' />
+								<div class="info p-10 bg-gray mb-10 bd-radius">
+									<strong id="deliveryShow{$item['id']}" class="c-red"></strong>
+									<p>{$item['name']} {$item['description']}</p>
+								</div>
+						    </label>
+						</li>
+						{/foreach}
+					</ul>
+					<!--配送信息-->
+					<script type='text/html' id='deliveryTemplate'>
+						<strong class="c-red">运费：￥<%=item['price']%></strong>
+						<%if(item['protect_price'] > 0){%>
+						<strong>保价：￥<%=item['protect_price']%></strong>
+						<%}%>
+					</script>
+				</div>
+			</div>
+
+			<div id="paymentBox">
+				<div class="bg-gray p-5 f-14 border-b">
+					支付方式
+				</div>
+				<div class="p-10 f-12 mt-5 mb-5">
+                {foreach:items = Api::run('getPaymentList')}
+                <label class="mr-5">
+                    <input class="d-none" name="payment" type="radio" value="{$item['id']}" title="{$item['name']}" />
+                    <span class="bg-gray p-5 bd-radius info">{$item['name']} {$item['note']} </span>
+                </label>
+                {/foreach}
+				</div>
+			</div>
+
+			<div class="bg-gray p-5 f-14 border-b">
+				订单附言
+			</div>
+
+			<div class="message_box p-10 f-12">
+				<input class="border-b" placeholder="请输入订单附言" type="text" name='message' />
+			</div>
+		</div>
+		<!--配送和支付方式 结束-->
+
+		<!--购买清单 开始-->
+		<div class="bg-gray p-5 f-14 border-b">
+			购买的商品
+		</div>
+		<div class="p-10 f-12 mt-5" {if:empty($this->promotion)}style="display:none"{/if}> <span>本单享受的活动：</span>
+			{foreach:items = $this->promotion}
+			<span class="bg-gray p-5 bd-radius info c-red">{$item['plan']}，{$item['info']}</span>
+			{/foreach}
+		</div>
+		<!-- 商品展示 开始-->
+		{foreach:items = $this->goodsList}
+		<div class="flex-item-12 border-b bg-white">
+			<div class="flex-item-4 p-10">
+				<img src="{url:/pic/thumb/img/$item[img]/w/80/h/80}" />
+			</div>
+			<div class="flex-item-8 p-10">
+				<p class="f-14 goods_name mb-5">
+					{$item['name']}
+				</p>
+				<em class="f-12 c-gray">
+				{if:isset($item['spec_array'])}
+					{set:$spec_array=goods_class::show_spec($item['spec_array']);}
+					{foreach:items=$spec_array item=$specValue key=$specName}
+						<span>{$specValue} </span>
+					{/foreach}
+				{/if}
+				</em>
+				<h10 class="disnone" id="deliveryFeeBox_{$item['goods_id']}_{$item['product_id']}_{$item['count']}"></h10>
+				<em class="f-12 d-block">数量：<i class="c-red">{$item['count']}</i></em>
+				<em class="f-12 d-block">小计：<i class="c-red">￥{$item['sum']}</i></em>
+			</div>
+		</div>
+		{/foreach}
+		<!-- 商品展示 结束-->
+		<!--金额结算-->
+		<div class="bg-gray p-5 f-14 border-b">
+			结算信息
+		</div>
+		<div class="count p-10 t-r f-12">
+			{if:$this->final_sum != $this->sum}优惠后总金额{else:}商品总金额{/if}：<strong id='goodsSum'>{$this->final_sum}</strong>
+			<br>
+			- 优惠券：<strong name='ticket_value'>0</strong>
+			<br>
+			+ 税金：<strong id='tax_fee'>0</strong>
+			<br>
+			+ 运费总计：<strong id='delivery_fee_show'>0</strong>
+			<br>
+			+ 保价：<strong id='protect_price_value'>0</strong>
+			<br>
+			- 权益金：<strong id='qyj_price_value'>0</strong> 
+			<br>
+			{if:$this->spend_point > 0}<br> + 消耗积分：<strong>{$this->spend_point}</strong>{/if}
+			<input type="button" onclick="orderFormInstance.ticketShow();" class="button button-fill button-danger size-l f-14 mt-10" value="使用优惠券">
+
+			{foreach:items=$this->partner_account}
+				<div style='margin: 0.5rem 0;'>
+					<input style='vertical-align: middle;margin-right:3px' onclick='orderFormInstance.changeqyprice();'  type="radio" name="appids" atter-id="{$item['id']}"  attr-oldprice="{$item['balance']}" value="{$item['balance']}" {if:$key==0}checked="checked"{/if}  />{$item['partner_name']}权益金{$item['account_type']} : {$item['balance']}元
+				</div>
+			{/foreach}
+			<!-- <div style='margin: 0.5rem 0;'>
+				<input style='vertical-align: middle;margin-right:3px'  type="radio" name="appids" onclick='orderFormInstance.changeqyprice();' atter-id='1'  attr-oldprice='20' value="20" checked="checked" />金桥梁权益金 : 20元
+			</div>
+			<div style='margin: 0.5rem 0;'>
+				<input style='vertical-align: middle;margin-right:3px'  type="radio" name="appids" onclick='orderFormInstance.changeqyprice();' atter-id='2'  attr-oldprice='120' value="120" />金桥梁权益金 : 120元
+			</div>
+			<div style='margin: 0.5rem 0;'>
+				<input style='vertical-align: middle;margin-right:3px'  type="radio" name="appids" onclick='orderFormInstance.changeqyprice();' atter-id='3'  attr-oldprice='140' value="140" />金桥梁权益金 : 140元
+			</div> -->
+
+			<input type="hidden" name="appid" value="" />
+		</div>
+		<!-- 发票信息 -->
+		<div class="bg-gray p-5 f-14 border-b">
+			发票信息
+		</div>
+		<div class="tax_box p-10">
+			<label class="f-r switch">
+				<input class="radio" class="option-input radio" style="position:relative" onchange="orderFormInstance.doAccount();$('#tax_title').toggle();" name="taxes" type="checkbox" value="{$this->goodsTax}" />
+				<span></span>
+			</label>
+			<p class="f-12">
+				是否需要发票？(税金:￥{$this->goodsTax})
+			</p>
+		</div>
+		<label id="tax_title" class="tax_title f-12 list-block" style='display:none'>
+			<select name="invoice_id" class="input_select mbb">
+				<option value="">请选择发票...</option>
+				{foreach:items=Api::run("getInvoiceListByUserId")}
+				<option value="{$item['id']}">{$item['company_name']}</option>
+				{/foreach}
+			</select>
+			<input class="button button-fill button-danger f-14 mt-10" onclick="orderFormInstance.editInvoice();" value="添加发票信息" />
+		</label>
+		<!-- 发票信息 结束 -->
+	</div>
+</div>
+<nav class="bar bar-tab">
+	<div class="row no-gutter">
+		<div class="final-sum col-60 f-14 t-l p-5 mt-5">
+			<span class="ml-5">实付:</span>
+			<em id='final_sum' class="c-red">{$this->final_sum}</em>元
+		</div>
+		<div class="col-40">
+			<input id="submitForm" type="submit" class="button button-big d-block button-fill button-danger" value="确认" />
+		</div>
+	</div>
+</nav>
+</form>
+{js:artTemplate}
+{js:my97date}
+<script type='text/javascript' src='{webroot:public/javascript/orderFormClass.js}'></script>
+<script type='text/javascript'>
+//创建订单表单实例
+orderFormInstance = new orderFormClass();
+//DOM加载完毕
+$(function() {
+	//虚拟商品更新
+	orderFormInstance.goodsType("{$this->goodsType}");
+	//商品价格
+	orderFormInstance.goodsSum = "{$this->final_sum}";
+	//收货地址数据
+	orderFormInstance.addressInit();
+	//免运费
+	orderFormInstance.freeFreight = {echo:JSON::encode($this->freeFreight)};
+});
+</script>
