@@ -1,0 +1,23 @@
+{set:$breadGuide = goods_class::catRecursion($this->catId)}
+{set:$goodsObj = search_goods::find(array('category_extend' => $this->childId),20);$resultData = $goodsObj->find()}
+
+<div class="bigweb">
+	<section class="breadcrumb">
+		<span>您当前的位置：</span> <a href="{url:}">首页</a> »
+		<a href='{url:/site/publist}'>权益金转让</a> »
+		<a href='{url:/account/publish_page}'>发布权益金</a>
+	</section>
+
+
+	<div class="qyj-open-box">
+		<div class="qyj-open-title qyj-open-title-t"></div>
+	
+		<div class="qyj-open-suc">
+			<!-- 发布成功 -->
+			<img src="{skin:image/open-suc.png}" >
+			<div class="qyj-open-suc-tips">恭喜您 您的权益金转让发布成功！已扣除{echo:IFilter::act(IReq::get('num'))}个权益金托管到系统，<br><br>其他用户购买成功后资金会自动到达商城账户余额，可进行提现操作。</div>
+			<div class="qyj-open-suc-btn"><a class="color1" href="{url:/account/sale}">去看看</a><a class="color2" href="{url:/ucenter/index}">个人中心</a></div>
+		</div>
+	
+	</div>
+</div>

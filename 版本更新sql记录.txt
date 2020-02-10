@@ -109,7 +109,7 @@ CREATE TABLE `mpyg_partner_account_config` (
   `code` varchar(20) NOT NULL DEFAULT '' COMMENT '标识',
   `percent` decimal(5,2) NOT NULL DEFAULT '0.00' COMMENT '抵扣订单比例',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf16 COMMENT='权益金类型配置表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='权益金类型配置表';
 
 ALTER TABLE `mpyg_partner`
 ADD COLUMN `account_config`  varchar(255) NOT NULL DEFAULT '' COMMENT '权益金类型' AFTER `company`;
@@ -146,7 +146,7 @@ CREATE TABLE `mpyg_partner_account_buy` (
   `buy_time` varchar(50) NOT NULL DEFAULT '' COMMENT '购买时间',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0购买中 1已完成 2已撤销',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf16 COMMENT='权益金购买表';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='权益金购买表';
 
 
 CREATE TABLE `mpyg_partner_account_change` (
@@ -164,7 +164,9 @@ CREATE TABLE `mpyg_partner_account_change` (
   `change_time` varchar(50) NOT NULL DEFAULT '' COMMENT '转让时间',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0转让中 1已完成 2已撤销',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf16 COMMENT='权益金转让表';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='权益金转让表';
+
+
 
 
 

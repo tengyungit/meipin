@@ -184,9 +184,9 @@ class APIPartner
     {
         $userid = $userid ? IFilter::act($userid, 'int') : 0;
         $query  = new IQuery('partner_account as a');
-        $query->join = "left join partner as b on a.appid=b.appid";
+        $query->join = "left join partner as b on a.appid=b.appid left join partner_account_config as c on a.account_type=c.code";
         $query->where = "a.user_id = " . $userid . " and a.is_sale=1";
-        $query->fields = 'a.*,b.partner_name';
+        $query->fields = 'a.*,b.partner_name,c.percent';
         $query->order = 'a.id asc';
         return $query->find();
     }
@@ -206,9 +206,41 @@ class APIPartner
     //权益金转让列表
     public function getIndexChangeList()
     {
+        $where = '1=1';
         $page   = IReq::get('page') ? IFilter::act(IReq::get('page'), 'int') : 1;
-        $query  = new IQuery('partner_account_change');
-        $query->order = 'id desc';
+        $sale_type = IReq::get('sale_type') ? IFilter::act(IReq::get('sale_type')) : '';
+        $account_type = IReq::get('account_type') ? IFilter::act(IReq::get('account_type')) : '';
+        $discount = IReq::get('discount') ? IFilter::act(IReq::get('discount')) : '';
+        $query  = new IQuery('partner_account_change as a');
+        $query->join = "left join partner_account_config as b on a.account_type=b.code";
+
+        if (!empty($sale_type)) {
+            $where .= " and a.status = 0 and a.num - a.sale_num >= 0";
+        }
+
+        if (!empty($account_type)) {
+            $where .= " and a.account_type='" . $account_type . "'";
+        }
+
+        if (!empty($discount)) {
+            if($discount == 1){
+                $where .= " and a.discount<=5";
+            }elseif($discount == 2){
+                $where .= " and a.discount>5 and a.discount<=6";
+            }elseif($discount == 3){
+                $where .= " and a.discount>6 and a.discount<=7";
+            }elseif($discount == 4){
+                $where .= " and a.discount>7 and a.discount<=8";
+            }elseif($discount == 5){
+                $where .= " and a.discount>8 and a.discount<=9";
+            }elseif($discount == 6){
+                $where .= " and a.discount>9 and a.discount<=10";
+            }
+        }
+
+        $query->where = $where;
+        $query->fields = 'a.*,(a.num - a.sale_num) as now_num,b.percent';
+        $query->order = 'a.status asc,now_num desc';
         $query->page  = $page;
         return $query;
     }
@@ -226,6 +258,16 @@ class APIPartner
         }
         $query->order = 'a.id desc';
         $query->page  = $page;
+        return $query;
+    }
+
+    public function getIndexBuyList()
+    {
+        $query  = new IQuery('partner_account_buy as a');
+        $query->join = "left join partner_account_change as b on a.nid=b.nid";
+        $query->fields = 'a.buy_user_id,a.buy_username,a.id,a.nid,a.money,a.num,a.status,a.buy_time,b.title,b.account_type,b.appid,b.discount,b.change_username';
+        $query->order = 'a.id desc';
+        $query->limit = '0,7';
         return $query;
     }
 }

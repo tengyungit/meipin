@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>{echo:$this->_siteConfig->name}</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<link type="image/x-icon" href="{webroot:favicon.ico}" rel="icon">
+	{js:jquery}
+	{js:form}
+	{js:validate}
+	{js:dialog}
+	{js:artTemplate}
+	<!--[if IE]><script src="{theme:javascript/html5.js}"></script><![endif]-->
+	<script src='{theme:javascript/site.js}'></script>
+	<link rel="stylesheet" href="{skin:style/style.css}">
+	<script type='text/javascript' src='{webroot:public/javascript/public.js}'></script>
+</head>
+<body>
+<!--
+
+模版使用字体图标为优化过的 awesome 3.0 图标字体库
+
+使用帮助见:http://www.bootcss.com/p/font-awesome/
+
+ -->
+{set:$sysimg_code=Api::run('getSysimg',array('#sysimg_code#','index_top'))}
+<div class="header_head"><img src="/{$sysimg_code['img']}" ></div>
+<div class="header_top">
+	<div class="web">
+		<div class="notic">
+			正品好货 2019年终狂欢 全场七折
+		</div>
+		<ul class="top_tool">
+			<li><a href="{url:ucenter/index}">个人中心</a></li>
+			<li><a href="{url:/simple/seller}">申请开店</a></li>
+			<li><a href="{url:/seller/index}">商家管理</a></li>
+			<li><a href="{url:/site/help_list}">使用帮助</a></li>
+		</ul>
+		<div class="welcome">
+			欢迎您来到 {echo:$this->_siteConfig->name}！
+			{if:$this->user}
+				<a href="{url:/ucenter/index}">个人中心</a>
+				<a href="{url:/simple/logout}">退出</a>
+			{else:}
+				<a href="{url:/simple/login}">请登录</a>
+				<span>|</span>
+				<a class="reg" href="{url:/simple/reg}">免费注册</a>
+			{/if}
+		</div>
+		<!-- <div class="header_cart" name="mycart">
+			<a href="{url:/simple/cart}" class="go_cart">
+				<i class="fa fa-shopping-cart"></i>
+				购物车（<em class="count" name="mycart_count"]>0</em>）
+			</a>
+			<div class="cart_simple" id="div_mycart"></div>
+		</div> -->
+		<!--购物车模板 开始-->
+		<script type='text/html' id='cartTemplete'>
+		<div class='cart_panel'>
+			<ul class='cart_list'>
+				<%for(var item in goodsData){%>
+				<%var data = goodsData[item]%>
+				<li id="site_cart_dd_<%=item%>">
+					<em>共<%=data['count']%>件</em>
+					<a target="_blank" href="{url:/site/products/id/<%=data['goods_id']%>}">
+						<img src="<%=webroot(data['img'])%>">
+						<h5><%=data['name']%></h5>
+					</a>
+					<span>￥ <%=data['sell_price']%></span>
+					<del onclick="removeCart('<%=data['id']%>','<%=data['type']%>');$('#site_cart_dd_<%=item%>').hide('slow');">删除</del>
+				</li>
+				<%}%>
+				<%if(goodsCount){%>
+				<div class="cart_total">
+					<p>共<span name="mycart_count"><%=goodsCount%></span>件商品</p>
+					<p>商品总额：<em name="mycart_sum">￥<%=goodsSum%></em></p>
+					<a href="{url:simple/cart}">去购物车结算</a>
+				</div>
+				<%}else{%>
+				<div class='cart_no'>购物车空空如也~</div>
+				<%}%>
+			</ul>
+		</div>
+		</script>
+	
+	</div>
+</div>
+<header class="header web">
+	<nav class="header_nav">
+		<div class="goods_nav">
+			<h1 class="logo">
+				<!-- 这里的LOGO图片会自动靠左居中.因此只需要制作一个透明的LOGO图片即可 LOGO最大尺寸 200*90 -->
+				<a href="{url:}">
+					<img class="logo-icon" src="{if:$this->_siteConfig->logo}{webroot:$this->_siteConfig->logo}{else:}{skin:image/logo.png}{/if}">
+				</a>
+				<div class="xcy-class">
+					<img src="{skin:image/xcy-icon.png}">
+				</div>
+			</h1>
+			<!-- <ul class="cat_list none">
+				{foreach:items=Api::run('getCategoryListTop',10)  item=$first}
+				<li>
+					<h3><a href="{url:/site/pro_list/cat/$first[id]}">{$first['name']}</a></h3>
+					<div class="cat_more">
+						<ul>
+							{foreach:items=Api::run('getCategoryExtendList',array('#categroy_id#',$first['id']),24)}
+							<li>
+								<a href="{url:/site/products/id/$item['id']}" target="_blank" title="{$item['name']}">
+									<img class="img-lazyload" src="{url:/pic/thumb/img/$item[img]/w/40/h/40}" alt="{$item['name']}">
+									<strong>{$item['name']}</strong>
+									<em>选购</em>
+								</a>
+							</li>
+							{/foreach}
+						</ul>
+					</div>
+				</li>
+				{/foreach}
+			</ul> -->
+		
+		</div>
+		<!-- <ul class="site_nav">
+			<li><a href="{url:/site/index}">首页</a></li>
+			{foreach:items=Api::run('getGuideList')}
+			<li><a href="{url:$item[link]}">{$item['name']}</a></li>
+			{/foreach}
+		</ul> -->
+	</nav>
+	<div class="header_search">
+		<form method='get' action='{url:/}'>
+			<input type='hidden' name='controller' value='site'>
+			<input type='hidden' name='action' value='search_list'>
+			<div class="search_box">
+				<input class="input_keywords" type="text" name='word' autocomplete="off" placeholder="输入关键词">
+				<label class="input_submits">
+					<input type="submit" value="">
+					<i class="fa fa-search"></i>
+				</label>
+			</div>
+		</form>
+		<div class="hot_words">
+			热搜：
+			{foreach:items=Api::run('getKeywordList',2) }
+			{set:$tmpWord = urlencode($item['word']);}
+			<a href="{url:/site/search_list/word/$tmpWord}">{$item['word']}</a>
+			{/foreach}
+		</div>
+	</div>
+
+	<div class="header_cart" name="mycart">
+		<a href="{url:/simple/cart}" class="go_cart">
+			<i class="fa fa-shopping-cart"></i>
+			购物车（<em class="count" name="mycart_count"]>0</em>）
+		</a>
+		<div class="cart_simple" id="div_mycart"></div>
+	</div>
+
+</header>
+<!--导航 Start-->
+<div class='header-menu'>
+	<div class="menu">
+		<div class="all-sort">
+			<h2><a href="">全部商品分类</a></h2>
+			<!--所有分类 Start-->
+			<div class="wrap none">
+				<div class="all-sort-list">
+					{foreach:items=Api::run('getCategoryListTop',10)  item=$first}
+					<div class="item bo">
+					
+						<h3><span>·</span><a href="{url:/site/pro_list/cat/$first[id]}">{$first['name']}</a></h3>
+			
+						<div class="item-list cat_list clearfix">
+			
+							<div class="subitem">
+							
+									<dl class="fore1">
+										<dt>
+											{foreach:items=Api::run('getCategoryByParentidByVis',array('#parent_id#',$first['id']),10)}
+											<a href="{url:/site/pro_list/cat/$item[id]}">{$item['name']}</a>
+											{/foreach}	
+										</dt>
+										<dd class="cat_mores">
+											{foreach:items=Api::run('getCategoryExtendList',array('#categroy_id#',$first['id']),15)}
+											<em>
+												<a href="{url:/site/products/id/$item['id']}" target="_blank" title="{$item['name']}">
+													<img class="img-lazyload" src="{url:/pic/thumb/img/$item[img]/w/40/h/40}" alt="{$item['name']}">
+													<strong>{$item['name']}</strong>
+												</a>
+											</em>
+										{/foreach}	
+										</dd>
+									</dl>
+			
+							</div>
+			
+							<div class="cat-right">
+								{foreach:items=Api::run('getBrandListByGoodsCategoryId',$first['id'],10)}
+								<a href="{$item['url']}" data-uspm="{$item['name']}" target="_blank" class="cate-ad-item ">
+									<img width="102" height="48" src="/{$item['logo']}"> 
+								</a>
+								{/foreach}	
+								
+								
+							</div>
+						</div>
+						
+					</div>
+					
+					{/foreach}
+				</div>
+			</div>
+		<!--所有分类 End-->
+		</div>
+		<div class="nav">
+			<ul class="clearfix">
+				<li><a href="{url:/site/index}">首页</a></li>
+				<li><a href="{url:/site/publist}">购买权益金</a></li>
+				{foreach:items=Api::run('getGuideList')}
+				<li><a href="{url:$item[link]}">{$item['name']}</a></li>
+				{/foreach}
+			</ul>
+		</div>
+
+		<div class="ad none">
+			<div class="header-img">
+					{if:$this->user['head_ico']}<img src="{$this->user['head_ico']}" >{else:}<img src="{skin:image/default_head_img.png}" >{/if}
+					{if:$this->user}
+					<p>Hi~ {$this->user['username']}！</p>
+					{else:}
+					<p>Hi~欢迎您来到 {echo:$this->_siteConfig->name}！</p>
+					<div class="header-btn">
+						<a href="{url:/simple/login}">登录</a>
+						<a href="{url:/simple/reg}">注册</a>
+					</div>
+					{/if}
+			</div>
+			<div class='header-gg'>
+				<div class='header-gg-title'>商城公告<a href="/site/article/id/1">查看更多</a></div>
+				{foreach:items=Api::run('getArticleListByCatidLimit',1,3)}
+					{if:$key==0}
+					<div class='header-gg-name'><a style="color: red" href="{url:/site/article_detail/id/$item[id]}">{$item['title']}</a></div>
+					{else:}
+					<div class="header-gg-items"><a href="url:/site/article_detail/id/$item[id]">{$item['title']}</a> </div>
+					{/if}
+				{/foreach}
+				
+
+			</div>
+			<div class='header-icon'>
+				<div class='icon1'>
+					<a href="https://tb.53kf.com/code/client/fbf8b426941b361df9e9b5be6788c1ac9/1">
+						<img src="{skin:image/shop-icon.png}" >
+						<p>开源<br>商品对接</p>
+					</a>
+				</div>
+				<div class='icon2'>
+					<a href="https://tb.53kf.com/code/client/fbf8b426941b361df9e9b5be6788c1ac9/1">
+						<img src="{skin:image/zy-icon.png}" >
+						<p>开源解决<br>方案对接</p>
+					</a>
+				</div>
+				<div class='icon3'>
+					<a href="https://tb.53kf.com/code/client/fbf8b426941b361df9e9b5be6788c1ac9/1">
+						<img src="{skin:image/dj-icon.png}" >
+						<p>开源<br>平台对接</p>
+					</a>
+				</div>
+				<div class='icon4'>
+					<a href="https://tb.53kf.com/code/client/fbf8b426941b361df9e9b5be6788c1ac9/1">
+						<img src="{skin:image/cjr-icon.png}" >
+						<p>开源<br>出借人对接</p>
+					</a>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!--导航 End-->
+
+<!--主要模板内容 开始-->
+{viewcontent}
+<!--主要模板内容 结束-->
+
+<footer class="foot">
+	<section class="service">
+		<ul>
+			<li class="item1">
+				<i class="fa index-icon-img">正</i>
+				<strong>
+					<em>正品承诺</em>
+					正品保障 假一赔十
+				</strong>
+			</li>
+			<li class="item2">
+				<i class="fa index-icon-img">多</i>
+				<strong><em>好物多多</em>物美品优 好物多多</strong>
+			</li>
+			<li class="item3">
+				<i class="fa index-icon-img">退</i>
+				<strong><em>7天无忧退货</em>国内退货 售后无忧</strong>
+			</li>
+			<li class="item4">
+				<i class="fa index-icon-img">心</i>
+				<strong><em>尊享服务</em>尊享服务 畅选无忧</strong>
+			</li>
+		</ul>
+	</section>
+	<section class="help">
+		<div class="contact">
+			<p>客户服务</p>
+			<em>18011527674</em>
+			<span>周一到周日 8:00-18:00</span>
+			<!-- <span>（仅收市话费）</span> -->
+
+			<a target="_blank" href="https://tb.53kf.com/code/client/fbf8b426941b361df9e9b5be6788c1ac9/1"><i class="fa fa-comments"></i> 24小时在线客服</a>
+		</div>
+		<div class="contact1">
+			<p>————美品嗨购</p>
+			<div>美品嗨购商城是一家主要为消费者提供“权益购物”的电商购物平台，美品嗨购商城一方面让消费者手中的权益产生即刻购买力，另一方面通过商城的供应链体系为合作商建立一个去除市场中间环节、缩短销售周期、削减渠道成本的直销通道。</div>
+		</div>
+		<div class="contact2">
+			<p>手机访问美品</p>
+			{set:$sysimg_code=Api::run('getSysimg',array('#sysimg_code#','index_foot'))}
+			<div><img src="/{$sysimg_code['img']}" ></div>
+			<em>手机用美品随心享优惠</em>
+		</div>
+	</section>
+	<section class="copy">
+		{echo:IFilter::stripSlash($this->_siteConfig->site_footer_code)}
+	</section>
+</footer>
+
+</body>
+</html>
+<script>
+//当首页时隐藏分类
+{if:IWeb::$app->getController()->getId() == 'site' && IWeb::$app->getController()->getAction()->getId() == 'index'}
+	$('.wrap').removeClass('none');
+	$('.ad').removeClass('none');
+{/if}
+{if:IWeb::$app->getController()->getId() !== 'site' && IWeb::$app->getController()->getAction()->getId() !== 'index'}
+	$('.ad').addClass('none');
+	$('.all-sort').hover(function(){
+		$('.wrap').removeClass('none');
+	},function(){
+		$('.wrap').addClass('none');
+	});
+{/if}
+
+$(function(){
+	$('input:text[name="word"]').val("{$this->word}");
+	$('.all-sort-list > .item').hover(function(){
+		$(this).addClass('hover');
+		$(this).children('.item-list').css('display','block');
+	},function(){
+		$(this).removeClass('hover');
+		$(this).children('.item-list').css('display','none');
+	});
+
+
+});
+</script>
+<script>(function() {var _53code = document.createElement("script");_53code.src = "https://tb.53kf.com/code/code/fbf8b426941b361df9e9b5be6788c1ac9/1";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(_53code, s);})();</script>

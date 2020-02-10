@@ -1,0 +1,174 @@
+{set:$breadGuide = goods_class::catRecursion($this->catId)}
+{set:$goodsObj = search_goods::find(array('category_extend' => $this->childId),20);$resultData = $goodsObj->find()}
+
+<div class="bigweb">
+	<section class="breadcrumb">
+		<span>您当前的位置：</span> <a href="{url:}">首页</a> »
+		<a href='{url:/site/publist}'>权益金转让</a>
+    </section>
+
+    <div class="qyj_banner">
+        <img src="{skin:image/qyj_banner.jpg}" >
+    </div>
+    <div class="qyj_con_box">
+        <div class="qyj_con_left">
+            <div class="qyj_con_sort">
+                <dl>
+                    <dt>交易类型：</dt>
+                    <dd id=''>
+                        <a  {if: empty(IFilter::act(IReq::get('sale_type')))} class="current" {/if} href="{url:/site/publist?sale_type=0&account_type=".IFilter::act(IReq::get('account_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">全部</a>
+                        <a {if: IFilter::act(IReq::get('sale_type'))==1} class="current" {/if} href="{url:/site/publist?sale_type=1&account_type=".IFilter::act(IReq::get('account_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">出售</a>
+                    </dd>
+                    <div style="clear: both;"></div>
+                </dl>
+
+                <dl>
+                    <dt>权益金类型：</dt>
+                    <dd id=''>
+                        <a  {if: empty(IFilter::act(IReq::get('account_type')))} class="current" {/if}  href="{url:/site/publist?account_type=0&sale_type=".IFilter::act(IReq::get('sale_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">全部</a>
+                        <a  {if: IFilter::act(IReq::get('account_type'))=='A'} class="current" {/if} href="{url:/site/publist?account_type=A&sale_type=".IFilter::act(IReq::get('sale_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">A类</a>
+                        <a {if: IFilter::act(IReq::get('account_type'))=='B'} class="current" {/if} href="{url:/site/publist?account_type=B&sale_type=".IFilter::act(IReq::get('sale_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">B类</a>
+                        <a {if: IFilter::act(IReq::get('account_type'))=='C'} class="current" {/if} href="{url:/site/publist?account_type=C&sale_type=".IFilter::act(IReq::get('sale_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">C类</a>
+                        <a {if: IFilter::act(IReq::get('account_type'))=='D'} class="current" {/if} href="{url:/site/publist?account_type=D&sale_type=".IFilter::act(IReq::get('sale_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">D类</a>
+                        <a {if: IFilter::act(IReq::get('account_type'))=='E'} class="current" {/if} href="{url:/site/publist?account_type=E&sale_type=".IFilter::act(IReq::get('sale_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">E类</a>
+                        <a {if: IFilter::act(IReq::get('account_type'))=='F'} class="current" {/if} href="{url:/site/publist?account_type=F&sale_type=".IFilter::act(IReq::get('sale_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">F类</a>
+                    </dd>
+                    <div style="clear: both;"></div>
+                </dl>
+
+                <dl>
+                    <dt>折扣率：</dt>
+                    <dd id=''>
+                        <a  {if: empty(IFilter::act(IReq::get('discount')))} class="current" {/if}  href="{url:/site/publist?discount=0&sale_type=".IFilter::act(IReq::get('sale_type'))."&account_type=".IFilter::act(IReq::get('account_type'))."}">全部</a>
+                        <a  {if: IFilter::act(IReq::get('discount'))=='1'} class="current" {/if} href="{url:/site/publist?discount=1&sale_type=".IFilter::act(IReq::get('sale_type'))."&account_type=".IFilter::act(IReq::get('account_type'))."}"><5折</a>
+                        <a  {if: IFilter::act(IReq::get('discount'))=='2'} class="current" {/if} href="{url:/site/publist?discount=2&sale_type=".IFilter::act(IReq::get('sale_type'))."&account_type=".IFilter::act(IReq::get('account_type'))."}">5-6折</a>
+                        <a  {if: IFilter::act(IReq::get('discount'))=='3'} class="current" {/if} href="{url:/site/publist?discount=3&sale_type=".IFilter::act(IReq::get('sale_type'))."&account_type=".IFilter::act(IReq::get('account_type'))."}">6-7折</a>
+                        <a  {if: IFilter::act(IReq::get('discount'))=='4'} class="current" {/if} href="{url:/site/publist?discount=4&sale_type=".IFilter::act(IReq::get('sale_type'))."&account_type=".IFilter::act(IReq::get('account_type'))."}">7-8折</a>
+                        <a  {if: IFilter::act(IReq::get('discount'))=='5'} class="current" {/if} href="{url:/site/publist?discount=5&sale_type=".IFilter::act(IReq::get('sale_type'))."&account_type=".IFilter::act(IReq::get('account_type'))."}">8-9折</a>
+                        <a  {if: IFilter::act(IReq::get('discount'))=='6'} class="current" {/if} href="{url:/site/publist?discount=6&sale_type=".IFilter::act(IReq::get('sale_type'))."&account_type=".IFilter::act(IReq::get('account_type'))."}">9-10折</a>
+                    </dd>
+                    <div style="clear: both;"></div>
+                </dl>
+
+            </div>
+
+            <div class="qyj_con_table_title">
+                <div class="qyj_con_table_title_item">
+                    <div class="qyj_con_table_dds qyj_con_table_dd1">默认排序</div>
+                    <div class="qyj_con_table_dds qyj_con_table_dd2">折扣</div>
+                    <div class="qyj_con_table_dds qyj_con_table_dd3">转让数量</div>
+                    <div class="qyj_con_table_dds qyj_con_table_dd4">剩余库存</div>
+                    <div class="qyj_con_table_dds qyj_con_table_dd5">发布时间</div>
+                    <div class="qyj_con_table_dds qyj_con_table_dd6"></div>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+
+            <div class="qyj_con_table_body">
+                {if:$change}
+                {foreach:items=$change->find()}
+                <div class="qyj_con_table_tr {if: $item['status']!=0}qyj_con_table_tr_gary{/if}">
+                    <div class="qyj_con_table_dds qyj_con_table_dd1">
+                        <div class="qyj_con_table_dd_left">
+                            <img src="{skin:image/default_head_img.png}" >
+                        </div>
+                        <div class="qyj_con_table_dd_right">
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color1">{$item['title']}</div>
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color2">类型：{$item['account_type']}类</div>
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color3">可抵扣购物金额比例：{$item['percent']}%</div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd2 qyj_con_table_zk">{$item['discount']}折</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd3 qyj_con_table_gg">{$item['num']}</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd4 qyj_con_table_gg">{$item['now_num']}</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd5 qyj_con_table_gg">{echo:date("Y年m月d日",strtotime($item['change_time']))}</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t39 qyj_con_table_dd6"><a {if: $item['status']==0}href='{url:/account/buy_info?nid=$item["nid"]}'{/if}>立即购买</a></div>
+                    <div style="clear: both;"></div>
+                </div>
+                {/foreach}
+
+                <!-- 分页 -->
+                {$change->getPageBar()}
+                {else:}
+				<p class="no_tip">
+					暂无数据
+				</p>
+				{/if}
+            </div>
+            
+        </div>
+        <div class="qyj_con_right">
+            <div class="qyj_con_right_one">
+                <div class="qyj_con_right_help"><a class="qyj_con_right_help_gm" href="">购买帮助</a><a class='qyj_con_right_help_mc' href="">卖出-帮助</a></div>
+
+                <div class="change-icon">
+                    <div class="change-icon-items">
+                        <img src="{skin:image/qyj_change1.png}" >
+                        <div>卖家规则</div> 
+                    </div>
+                    <div class="change-icon-items">
+                        <img src="{skin:image/qyj_change2.png}" >
+                        <div>交易流程</div> 
+                    </div>
+                    <div style="clear: both;"></div>
+
+                </div>
+
+                <div class="qyj_con_right_change">
+                    <a class="qyj_con_right_change_go" href="{url:/account/publish_page}" target="_blank">发布转让</a>
+                    <a class='qyj_con_right_change_my' href="{url:/account/sale}" target="_blank">我的转让</a>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+
+            <div class="qyj_con_right_two">
+                <div class="qyj_con_right_title">
+                    <div class="line line-left"></div>
+                    <div class="line-text">公告</div>
+                    <div class="line line-right"></div>
+                </div>
+
+                <div class="about">关于权益金交易的重要通知</div>
+
+                <div class="gg-icon-item">
+                    <div class="gg-icon-items">
+                        <img src="{skin:image/gg-icon1.png}" >
+                        <div>托管交易</div> 
+                    </div>
+                    <div class="gg-icon-items">
+                        <img src="{skin:image/gg-icon2.png}" >
+                        <div>快捷方便</div> 
+                    </div>
+                    <div class="gg-icon-items">
+                        <img src="{skin:image/gg-icon3.png}" >
+                        <div>交易保障</div> 
+                    </div>
+                    <div class="gg-icon-items">
+                        <img src="{skin:image/gg-icon4.png}" >
+                        <div>实名发布</div> 
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+
+                <div class="word">发布的权益金交易信息,当发布者发布成功后自动扣除权益金托管到系统,购买者放心购买！</div>
+            </div>
+
+            <div class="qyj_con_right_three">
+                <div class="three-title">
+                    实时转让记录
+                </div>
+
+                <div class="three-list">
+                    {foreach:items=$buy->find()}
+                    <div class="three-list-items">
+                        <div class="three-list-items1">用户：<span>{echo:substr($item['buy_username'],0,3)}****{echo:substr($item['buy_username'],-4)}</span> 在 {$item['buy_time']}</div>
+                        <div class="three-list-items2">成功购买了 <span>{$item['num']}个</span> 权益金</div>
+                    </div>
+                    {/foreach}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

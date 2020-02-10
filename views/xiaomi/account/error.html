@@ -1,0 +1,23 @@
+{set:$breadGuide = goods_class::catRecursion($this->catId)}
+{set:$goodsObj = search_goods::find(array('category_extend' => $this->childId),20);$resultData = $goodsObj->find()}
+
+<div class="bigweb">
+	<section class="breadcrumb">
+		<span>您当前的位置：</span> <a href="{url:}">首页</a> »
+		<a href='{url:/site/publist}'>权益金转让</a> »
+		<a href='{url:/account/publish_page}'>发布权益金</a>
+	</section>
+
+
+	<div class="qyj-open-box">
+		<div class="qyj-open-title qyj-open-title-t"></div>
+		
+		<div class="qyj-open-suc">
+			<!-- 发布失败 -->
+			<img src="{skin:image/open-err.png}" >
+			<div class="qyj-open-suc-tips">发布失败，{echo:IFilter::act(IReq::get('msg'))}。<br><br>重新发布点击下面按钮进行再次操作。</div>
+			<div class="qyj-open-suc-btn"><a class="color3" href="{url:/account/publish_page}">重新发布</a></div>
+		</div>
+	
+	</div>
+</div>

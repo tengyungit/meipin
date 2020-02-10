@@ -22,6 +22,10 @@ return array(
         )
     ),
 
+     //权益金购买列表
+     'getIndexBuyList' => array(
+        'file' => 'partner.php', 'class' => 'APIPartner'
+    ),
     
     //权益金转让列表
     'getIndexChangeList' => array(

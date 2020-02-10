@@ -13,6 +13,17 @@ class Account extends IController implements userAuthorization
     {
     }
 
+    //发布页面
+    function publish_page(){
+        //获取个人可转让权益金
+        $account_data =  Api::run("getPartnerCanChange",$this->user['user_id']);
+        $this->setRenderData(array(
+			'account_data' => $account_data,
+        ));
+        
+        $this->redirect('publish_page');
+    }
+
     //发布转让
     function publish()
     {
@@ -27,20 +38,23 @@ class Account extends IController implements userAuthorization
         //权益金ID
         $account_id = IFilter::act(IReq::get('account_id'));
         if (empty($account_id)) {
-            IError::show(403, '请选择转让权益金');
+            $this->redirect('error&msg=请选择转让权益金');
+            exit();
         }
 
         //检测是否有售卖权限
         $partneraccountObj = new IModel('partner_account');
         $partnerRow = $partneraccountObj->getObj('user_id = "' . $this->user['user_id'] . '" and id=' . $account_id);
         if (empty($partnerRow) || $partnerRow['is_sale'] == 0) {
-            IError::show(403, '该权益金没有转让权限');
+            $this->redirect('error&msg=该权益金没有转让权限');
+            exit();
         }
 
         //折扣
         $discount = IFilter::act(IReq::get('discount'));
         if ($discount <= 0 || $discount > 10) {
-            IError::show(403, '请填写正确的折扣信息');
+            $this->redirect('error&msg=请填写正确的折扣信息');
+            exit();
         }
 
         $discount = sprintf("%.1f", $discount);
@@ -49,12 +63,14 @@ class Account extends IController implements userAuthorization
         $num = IFilter::act(IReq::get('num'));
         $exp_num = explode(".", $num);
         if (empty($num) || count($exp_num) > 2 || $num < 100) {
-            IError::show(403, '请填写正确的数量');
+            $this->redirect('error&msg=请填写正确的数量');
+            exit();
         }
 
         //数量大于余额 或  大于 余额-总购买 =可销售的
         if ($num > $partnerRow['balance'] || $num > $partnerRow['balance'] - $partnerRow['buy_total']) {
-            IError::show(403, '超过可转让数量');
+            $this->redirect('error&msg=超过可转让数量(购买的不可转让)');
+            exit();
         }
 
         //标题[折扣]转让[数量]个，[类别]类权益金,大家赶紧购买吧
@@ -80,7 +96,8 @@ class Account extends IController implements userAuthorization
         $change_id = $tb_partner_account_change->add();
         if (!$change_id) {
             $tb_partner_account_change->rollback();
-            IError::show(403, '转让权益金失败');
+            $this->redirect('error&msg=转让权益金失败');
+            exit();
         }
 
         //减少权益金数量
@@ -89,7 +106,8 @@ class Account extends IController implements userAuthorization
         $flag = $partneraccountObj->update("user_id = " . $partnerRow['user_id'] . " and id='" . $partnerRow['id'] . "'");
         if (!$flag) {
             $partneraccountObj->rollback();
-            IError::show(403, '转让权益金失败');
+            $this->redirect('error&msg=转让权益金失败');
+            exit();
         }
 
         //资金日志
@@ -111,12 +129,13 @@ class Account extends IController implements userAuthorization
         $flag = $tb_account_log->add();
         if (!$flag) {
             $tb_account_log->rollback();
-            IError::show(403, '转让权益金失败');
+            $this->redirect('error&msg=转让权益金失败');
+            exit();
         }
 
         $tb_account_log->commit();
 
-        $this->sale();
+        $this->redirect("success&num={$num}");
     }
 
     //撤销发布(下架) 把未支付的也回退回去
@@ -548,19 +567,6 @@ class Account extends IController implements userAuthorization
         $this->buy();
     }
 
-
-    //权益金转让信息（全部）
-    function publist()
-    {
-        $query = Api::run("getIndexChangeList");
-        $this->setRenderData(array(
-            'change' => $query,
-        ));
-
-        //$this->redirect('publist');
-    }
-
-
     //我发布的权益金转让记录
     function sale()
     {
@@ -592,7 +598,7 @@ class Account extends IController implements userAuthorization
         ));
 
 
-        //$this->redirect('sale_detail');
+        $this->redirect('sale_detail');
     }
 
 
@@ -609,7 +615,7 @@ class Account extends IController implements userAuthorization
     //购买详情页面
     function buy_detail()
     {
-        //$this->redirect('buy');
+        $this->redirect('buy_detail');
     }
 
     //生成转让号

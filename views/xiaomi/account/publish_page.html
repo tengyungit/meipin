@@ -1,0 +1,51 @@
+{set:$breadGuide = goods_class::catRecursion($this->catId)}
+{set:$goodsObj = search_goods::find(array('category_extend' => $this->childId),20);$resultData = $goodsObj->find()}
+
+<div class="bigweb">
+	<section class="breadcrumb">
+		<span>您当前的位置：</span> <a href="{url:}">首页</a> »
+		<a href='{url:/site/publist}'>权益金转让</a> »
+		<a href='{url:/account/publish_page}'>发布权益金</a>
+	</section>
+
+
+	<div class="qyj-open-box">
+		<div class="qyj-open-title qyj-open-title-t"></div>
+		<!-- 发布 -->
+		<form action="{url:/account/publish}" method="post">
+		<input type="hidden" value="{echo:time()}" name="timeKey" />
+		<div class="qyj-open-con">
+			<div class="qyj-open-title1">转让信息</div>
+			<div class="qyj-open-form">
+				<div class="qyj-open-form-items">
+					<label for=""><span class="point">*</span>选择转让权益金类型 </label>
+					
+					<select name="account_id" id="account_id">
+						{foreach:items=$account_data}
+						<option value="{$item['id']}" num="{echo:$item['balance']-$item['buy_total']}">{$item['account_type']}类权益金（{$item['percent']}%抵扣购物金额）</option>
+						{/foreach}
+					</select>
+				</div>
+				<div class="qyj-open-form-items">
+					<label for=""><span class="point">*</span>转让权益金数量</label>
+					<input type="text" name="num" placeholder="输入转让的权益金数量,100起"> 
+					<span class="tips">我的可用权益金：<span style="color: #a71b1b;">55555个</span></span>
+				</div>
+				<div class="qyj-open-form-items">
+					<label for=""><span class="point">*</span>转让折扣 </label>
+					<input type="text" name="discount" placeholder="输入你的转让折扣，如：5.5（1-10）">
+					<span class="tips">输入折扣数字，小数点后最多输入一位</span class="tips">
+				</div>
+				<div class="qyj-open-btn"><input style="width: 130px;
+					height: 40px;
+					display: inline-block;
+					background: #ff0000;
+					color: #fff;
+					line-height: 40px;
+					text-align: center;" type="submit" value="保存并发布" /></div>
+			</div>
+			<div class="qyj-open-tips">注：转让成功后，将扣除相应数量的权益金并托管到系统，取消后会自动返回未出售的权益金</div>
+		</div> 
+		</form>
+	</div>
+</div>
