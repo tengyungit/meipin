@@ -1,0 +1,285 @@
+{set:$breadGuide = goods_class::catRecursion($this->catId)}
+{set:$goodsObj = search_goods::find(array('category_extend' => $this->childId),20);$resultData = $goodsObj->find()}
+
+<div class="bigweb">
+	<section class="breadcrumb">
+		<span>您当前的位置：</span> <a href="{url:}">首页</a>
+		{foreach:items=$breadGuide} »
+		<a href='{url:/site/pro_list/cat/$item['id']}'>{$item['name']} </a>
+		{/foreach}
+    </section>
+
+    <div class="qyj_banner">
+        <img src="{skin:image/qyj_banner.jpg}" >
+    </div>
+    <div class="qyj_con_box">
+        <div class="qyj_con_left">
+            <div class="qyj_con_sort">
+                <dl>
+                    <dt>交易类型：</dt>
+                    <dd id=''>
+                        <a class="current" href="{echo:search_goods::searchUrl('attr['.$item["id"].']','')}">全部</a>
+                        <a href="" id="">弟弟</a>
+                    </dd>
+                    <div style="clear: both;"></div>
+                </dl>
+
+                <dl>
+                    <dt>权益金类型：</dt>
+                    <dd id=''>
+                        <a class="current" href="{echo:search_goods::searchUrl('attr['.$item["id"].']','')}">全部</a>
+                        <a href="" id="">A类</a>
+                        <a href="" id="">A类</a>
+                        <a href="" id="">A类</a>
+                        <a href="" id="">A类</a>
+                        <a href="" id="">A类</a>
+                        <a href="" id="">A类</a>
+                        <a href="" id="">A类</a>
+                        <a href="" id="">A类</a>
+                        <a href="" id="">A类</a>
+                        <a href="" id="">A类</a>
+                        <a href="" id="">A类</a>
+                    </dd>
+                    <div style="clear: both;"></div>
+                </dl>
+
+                <dl>
+                    <dt>折扣率：</dt>
+                    <dd id=''>
+                        <a class="current" href="{echo:search_goods::searchUrl('attr['.$item["id"].']','')}">全部</a>
+                        <a href="" id="">弟弟</a>
+                    </dd>
+                    <div style="clear: both;"></div>
+                </dl>
+
+            </div>
+
+            <div class="qyj_con_table_title">
+                <div class="qyj_con_table_title_item">
+                    <div class="qyj_con_table_dds qyj_con_table_dd1">默认排序</div>
+                    <div class="qyj_con_table_dds qyj_con_table_dd2">折扣</div>
+                    <div class="qyj_con_table_dds qyj_con_table_dd3">转让数量</div>
+                    <div class="qyj_con_table_dds qyj_con_table_dd4">剩余库存</div>
+                    <div class="qyj_con_table_dds qyj_con_table_dd5">发布时间</div>
+                    <div class="qyj_con_table_dds qyj_con_table_dd6"></div>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+
+            <div class="qyj_con_table_body">
+                <div class="qyj_con_table_tr">
+                    <div class="qyj_con_table_dds qyj_con_table_dd1">
+                        <div class="qyj_con_table_dd_left">
+                            <img src="{skin:image/default_head_img.png}" >
+                        </div>
+                        <div class="qyj_con_table_dd_right">
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color1">5.5折转让A类权益金</div>
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color2">类型：A类</div>
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color3">可抵扣购物金额比例：100%</div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd2 qyj_con_table_zk">5.5折</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd3 qyj_con_table_gg">2500</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd4 qyj_con_table_gg">2500</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd5 qyj_con_table_gg">1月25日</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t39 qyj_con_table_dd6"><a>立即购买</a></div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div class="qyj_con_table_tr">
+                    <div class="qyj_con_table_dds qyj_con_table_dd1">
+                        <div class="qyj_con_table_dd_left">
+                            <img src="{skin:image/default_head_img.png}" >
+                        </div>
+                        <div class="qyj_con_table_dd_right">
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color1">5.5折转让A类权益金</div>
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color2">类型：A类</div>
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color3">可抵扣购物金额比例：100%</div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd2 qyj_con_table_zk">5.5折</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd3 qyj_con_table_gg">2500</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd4 qyj_con_table_gg">2500</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd5 qyj_con_table_gg">1月25日</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t39 qyj_con_table_dd6"><a>立即购买</a></div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div class="qyj_con_table_tr">
+                    <div class="qyj_con_table_dds qyj_con_table_dd1">
+                        <div class="qyj_con_table_dd_left">
+                            <img src="{skin:image/default_head_img.png}" >
+                        </div>
+                        <div class="qyj_con_table_dd_right">
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color1">5.5折转让A类权益金</div>
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color2">类型：A类</div>
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color3">可抵扣购物金额比例：100%</div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd2 qyj_con_table_zk">5.5折</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd3 qyj_con_table_gg">2500</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd4 qyj_con_table_gg">2500</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd5 qyj_con_table_gg">1月25日</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t39 qyj_con_table_dd6"><a>立即购买</a></div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div class="qyj_con_table_tr">
+                    <div class="qyj_con_table_dds qyj_con_table_dd1">
+                        <div class="qyj_con_table_dd_left">
+                            <img src="{skin:image/default_head_img.png}" >
+                        </div>
+                        <div class="qyj_con_table_dd_right">
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color1">5.5折转让A类权益金</div>
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color2">类型：A类</div>
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color3">可抵扣购物金额比例：100%</div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd2 qyj_con_table_zk">5.5折</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd3 qyj_con_table_gg">2500</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd4 qyj_con_table_gg">2500</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd5 qyj_con_table_gg">1月25日</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t39 qyj_con_table_dd6"><a>立即购买</a></div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div class="qyj_con_table_tr">
+                    <div class="qyj_con_table_dds qyj_con_table_dd1">
+                        <div class="qyj_con_table_dd_left">
+                            <img src="{skin:image/default_head_img.png}" >
+                        </div>
+                        <div class="qyj_con_table_dd_right">
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color1">5.5折转让A类权益金</div>
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color2">类型：A类</div>
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color3">可抵扣购物金额比例：100%</div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd2 qyj_con_table_zk">5.5折</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd3 qyj_con_table_gg">2500</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd4 qyj_con_table_gg">2500</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd5 qyj_con_table_gg">1月25日</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t39 qyj_con_table_dd6"><a>立即购买</a></div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div class="qyj_con_table_tr qyj_con_table_tr_gary">
+                    <div class="qyj_con_table_dds qyj_con_table_dd1">
+                        <div class="qyj_con_table_dd_left">
+                            <img src="{skin:image/default_head_img.png}" >
+                        </div>
+                        <div class="qyj_con_table_dd_right">
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color1">5.5折转让A类权益金</div>
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color2">类型：A类</div>
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color3">可抵扣购物金额比例：100%</div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd2 qyj_con_table_zk">5.5折</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd3 qyj_con_table_gg">2500</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd4 qyj_con_table_gg">2500</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd5 qyj_con_table_gg">1月25日</div>
+                    <div class="qyj_con_table_dds qyj_con_table_t39 qyj_con_table_dd6"><a>立即购买</a></div>
+                    <div style="clear: both;"></div>
+                </div>
+
+                <!-- 分页 -->
+				{$goodsObj->getPageBar()}
+            </div>
+            
+        </div>
+        <div class="qyj_con_right">
+            <div class="qyj_con_right_one">
+                <div class="qyj_con_right_help"><a class="qyj_con_right_help_gm" href="">购买帮助</a><a class='qyj_con_right_help_mc' href="">卖出-帮助</a></div>
+
+                <div class="change-icon">
+                    <div class="change-icon-items">
+                        <img src="{skin:image/qyj_change1.png}" >
+                        <div>卖家规则</div> 
+                    </div>
+                    <div class="change-icon-items">
+                        <img src="{skin:image/qyj_change2.png}" >
+                        <div>交易流程</div> 
+                    </div>
+                    <div style="clear: both;"></div>
+
+                </div>
+
+                <div class="qyj_con_right_change">
+                    <a class="qyj_con_right_change_go" href="">发布转让</a>
+                    <a class='qyj_con_right_change_my' href="">我的转让</a>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+
+            <div class="qyj_con_right_two">
+                <div class="qyj_con_right_title">
+                    <div class="line line-left"></div>
+                    <div class="line-text">公告</div>
+                    <div class="line line-right"></div>
+                </div>
+
+                <div class="about">关于权益金交易的重要通知</div>
+
+                <div class="gg-icon-item">
+                    <div class="gg-icon-items">
+                        <img src="{skin:image/gg-icon1.png}" >
+                        <div>托管交易</div> 
+                    </div>
+                    <div class="gg-icon-items">
+                        <img src="{skin:image/gg-icon2.png}" >
+                        <div>快捷方便</div> 
+                    </div>
+                    <div class="gg-icon-items">
+                        <img src="{skin:image/gg-icon3.png}" >
+                        <div>交易保障</div> 
+                    </div>
+                    <div class="gg-icon-items">
+                        <img src="{skin:image/gg-icon4.png}" >
+                        <div>实名发布</div> 
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+
+                <div class="word">发布的权益金交易信息,当发布者发布成功后自动扣除权益金托管到系统,购买者放心购买！</div>
+            </div>
+
+            <div class="qyj_con_right_three">
+                <div class="three-title">
+                    实时转让记录
+                </div>
+
+                <div class="three-list">
+                    <div class="three-list-items">
+                        <div class="three-list-items1">用户：<span>xxxxxx</span> 在 02-24  13:24</div>
+                        <div class="three-list-items2">成功购买了 <span>1000个</span> 权益金</div>
+                    </div>
+                    <div class="three-list-items">
+                        <div class="three-list-items1">用户：<span>xxxxxx</span> 在 02-24  13:24</div>
+                        <div class="three-list-items2">成功购买了 <span>1000个</span> 权益金</div>
+                    </div>
+                    <div class="three-list-items">
+                        <div class="three-list-items1">用户：<span>xxxxxx</span> 在 02-24  13:24</div>
+                        <div class="three-list-items2">成功购买了 <span>1000个</span> 权益金</div>
+                    </div>
+                    <div class="three-list-items">
+                        <div class="three-list-items1">用户：<span>xxxxxx</span> 在 02-24  13:24</div>
+                        <div class="three-list-items2">成功购买了 <span>1000个</span> 权益金</div>
+                    </div>
+                    <div class="three-list-items">
+                        <div class="three-list-items1">用户：<span>xxxxxx</span> 在 02-24  13:24</div>
+                        <div class="three-list-items2">成功购买了 <span>1000个</span> 权益金</div>
+                    </div>
+                    <div class="three-list-items">
+                        <div class="three-list-items1">用户：<span>xxxxxx</span> 在 02-24  13:24</div>
+                        <div class="three-list-items2">成功购买了 <span>1000个</span> 权益金</div>
+                    </div>
+                    <div class="three-list-items">
+                        <div class="three-list-items1">用户：<span>xxxxxx</span> 在 02-24  13:24</div>
+                        <div class="three-list-items2">成功购买了 <span>1000个</span> 权益金</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

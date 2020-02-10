@@ -1,0 +1,55 @@
+{set:$breadGuide = goods_class::catRecursion($this->catId)}
+{set:$goodsObj = search_goods::find(array('category_extend' => $this->childId),20);$resultData = $goodsObj->find()}
+
+<div class="bigweb">
+	<section class="breadcrumb">
+		<span>您当前的位置：</span> <a href="{url:}">首页</a>
+		{foreach:items=$breadGuide} »
+		<a href='{url:/site/pro_list/cat/$item['id']}'>{$item['name']} </a>
+		{/foreach}
+	</section>
+
+
+	<div class="qyj-open-box">
+		<div class="qyj-open-title qyj-open-title-t"></div>
+		<!-- 发布 -->
+		<!-- <div class="qyj-open-con">
+			<div class="qyj-open-title1">转让信息</div>
+			<div class="qyj-open-form">
+				<div class="qyj-open-form-items">
+					<label for=""><span class="point">*</span>选择转让权益金类型 </label>
+					
+					<select name="" id="">
+						<option value="">A类权益金（100%抵扣购物金额）</option>
+						<option value="">B类权益金（100%抵扣购物金额）</option>
+						<option value="">C类权益金（100%抵扣购物金额）</option>
+					</select>
+				</div>
+				<div class="qyj-open-form-items">
+					<label for=""><span class="point">*</span>转让权益金数量</label>
+					<input type="text" placeholder="输入转让的权益金数量"> 
+					<span class="tips">我的可用权益金：<span style="color: #a71b1b;">55555个</span></span>
+				</div>
+				<div class="qyj-open-form-items">
+					<label for=""><span class="point">*</span>转让折扣 </label>
+					<input type="text" placeholder="输入你的转让折扣，如：5.5">
+					<span class="tips">输入折扣数字，小数点后最多输入一位</span class="tips">
+				</div>
+				<div class="qyj-open-btn"><a href="">保存并发布</a></div>
+			</div>
+			<div class="qyj-open-tips">注：转让成功后，将扣除相应数量的权益金并托管到系统，取消后会自动返回未出售的权益金</div>
+		</div> -->
+		
+		<div class="qyj-open-suc">
+			<!-- 发布成功 -->
+			<img src="{skin:image/open-suc.png}" >
+			<div class="qyj-open-suc-tips">恭喜您 您的权益金转让发布成功！已扣除1111个权益金托管到系统，<br><br>其他用户购买成功后资金会自动到达商城账户余额，可进行提现操作。</div>
+			<div class="qyj-open-suc-btn"><a class="color1" href="">去看看</a><a class="color2" href="">个人中心</a></div>
+			<!-- 发布失败 -->
+			<!-- <img src="{skin:image/open-err.png}" >
+			<div class="qyj-open-suc-tips">发布失败，请检查网络是否连接成功。<br><br>重新发布点击下面按钮进行再次操作。</div>
+			<div class="qyj-open-suc-btn"><a class="color3" href="">重新发布</a></div> -->
+		</div>
+	
+	</div>
+</div>
