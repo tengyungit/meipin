@@ -36,6 +36,17 @@ class Site extends IController
 		$this->redirect('publist');
 	}
 
+	//权益金详情
+	function pubdetail(){
+		$nid = IFilter::act(IReq::get('nid'));
+		$changeObj = new IModel('partner_account_change');
+		$changeRow = $changeObj->getObj('nid="' . $nid . '"');
+		if(empty($changeRow)){
+			IError::show(403, '权益金转让信息不存在');
+		}
+		$this->redirect('pubdetail');
+	}
+
 	function index()
 	{
 		$this->index_slide = Api::run('getBannerList');

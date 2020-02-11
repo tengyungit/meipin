@@ -1,55 +1,37 @@
 {js:zoom}
 {js:bxSlider}
 <script type="text/javascript" src="{webroot:public/javascript/products.js}"></script>
-{set:$breadGuide = goods_class::catRecursion($category);}
+
 <div class="bigweb">
 	<section class="breadcrumb">
 		<span>您当前的位置：</span> <a href="{url:}">首页</a> »
-		{foreach:items=$breadGuide}
-		<a href='{url:/site/pro_list/cat/$item['id']}'>{$item['name']}</a> »
-		{/foreach}
-		{$name}
+		<a href='{url:/site/publist}'>权益金转让</a>
 	</section>
 	<section class="goods_base">
-		<!--图片放大镜-->
-		<section class="goods_zoom">
-			<div class="pic_show" style="width:435px;height:435px;position:relative;z-index:5;padding-bottom:5px;">
-				<img id="picShow" rel="" src=""/>
-			</div>
 
-			<ul id="goodsPhotoList" class="pic_thumb">
-				{foreach:items=$photo}
-				<li>
-					<a href="javascript:void(0);" thumbimg="{url:/pic/thumb/img/$item['img']/w/435/h/435}" sourceimg="{url:$item['img']}">
-						<img src='{url:/pic/thumb/img/$item['img']/w/60/h/60}' width="60px" height="60px" />
-					</a>
-				</li>
-				{/foreach}
-			</ul>
-		</section>
 		<section class="goods_info">
-			<h1 class="goods_info_title">{$name}</h1>
+			<h1 class="goods_info_title">asd</h1>
 			<div style="clear: both;"></div>
 			<!-- <div class="goods_info_num">商品编号：<span id="data_goodsNo">{echo:$goods_no?$goods_no:$id}</span></div> -->
 			<!--基本信息区域-->
 			<ul class="goods_ul qyj_good_ul">
 				<li>
-    			    <span class="bold">转让单价：</span>{echo:$sale+$virtual_sale}
+    			    <span class="bold">转让单价：</span>asd
 				</li>
     			<li>
-    			    <span class="bold">折扣：</span class="bold">{echo:$sale+$virtual_sale}
+    			    <span class="bold">折扣：</span class="bold">asd
 				</li>
 				<li>
-    			    <span class="bold">库存：</span class="bold">{echo:$sale+$virtual_sale}
+    			    <span class="bold">库存：</span class="bold">asd
 				</li>
     			<li>
-					<span class="bold"> 已售：</span class="bold">{echo:$sale+$virtual_sale}
+					<span class="bold"> 已售：</span class="bold">asd
 				</li>
 				<li>
-    			    <span class="bold">权益金类型：</span class="bold">{echo:$sale+$virtual_sale}
+    			    <span class="bold">权益金类型：</span class="bold">asd
 				</li>
     			<li>
-    			    <span class="bold">支付方式：</span class="bold">{echo:$sale+$virtual_sale}
+    			    <span class="bold">支付方式：</span class="bold">asd
 				</li>
 				<li>
 					<span class="bold">保障服务：</span class="bold"> 已托管交易，购买后立即到账
@@ -58,9 +40,9 @@
 			</ul>
 			<!--购买区域-->
 			<div class="good_info_buy qyj_good_info_buy">
-			{if:$store_nums <= 0}
-				该商品已售完，不能购买，您可以看看其它商品！(<a href="{url:/simple/arrival/goods_id/$id}" class="orange">到货通知</a>)
-			{else:}
+		
+				<!-- 该商品已售完，不能购买，您可以看看其它商品！(<a href="{url:/simple/arrival/goods_id/$id}" class="orange">到货通知</a>) -->
+	
 				<!-- <dl>
 					<dt>购买数量：</dt>
 					<dd>
@@ -77,8 +59,7 @@
 				<div class="btn_submit_buy" id="buyNowButton">
 					<span style="left:35px!important">立即购买</span style="left:35px!important">
 				</div>
-				
-			{/if}
+		=
 			</div>
 		</section>
 	</section>
@@ -92,9 +73,9 @@
 				<!-- 商品详情 start -->
 				<div>
 					<ul class="goods_infos">
-						<li>商品编号：{$name}</li>
+						<li>商品编号：asd</li>
 
-						<li>商品类型：{$brand}</li>
+						<li>商品类型：asd</li>
 						
 					</ul>
 				</div>

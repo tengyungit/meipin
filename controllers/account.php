@@ -15,6 +15,7 @@ class Account extends IController implements userAuthorization
 
     //发布页面
     function publish_page(){
+        $this->layout = 'site';
         //获取个人可转让权益金
         $account_data =  Api::run("getPartnerCanChange",$this->user['user_id']);
         $this->setRenderData(array(
@@ -22,6 +23,18 @@ class Account extends IController implements userAuthorization
         ));
         
         $this->redirect('publish_page');
+    }
+
+    //转让失败
+    function error(){
+        $this->layout = 'site';
+        $this->redirect('error');
+    }
+
+    // 转让成功
+    function success(){
+        $this->layout = 'site';
+        $this->redirect('success');
     }
 
     //发布转让
