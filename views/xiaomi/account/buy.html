@@ -27,7 +27,7 @@
 				<td>{$item['num']}</td>
 				<td>{$item['discount']}</td>
 				<td>{$item['money']}</td>
-				<td>{$item['change_username']}</td>
+				<td>{echo:substr($item['change_username'],0,3)}****{echo:substr($item['change_username'],-4)}</td>
 				<td><?php if ($item['status'] == 0) { ?>
 					待支付
 				<?php } elseif ($item['status'] == 2) { ?>

@@ -40,7 +40,7 @@
 					<?php }elseif($item['status']==1){?>
 					已售罄
 					<?php }?></td>
-				<td><?php if($item['status']==0){?><a class="qyj_style_btn" href="javascript:void(0)">取消转让</a><?php }?> <a class="ff0000"
+				<td><?php if($item['status']==0){?><a nid="{$item['nid']}" yimai='{$item['sale_num']}' sy='{echo:$item['num']-$item['sale_num']}' class="qyj_style_btn" href="javascript:void(0)">取消转让</a><?php }?> <a class="ff0000"
 						href="{url:/account/sale_detail?nid=$item['nid']}">查看详情</a></td>
 			</tr>
 			{/foreach}
@@ -61,11 +61,11 @@
 	<div class="model-con">
 		<div class="model-close close-btn">×</div>
 		<div class="model-title">取消转让</div>
-		<div class="model-cons">当前已成功卖出 111 个权益金，剩余库存 250 个<br>
+		<div class="model-cons">当前已成功卖出 个权益金，剩余库存  个<br>
 			取消成功后，剩余库存权益金返回到账户。</div>
 		<div>
 			<a class="model-btn color1 close-btn" href="javascript:void(0)">再想想</a>
-			<a class="model-btn color2" href="{url:/account/cancel?nid=$item['nid']}">确认取消</a>
+			<a class="model-btn color2" href="">确认取消</a>
 		</div>
 	</div>
 </div>

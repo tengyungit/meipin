@@ -44,6 +44,10 @@ class Site extends IController
 		if(empty($changeRow)){
 			IError::show(403, '权益金转让信息不存在');
 		}
+
+		$this->setRenderData(array(
+			'change' => $changeRow,
+		));
 		$this->redirect('pubdetail');
 	}
 

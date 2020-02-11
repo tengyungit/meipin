@@ -166,6 +166,11 @@ CREATE TABLE `mpyg_partner_account_change` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='权益金转让表';
 
+2.11
+ALTER TABLE `mpyg_partner_account_buy`
+ADD COLUMN `do_time`  varchar(50) NOT NULL DEFAULT '' COMMENT '支付或取消时间' AFTER `buy_time`;
+
+
 
 
 

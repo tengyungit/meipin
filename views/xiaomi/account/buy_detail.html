@@ -1,54 +1,50 @@
 
 <header class="uc_head">
-	<h3 class=""><a class="bold" href="{url:/ucenter/account_log}">详情</a></h3>
+	<h3 class=""><a class="bold" href="{url:/account/buy_detail&buy_id=$buy_detail['id']}">我购买的权益金详情</a></h3>
 	<span class="money">
 </header>
 <div class="qyj_detail_head">
 	<div class="qyj_detail_list">
-		<div><span class="active">1</span>   2020-02-24 11:45:35 发起8.3折A类111个权益金转让</div>
-		<div><span class="active">2</span class="active">    2020-02-24 11:55:36 用户：<span class="color1">xxxx</span> 成功购买22个权益金，剩余库存xxxx个，您获得<span class="color2">￥125.00</span> 已到账户余额</div>
-		<div><span class="active">3</span class="active">    2020-02-24 11:55:36 用户：<span class="color1">xxxx</span> 成功购买22个权益金，剩余库存xxxx个，您获得<span class="color2">￥125.00</span> 已到账户余额</div>
+		<div><span class="active">1</span>   {$buy_detail['buy_time']} 创建购买</div>
+		<div><span class="active">1</span>   {$buy_detail['do_time']} 	
+		<?php if ($buy_detail['status'] == 0) { ?>
+			待支付
+		<?php } elseif ($buy_detail['status'] == 2) { ?>
+			取消购买
+		<?php } elseif ($buy_detail['status'] == 1) { ?>
+			支付成功
+		<?php } ?></div>
+	
+	
 	</div>
 	
 
-	<div class="order_info">订单号为：202002241113512705    下单日期：2020-02-24 11:55:36 </div>
+	<div class="order_info">订单号为： {$buy_detail['nid']}   下单日期：{$buy_detail['buy_time']}</div>
 
-	<div><a class="color1" href="">立即支付</a><a href="">取消</a></div>
+	<?php if ($buy_detail['status'] == 0) { ?><div><a class="color1" href="{url:/account/paychange&buy_id=$buy_detail['id']}">立即支付</a><a href="{url:/account/cancelpay&buy_id=$buy_detail['id']}">取消</a></div><?php } ?>
 </div>
 
 <div class="qyj_detail_title">转让详情</div>
 <section class="qyj_detail_table">
 	<table>
 		<tr>
-			<td class="bgfafafa">转让标题</td><td class="bold">83折转让A类权益金</td>
+			<td class="bgfafafa">转让标题</td><td class="bold">{$buy_detail['title']}</td>
 		</tr>
 		<tr>
-			<td class="bgfafafa">转让人</td><td>A（100%抵扣购物金额）</td>
+			<td class="bgfafafa">转让人</td><td>{$buy_detail['account_type']}（{$buy_detail['percent']}%抵扣购物金额）</td>
 		</tr>
 		<tr>
-			<td class="bgfafafa">转让折扣</td><td>9.3折</td>
+			<td class="bgfafafa">转让折扣</td><td>{$buy_detail['discount']}折</td>
 		</tr>
 		
 		<tr>
-			<td class="bgfafafa">购买权益金数量</td><td>5000个</td>
+			<td class="bgfafafa">购买权益金数量</td><td>{$buy_detail['num']}个</td>
 		</tr>
 		<tr>
-			<td class="bgfafafa">订单金额</td><td>5000个</td>
+			<td class="bgfafafa">订单金额</td><td>{$buy_detail['money']}元</td>
 		</tr>
 		
 	</table>
 
-    <!-- {$queryAccountLogList->getPageBar()} -->
 
 </section>
-
-<!-- 弹框 -->
-<!-- <div class="model">
-	<div class="model-con">
-
-	</div>
-</div> -->
-
-<script>
-
-</script>

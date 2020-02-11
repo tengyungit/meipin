@@ -1,0 +1,56 @@
+<section class="breadcrumb">
+	<span>您当前的位置：</span> <a href="{url:}">首页</a> » 
+	<a href='{url:/site/publist}'>权益金购买</a>
+</section>
+
+<section class="cart_3">
+	<header class="cart_header">成功提交订单</header>
+	<div class="cart_3_con">
+		{if:$this->user['user_id']}
+		<div class="cart_3_status">
+			<a href="{url:/account/buy_detail&buy_id=$buy_id}">查看订单</a>
+			<strong>订单已提交</strong>
+		</div>
+		{/if}
+		<h3>订单信息</h3>
+		<table>
+			<col width="100">
+			<col>
+			<tr><th>权益金编号：</th><td>{$buy_detail['nid']}</td></tr>
+			<tr><th>购买权益金数量：</th><td>{$buy_detail['num']}</td></tr>
+			<tr><th>权益金类型：：</th><td>{$buy_detail['account_type']}</td></tr>
+			<tr><th>订单金额：</th><td>{$buy_detail['money']}</td></tr>
+			<tr><th>支付方式：</th><td>余额支付</td></tr>
+		</table>
+		<table class="none" id='order_detail'>
+			<col width="100">
+			<col>
+			<tr><th>联系人名：</th><td></td></tr>
+			<tr><th>联系方式：</th><td></td></tr>
+			<tr><th>发票抬头：</th><td></td></tr>
+
+		</table>
+
+		<form action='{url:/account/paychange}' method='post'>
+			<input type="hidden" name='timeKey' value="{echo:time()}"/>
+			<input type="hidden"  name="buy_id" value="{$buy_id}" />
+			<input type="submit" value="立即支付" />
+		</form>
+	
+	</div>
+</section>
+
+
+<script>
+$(function(){
+	//查看订单详情按钮
+	$('#order_a').click(function(){
+		$(this).toggleClass('fold');
+		$(this).toggleClass('unfold');
+		$('#order_detail').toggle();
+	});
+});
+function dopay(){
+	confirm('支付是否成功',"window.location.href='{url:/ucenter/order}';");
+}
+</script>

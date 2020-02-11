@@ -22,6 +22,16 @@ return array(
         )
     ),
 
+    //根据buyid 获取单个购买信息getBuyInfo 
+    'getBuyInfo' => array(
+        'file' => 'partner.php', 'class' => 'APIPartner'
+    ),
+    
+    //根据转让NID获取购买信息
+    'getBuyListByNid' => array(
+        'file' => 'partner.php', 'class' => 'APIPartner'
+    ),
+
      //权益金购买列表
      'getIndexBuyList' => array(
         'file' => 'partner.php', 'class' => 'APIPartner'
