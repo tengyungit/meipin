@@ -65,13 +65,20 @@
 			取消成功后，剩余库存权益金返回到账户。</div>
 		<div>
 			<a class="model-btn color1 close-btn" href="javascript:void(0)">再想想</a>
-			<a class="model-btn color2" href="">确认取消</a>
+			<a class="model-btn color2 link_url" href="{url:/account/cancel?nid=xxx}">确认取消</a>
 		</div>
 	</div>
 </div>
 
 <script>
 	$('.qyj_style_btn').click(function(){
+		console.info()
+		var nid = '',url = '',arr = [];
+		nid = $(this).attr('nid');
+		url = $('.link_url').attr('href');
+		arr = url.split('=')
+		arr.splice([arr.length - 1],1,nid)
+		$('.link_url').attr('href',arr.join('='))
 		$('.model').fadeIn()
 	})
 	$('.close-btn').click(function(){

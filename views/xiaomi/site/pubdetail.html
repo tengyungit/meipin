@@ -38,10 +38,10 @@
 			<div class="good_info_buy qyj_good_info_buy">
 		
 				<div class="qyj_cartcart_btn">
-					<input type="text" placeholder="请输入购买权益金数量">
+					<input type="text" class="qyj_de_money" placeholder="请输入购买权益金数量">
 				</div>
 				<div class="btn_submit_buy" >
-					<a href="{url:/account/buysure&nid=$change['nid']}&num=10"><span style="left:35px!important">立即购买</span style="left:35px!important"></a>
+					<a class='qyj_link' href="{url:/account/buysure&nid=$change['nid']}&num=10"><span style="left:35px!important;color:#fff">立即购买</span style="left:35px!important"></a>
 				</div>
 
 			</div>
@@ -91,6 +91,17 @@
 </div>
 <script>
 $(function(){
+	
+	$('.qyj_de_money').keyup(function(){
+		var money = '',url = '',arr = [];
+		money = $(this).val();
+		url = $('.qyj_link').attr('href');
+		arr = url.split('=')
+		// console.info(arr)
+		arr.splice([arr.length - 1],1,money)
+		console.info()
+		$('.qyj_link').attr('href',arr.join('='))
+	})
 	//初始化商品详情对象
 	var productInstance = new productClass("{$id}","{$this->user['user_id']}","{$promo}","{$active_id}","{$type}");
 

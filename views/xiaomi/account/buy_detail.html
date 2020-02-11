@@ -21,7 +21,7 @@
 
 	<div class="order_info">订单号为： {$buy_detail['nid']}   下单日期：{$buy_detail['buy_time']}</div>
 
-	<?php if ($buy_detail['status'] == 0) { ?><div><a class="color1" href="{url:/account/paychange&buy_id=$buy_detail['id']}">立即支付</a><a href="{url:/account/cancelpay&buy_id=$buy_detail['id']}">取消</a></div><?php } ?>
+	<?php if ($buy_detail['status'] == 0) { ?><div><a class="color1" href="{url:/account/paychange&buy_id=$buy_detail['id']}">立即支付</a></div><?php } ?>
 </div>
 
 <div class="qyj_detail_title">转让详情</div>
