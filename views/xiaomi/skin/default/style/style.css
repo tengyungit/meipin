@@ -52,6 +52,8 @@ body, button, input, select, textarea { font-family: tahoma,"Helvetica Neue", Ar
 
 .c00 { color: #000; }
 
+.c8a {color: #8a8a8a;}
+
 .cff { color: #fff; }
 
 .caa { color: #aaa; }
@@ -1768,7 +1770,8 @@ text-align: left;font-weight: bold;position: relative;}
 
 .qyj_detail_head .order_info{margin: 20px 0 25px 10px;font-size: 14px;color:#555;font-weight: bold;}
 
-.qyj_detail_head a{display: inline-block;width: 125px;height: 38px;border: 1px solid #ff8225;color: #ff8225;text-align: center;line-height: 38px;margin-left: 10px;}
+.qyj_detail_head a{display: inline-block;width: 125px;height: 38px;border: 1px solid #ff8225;color: #ff8225;text-align: center;line-height: 38px;margin-left: 10px;font-size: 16px;}
+.qyj_detail_head a.color1{background: #ff0000;border-color: #ff0000;color: #fff;}
 .qyj_detail_title{font-size: 16px;color: #666;font-weight: bold;margin-bottom: 20px;}
 
 .qyj_detail_table table{border: 1px solid #e4e4e4;width: 100%;font-size: 14px;}
@@ -1778,7 +1781,13 @@ text-align: left;font-weight: bold;position: relative;}
 
 .model{position: fixed;width: 100%;height: 100%;background: rgba(0,0,0,.5);top: 0;left: 0;z-index: 100000000000000000;}
 .model-con{position: absolute;width: 500px;height: 360px;background: #fff;top: 50%;left: 50%;margin-left: -250px;
-	margin-top: -180px;z-index: 100000000000000001;border-radius: 5px;}
+	margin-top: -180px;z-index: 100000000000000001;border-radius: 5px;text-align: center;}
+.model-title{color: #000;font-size: 30px;padding: 60px 0 50px;}
+.model-cons{color:#555555;font-size: 16px;line-height: 2;padding-bottom: 50px;}
+.model-btn{width: 120px;height: 38px;border: 1px solid;display: inline-block;border-radius: 5px;font-size: 16px;line-height: 38px;}
+.model-btn.color1{background-color: #ff0000;color: #fff;border-color: #ff0000;margin-right: 20px;}
+.model-btn.color2{background-color: #fff;color: #ff8225;border-color: #ff8225;}
+.model-close{width: 38px;height: 38px;line-height: 38px;text-align: center;position: absolute;right: 0;top: 0;background: #eaeaea;cursor: pointer;}
 
 /* 权益金发布 */
 .qyj-open-box{width: 830px;height: 612px;background: #fff;margin: 0 auto 90px;padding: 65px 185px 70px;}
@@ -1826,3 +1835,6 @@ text-align: left;font-weight: bold;position: relative;}
 .qyj_pro_detal_con2 .items{margin-top: 40px;}
 .qyj_pro_detal_con2 .items .items-title{color: #6a6969;font-size: 14px;font-weight: bold;margin-bottom: 13px;}
 .qyj_pro_detal_con2 .items .items-con{color: #8a8a8a;font-size: 14px;}
+
+.qyj_style_btn{color: #ff0000;border: 1px solid #ff0000;padding:2px 5px;margin-right: 5px;}
+.qyj_style_btn:hover{background: #ff0000;color: #fff;text-decoration: none;}
