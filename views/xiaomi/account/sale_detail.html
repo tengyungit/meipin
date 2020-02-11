@@ -13,7 +13,7 @@
 
 	<div class="order_info">单号为：202002241113512705    发布日期：2020-02-24 11:55:36     状态：已下架</div>
 
-	<div><a href="">取消转让</a></div>
+	<div><a class="qyj_style_btn1" href="javascript:void(0)">取消转让</a></div>
 </div>
 
 <div class="qyj_detail_title">转让详情</div>
@@ -54,12 +54,24 @@
 </section>
 
 <!-- 弹框 -->
-<!-- <div class="model">
+<div class="model" style="display:none">
 	<div class="model-con">
-
+		<div class="model-close close-btn">×</div>
+		<div class="model-title">取消转让</div>
+		<div class="model-cons">当前已成功卖出 111 个权益金，剩余库存 250 个<br>
+			取消成功后，剩余库存权益金返回到账户。</div>
+		<div>
+			<a class="model-btn color1 close-btn" href="javascript:void(0)">再想想</a>
+			<a class="model-btn color2" href="{url:/account/cancel?nid=$item['nid']}">确认取消</a>
+		</div>
 	</div>
-</div> -->
+</div>
 
 <script>
-
+	$('.qyj_style_btn1').click(function(){
+		$('.model').fadeIn()
+	})
+	$('.close-btn').click(function(){
+		$('.model').fadeOut()
+	})
 </script>

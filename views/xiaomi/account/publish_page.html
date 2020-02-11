@@ -10,7 +10,7 @@
 
 
 	<div class="qyj-open-box">
-		<div class="qyj-open-title qyj-open-title-t"></div>
+		<div class="qyj-open-title qyj-open-title-f"></div>
 		<!-- 发布 -->
 		<form action="{url:/account/publish}" method="post">
 		<input type="hidden" value="{echo:time()}" name="timeKey" />
@@ -29,7 +29,7 @@
 				<div class="qyj-open-form-items">
 					<label for=""><span class="point">*</span>转让权益金数量</label>
 					<input type="text" name="num" placeholder="输入转让的权益金数量,100起"> 
-					<span class="tips">我的可用权益金：<span style="color: #a71b1b;">55555个</span></span>
+					<span class="tips">我的可用权益金：<span style="color: #a71b1b;"><span class="qyj_money" >55555</span>个</span></span>
 				</div>
 				<div class="qyj-open-form-items">
 					<label for=""><span class="point">*</span>转让折扣 </label>
@@ -49,3 +49,10 @@
 		</form>
 	</div>
 </div>
+
+<script>
+	$('.qyj_money').text($('#account_id').find("option:selected").attr('num'))
+	$('#account_id').change(function(){
+		$('.qyj_money').text($('#account_id').find("option:selected").attr('num'))
+	})
+</script>

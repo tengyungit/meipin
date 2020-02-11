@@ -20,7 +20,7 @@
 		</thead>
 		<tbody>
 			{foreach:items = $buy->find()}
-			<tr>
+			<tr class="<?php if ($item['status'] == 0) { ?>c00<?php } else { ?>c8a<?php } ?>">
 				<td style="text-align:center;">{$item['nid']}</td>
 				<td style="text-align:center;">{$item['title']}</td>
 				<<td style="text-align:center;">{$item['buy_time']}</td>
@@ -35,7 +35,7 @@
 				<?php } elseif ($item['status'] == 1) { ?>
 					已完成
 				<?php } ?></td>
-				<td><a href='{url:/account/buy_detail?buy_id=$item["id"]}'>查看详情</a></td>
+				<td><a class="ff0000" href='{url:/account/buy_detail?buy_id=$item["id"]}'>查看详情</a c></td>
 			</tr>
 			{/foreach}
 		</tbody>
