@@ -83,7 +83,7 @@
                     <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd3 qyj_con_table_gg">{$item['num']}</div>
                     <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd4 qyj_con_table_gg">{$item['now_num']}</div>
                     <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd5 qyj_con_table_gg">{echo:date("Y年m月d日",strtotime($item['change_time']))}</div>
-                    <div class="qyj_con_table_dds qyj_con_table_t39 qyj_con_table_dd6"><a {if: $item['status']==0}href='{url:/account/buy_info?nid=$item["nid"]}'{/if}>立即购买</a></div>
+                    <div class="qyj_con_table_dds qyj_con_table_t39 qyj_con_table_dd6"><a {if: $item['status']==0}href='{url:/account/pubdetail?nid=$item["nid"]}'{/if}>立即购买</a></div>
                     <div style="clear: both;"></div>
                 </div>
                 {/foreach}
