@@ -1,26 +1,28 @@
 <header class="uc_head">
-	<h3 class="current"><a href="{url:/account/buy}">我发布的权益金转让</a></h3>
+	<h3 class="current"><a href="{url:/account/buy}">我购买的权益金转让</a></h3>
 </header>
 
 <section class="uc_table">
 	<table>
 		<col width="100px" />
-	    <col width="360px" />
+		<col width="100px" />
+	    <col width="580px" />
 		<col width="180px" />
 		<col width="50px" />
-		<col width="20px" />
+		<col width="50px" />
 		<col width="100px" />
 		<col width="100px" />
-		<col width="80px" />
-		<col width="80px" />
+		<col width="100px" />
+		<col width="150px" />
 		<thead>
 			<tr>
-				<th>编号</th><th>标题</th><th>购买日期</th><th>数量</th><th>折扣</th><th>实付金额</th><th>转让人</th><th>状态</th><th>操作</th>
+				<th>平台</th><th>编号</th><th>标题</th><th>购买日期</th><th>数量</th><th>折扣</th><th>实付金额</th><th>转让人</th><th>状态</th><th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
 			{foreach:items = $buy->find()}
 			<tr class="<?php if ($item['status'] == 0) { ?>c00<?php } else { ?>c8a<?php } ?>">
+				<td style="text-align:center;">{$item['partner_name']}</td>
 				<td style="text-align:center;">{$item['nid']}</td>
 				<td style="text-align:center;">{$item['title']}</td>
 				<<td style="text-align:center;">{$item['buy_time']}</td>
