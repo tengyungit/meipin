@@ -22,7 +22,7 @@
 					
 					<select name="account_id" id="account_id">
 						{foreach:items=$account_data}
-						<option value="{$item['id']}" num="{echo:$item['balance']-$item['buy_total']}">{$item['account_type']}类权益金（{$item['percent']}%抵扣购物金额）</option>
+						<option value="{$item['id']}" num="{echo:$item['balance']-$item['buy_total']}">{$item['partner_name']}{$item['account_type']}类权益金（{$item['percent']}%抵扣购物金额）</option>
 						{/foreach}
 					</select>
 				</div>

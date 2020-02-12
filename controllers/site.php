@@ -37,16 +37,22 @@ class Site extends IController
 	}
 
 	//权益金详情
-	function pubdetail(){
+	function pubdetail()
+	{
 		$nid = IFilter::act(IReq::get('nid'));
 		$changeObj = new IModel('partner_account_change');
 		$changeRow = $changeObj->getObj('nid="' . $nid . '"');
-		if(empty($changeRow)){
+		if (empty($changeRow)) {
 			IError::show(403, '权益金转让信息不存在');
 		}
 
+
+		//平台信息
+		$partnerObj = new IModel('partner');
+		$partnerRow = $partnerObj->getObj('appid="' . $changeRow['appid'] . '"');
 		$this->setRenderData(array(
 			'change' => $changeRow,
+			'partner' => $partnerRow,
 		));
 		$this->redirect('pubdetail');
 	}

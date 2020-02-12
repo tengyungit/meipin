@@ -184,9 +184,9 @@ class APIPartner
     {
         $userid = $userid ? IFilter::act($userid, 'int') : 0;
         $query  = new IQuery('partner_account as a');
-        $query->join = "left join partner as b on a.appid=b.appid left join partner_account_config as c on a.account_type=c.code";
+        $query->join = "left join partner as b on a.appid=b.appid left join partner_account_config as c on a.account_type=c.code left join partner as d on a.appid=d.appid";
         $query->where = "a.user_id = " . $userid . " and a.is_sale=1";
-        $query->fields = 'a.*,b.partner_name,c.percent';
+        $query->fields = 'a.*,b.partner_name,c.percent,d.partner_name';
         $query->order = 'a.id asc';
         return $query->find();
     }
@@ -196,9 +196,11 @@ class APIPartner
     {
         $userid = $userid ? IFilter::act($userid, 'int') : 0;
         $page   = IReq::get('page') ? IFilter::act(IReq::get('page'), 'int') : 1;
-        $query  = new IQuery('partner_account_change');
-        $query->where = "change_user_id = " . $userid;
-        $query->order = 'id desc';
+        $query  = new IQuery('partner_account_change as a');
+        $query->join = "left join partner as b on a.appid=b.appid";
+        $query->fields = 'a.*,b.partner_name';
+        $query->where = "a.change_user_id = " . $userid;
+        $query->order = 'a.id desc';
         $query->page  = $page;
         return $query;
     }
@@ -212,7 +214,7 @@ class APIPartner
         $account_type = IReq::get('account_type') ? IFilter::act(IReq::get('account_type')) : '';
         $discount = IReq::get('discount') ? IFilter::act(IReq::get('discount')) : '';
         $query  = new IQuery('partner_account_change as a');
-        $query->join = "left join partner_account_config as b on a.account_type=b.code";
+        $query->join = "left join partner_account_config as b on a.account_type=b.code left join partner as c on a.appid=c.appid";
 
         if (!empty($sale_type)) {
             $where .= " and a.status = 0 and a.num - a.sale_num >= 0";
@@ -223,23 +225,23 @@ class APIPartner
         }
 
         if (!empty($discount)) {
-            if($discount == 1){
+            if ($discount == 1) {
                 $where .= " and a.discount<=5";
-            }elseif($discount == 2){
+            } elseif ($discount == 2) {
                 $where .= " and a.discount>5 and a.discount<=6";
-            }elseif($discount == 3){
+            } elseif ($discount == 3) {
                 $where .= " and a.discount>6 and a.discount<=7";
-            }elseif($discount == 4){
+            } elseif ($discount == 4) {
                 $where .= " and a.discount>7 and a.discount<=8";
-            }elseif($discount == 5){
+            } elseif ($discount == 5) {
                 $where .= " and a.discount>8 and a.discount<=9";
-            }elseif($discount == 6){
+            } elseif ($discount == 6) {
                 $where .= " and a.discount>9 and a.discount<=10";
             }
         }
 
         $query->where = $where;
-        $query->fields = 'a.*,(a.num - a.sale_num) as now_num,b.percent';
+        $query->fields = 'a.*,(a.num - a.sale_num) as now_num,b.percent,c.partner_name';
         $query->order = 'a.status asc,now_num desc';
         $query->page  = $page;
         return $query;
@@ -251,8 +253,8 @@ class APIPartner
         $userid = $userid ? IFilter::act($userid, 'int') : 0;
         $page   = IReq::get('page') ? IFilter::act(IReq::get('page'), 'int') : 1;
         $query  = new IQuery('partner_account_buy as a');
-        $query->join = "left join partner_account_change as b on a.nid=b.nid";
-        $query->fields = 'a.buy_user_id,a.buy_username,a.id,a.nid,a.money,a.num,a.status,a.buy_time,b.title,b.account_type,b.appid,b.discount,b.change_username';
+        $query->join = "left join partner_account_change as b on a.nid=b.nid left join partner as c on b.appid=c.appid";
+        $query->fields = 'a.buy_user_id,a.buy_username,a.id,a.nid,a.money,a.num,a.status,a.buy_time,b.title,b.account_type,b.appid,b.discount,b.change_username,c.partner_name';
         if ($userid) {
             $query->where = "a.buy_user_id = " . $userid;
         }
@@ -262,14 +264,15 @@ class APIPartner
     }
 
     //根据buyid获取购买信息
-    public function getBuyInfo($userid = '',$buy_id=0){
+    public function getBuyInfo($userid = '', $buy_id = 0)
+    {
         $userid = $userid ? IFilter::act($userid, 'int') : 0;
         $buy_id   = IReq::get('buy_id') ? IFilter::act(IReq::get('buy_id'), 'int') : 0;
         $query  = new IQuery('partner_account_buy as a');
         $query->join = "left join partner_account_change as b on a.nid=b.nid left join partner_account_config as c on b.account_type=c.code";
         $query->fields = 'a.do_time,a.buy_user_id,a.buy_username,a.id,a.nid,a.money,a.num,a.status,a.buy_time,b.title,b.account_type,b.appid,b.discount,b.change_username,b.title,c.percent';
         if ($buy_id) {
-            $query->where = "a.id = " . $buy_id." and a.buy_user_id=".$userid;
+            $query->where = "a.id = " . $buy_id . " and a.buy_user_id=" . $userid;
         }
         return $query->find();
     }
@@ -286,7 +289,7 @@ class APIPartner
     }
 
     //根据转让nid 获取购买者
-    public function getBuyListByNid($nid='')
+    public function getBuyListByNid($nid = '')
     {
         $nid = $nid ? IFilter::act($nid) : '';
         $query  = new IQuery('partner_account_buy as a');

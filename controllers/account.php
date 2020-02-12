@@ -420,10 +420,10 @@ class Account extends IController implements userAuthorization
             IError::show(403, '支付失败');
         }
 
-        //转让者资金记录
+        //购买者资金记录
         $insertData = array(
             'admin_id'  => 0,
-            'user_id'   => $buyRow['change_user_id'],
+            'user_id'   => $buyRow['buy_user_id'],
             'event'     => '3',
             'note'      => "购买" . $buyRow['account_type'] . '类权益金，：' . $buyRow['num'] . '个，花费余额' . $buyRow['money'] . "元",
             'amount'    => -$buyRow['money'],
