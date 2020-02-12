@@ -7,6 +7,17 @@
  */
 class Account extends IController implements userAuthorization
 {
+    private function return_msg($code, $info = '', $data = array())
+	{
+		$error_arr = array(
+			'deal_succ' => array('code' => '1', 'msg' => '操作成功', 'info' => $info, 'data' => $data),
+			'server_error' => array('code' => "001001", 'msg' => '服务端错误', 'info' => $info),
+			'data_error' => array('code' => "001002", 'msg' => '数据错误', 'info' => $info),
+		);
+		echo JSON::encode($error_arr[$code]);
+		exit;
+    }
+    
     public $layout = 'ucenter';
 
     public function init()
@@ -374,14 +385,16 @@ class Account extends IController implements userAuthorization
         //防止表单重复提交
         if (IReq::get('timeKey')) {
             if (ISafe::get('timeKey') == IReq::get('timeKey')) {
-                IError::show(403, '购买数据不能被重复提交');
+                // IError::show(403, '购买数据不能被重复提交');
+                $this->return_msg("data_error", '购买数据不能被重复提交');
             }
             ISafe::set('timeKey', IReq::get('timeKey'));
         }
 
         $buy_id = IFilter::act(IReq::get('buy_id'));
         if (empty($buy_id)) {
-            IError::show(403, '参数错误');
+            // IError::show(403, '参数错误');
+            $this->return_msg("data_error", '参数错误');
         }
         $buyObj = new IQuery("partner_account_buy as a");
         $buyObj->join   = 'left join partner_account_change as b on a.nid = b.nid';
@@ -390,13 +403,15 @@ class Account extends IController implements userAuthorization
         $array_buy = $buyObj->find();
 
         if (empty($array_buy)) {
-            IError::show(403, '记录不存在');
+            // IError::show(403, '记录不存在');
+            $this->return_msg("data_error", '记录不存在');
         }
 
         $buyRow = $array_buy[0];
 
         if ($buyRow['status'] != 0) {
-            IError::show(403, '购买权益金已完成或已取消');
+            // IError::show(403, '购买权益金已完成或已取消');
+            $this->return_msg("data_error", '购买权益金已完成或已取消');
         }
 
         //购买者余额检测
@@ -404,7 +419,8 @@ class Account extends IController implements userAuthorization
         $memberRow  = $memberObj->getObj('user_id = ' . $buyRow['buy_user_id']);
 
         if ($memberRow['balance'] < $buyRow['money']) {
-            IError::show(403, '余额不足');
+            // IError::show(403, '余额不足');
+            $this->return_msg("data_error", '余额不足');
         }
 
         //购买者余额减少
@@ -417,7 +433,8 @@ class Account extends IController implements userAuthorization
         $flag = $memberObj->update("user_id = " . $buyRow['buy_user_id']);
         if (!$flag) {
             $memberObj->rollback();
-            IError::show(403, '支付失败');
+            // IError::show(403, '支付失败');
+            $this->return_msg("data_error", '支付失败');
         }
 
         //购买者资金记录
@@ -439,7 +456,8 @@ class Account extends IController implements userAuthorization
         $flag = $tb_account_log->add();
         if (!$flag) {
             $tb_account_log->rollback();
-            IError::show(403, '支付失败');
+            // IError::show(403, '支付失败');
+            $this->return_msg("data_error", '支付失败');
         }
 
         //新增购买者权益金账户
@@ -459,7 +477,8 @@ class Account extends IController implements userAuthorization
             $account_id = $tb_partner_account->add();
             if (!$account_id) {
                 $tb_partner_account->rollback();
-                IError::show(403, '支付失败');
+                // IError::show(403, '支付失败');
+                $this->return_msg("data_error", '支付失败');
             }
         }
 
@@ -477,7 +496,8 @@ class Account extends IController implements userAuthorization
         $flag = $tb_partner_account->update("user_id = " . $buyRow['buy_user_id'] . " and appid='" . $buyRow['appid'] . "' and account_type='" . $buyRow['account_type'] . "'");
         if (!$flag) {
             $tb_partner_account->rollback();
-            IError::show(403, '支付失败');
+            // IError::show(403, '支付失败');
+            $this->return_msg("data_error", '支付失败');
         }
 
         //新增资金记录
@@ -497,7 +517,8 @@ class Account extends IController implements userAuthorization
         $flag = $tb_account_log->add();
         if (!$flag) {
             $tb_account_log->rollback();
-            IError::show(403, '支付失败');
+            // IError::show(403, '支付失败');
+            $this->return_msg("data_error", '支付失败');
         }
 
         //修改购买信息
@@ -506,7 +527,8 @@ class Account extends IController implements userAuthorization
         $flag = $buyinfoObj->update('buy_user_id = "' . $buyRow['buy_user_id'] . '" and id=' . $buy_id);
         if (!$flag) {
             $buyinfoObj->rollback();
-            IError::show(403, '支付失败');
+            // IError::show(403, '支付失败');
+            $this->return_msg("data_error", '支付失败');
         }
 
         //转让信息修改
@@ -525,7 +547,8 @@ class Account extends IController implements userAuthorization
         $flag = $changeObj->update('change_user_id = "' . $buyRow['change_user_id'] . '" and nid=' . $buyRow['nid']);
         if (!$flag) {
             $changeObj->rollback();
-            IError::show(403, '支付失败');
+            // IError::show(403, '支付失败');
+            $this->return_msg("data_error", '支付失败');
         }
 
         //转让者资金信息修改
@@ -540,7 +563,8 @@ class Account extends IController implements userAuthorization
         $flag = $tb_partner_account->update("user_id = " . $buyRow['change_user_id'] . " and appid='" . $buyRow['appid'] . "' and account_type='" . $buyRow['account_type'] . "'");
         if (!$flag) {
             $tb_partner_account->rollback();
-            IError::show(403, '支付失败');
+            // IError::show(403, '支付失败');
+            $this->return_msg("data_error", '支付失败');
         }
 
         //转让者余额增加
@@ -555,7 +579,8 @@ class Account extends IController implements userAuthorization
         $flag = $memberObj->update("user_id = " . $buyRow['change_user_id']);
         if (!$flag) {
             $memberObj->rollback();
-            IError::show(403, '支付失败');
+            // IError::show(403, '支付失败');
+            $this->return_msg("data_error", '支付失败');
         }
 
         //转让者资金记录
@@ -576,13 +601,15 @@ class Account extends IController implements userAuthorization
         $flag = $tb_account_log->add();
         if (!$flag) {
             $tb_account_log->rollback();
-            IError::show(403, '支付失败');
+            // IError::show(403, '支付失败');
+            $this->return_msg("data_error", '支付失败');
         }
 
         $tb_account_log->commit();
 
         
-        $this->buy();
+        // $this->buy();
+        $this->return_msg("deal_succ", '支付成功', '/account/buy_detail&buy_id='.$buy_id);
     }
 
     //取消支付
