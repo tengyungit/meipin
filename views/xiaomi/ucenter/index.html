@@ -1,0 +1,94 @@
+
+{if:$msgNum>0}
+<div class="prompt">
+	<strong>温馨提示：</strong> 您有<span class="red">{$msgNum}</span> 条站内未读短信息，<a href="{url:/ucenter/message}">现在去看看</a>
+</div>
+{/if}
+
+<header class="uc_head_red">
+	<time>上一次登录时间：{echo:ISafe::get('last_login')}</time>
+	<h3>您好，{$this->user['username']} 欢迎回来!</h3>
+</header>
+
+<section class="uc_info">
+	{set:$user_ico = $this->user['head_ico']}
+	<div class="user_ico">
+		<img id="user_ico_img" src="{url:$user_ico}" onerror="this.src='{skin:image/user_ico.gif}'">
+		<span onclick="$('#userIcoFile').trigger('click');">修改头像</span>
+	</div>
+	<ol class="user_info">
+		<li>你的账户目前总积分：<strong>{$user['point']} 分</strong>　　<a href="{url:/ucenter/integral}">查看积分历史</a></li>
+		<li>你的订单交易总数量：<strong>{$statistics['num']} 笔</strong>　　<a href="{url:/ucenter/order}">进入订单列表</a></li>
+		<li>总消费额：<strong>￥{$statistics['amount']}</strong></li>
+		<li>预存款余额：<strong>￥{$user['balance']}</strong></li>
+		<li>优惠券：<strong>{$propData['prop_num']} 张</strong></li>
+		<li>经验值：<strong>{$user['exp']}</strong></li>
+		{foreach:items=$partner_account}
+		<li>{$item['partner_name']}{$item['account_type']}类权益金余额 : {$item['balance']}</li>
+		{/foreach}
+	</ol>
+	<ol class="user_stat">
+		<li>待评价商品：(<strong>{echo:statistics::countUserWaitComment()}</strong>)</li>
+		<li>待付款订单：(<strong>{echo:statistics::countUserWaitPay()}</strong>)</li>
+		<li>待确认收货：(<strong><a href="{url:/ucenter/order}">{echo:statistics::countUserWaitCommit()}</a></strong>)</li>
+	</ol>
+</section>
+
+<header class="uc_head mt10">
+	<h3>我的订单</h3>
+	<a href="{url:/ucenter/order}" class="more">更多 »</a>
+</header>
+<section class="uc_table">
+	<table>
+		<thead>
+			<tr>
+				<th>订单编号</th><th>下单日期</th><th>收货人</th><th>支付方式</th><th>总金额</th><th>订单状态</th>
+			</tr>
+		</thead>
+		<tbody>
+		{foreach:items=Api::run('getOrderListByUserid')}
+		<tr>
+			<td><a href="{url:/ucenter/order_detail/id/$item['id']}">{$item['order_no']}</a></td>
+			<td>{$item['create_time']}</td>
+			<td>{$item['accept_name']}</td>
+			<td>{$this->payments[$item['pay_type']]['name']}</td>
+			<td>￥{echo:($item['order_amount'])}</td>
+			<td>
+				{set:$orderStatus = Order_Class::getOrderStatus($item)}
+				<b class="{if:$orderStatus >= 6}green{else:}orange{/if}">{echo:Order_Class::orderStatusText($orderStatus)}</b>
+			</td>
+		</tr>
+		{/foreach}
+		</tbody>
+	</table>
+</section>
+
+
+<section class="artice_goods">
+	<h3>也许你会对下列商品感兴趣</h3>
+	<ul>
+		{foreach:items=Api::run('getGoodsByCommendgoods',8)}
+		<li>
+			<a href="{url:/site/products/id/$item['id']}">
+				<img src="{url:/pic/thumb/img/$item[img]/w/220/h/220}" alt="{$item['name']}">
+				<strong>{$item['name']}</strong>
+				<em>￥{$item['sell_price']}</em>
+			</a>
+		</li>
+		{/foreach}
+	</ul>
+</section>
+
+{js:fileUpload}
+<input id="userIcoFile" style="display:none;" type="file" accept="image/png,image/gif,image/jpeg" name="userIcoFile" data-url="{url:/ucenter/user_ico_upload}" />
+
+<script>
+//jquery图片上传
+$('#userIcoFile').fileupload({
+    dataType: 'json',
+    done: function (e, data)
+    {
+        data.result && data.result.flag == 1 ? $('#user_ico_img').attr('src',data.result.img) : alert(data.result.error);
+    }
+});
+</script>
