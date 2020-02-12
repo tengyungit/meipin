@@ -626,13 +626,15 @@ class Account extends IController implements userAuthorization
         $array_buy = $buyObj->find();
 
         if (empty($array_buy)) {
-            IError::show(403, '记录不存在');
+            // IError::show(403, '记录不存在');
+            $this->return_msg("data_error", '记录不存在');
         }
 
         $buyRow = $array_buy[0];
 
         if ($buyRow['status'] != 0) {
-            IError::show(403, '购买权益金已完成或已取消');
+            // IError::show(403, '购买权益金已完成或已取消');
+            $this->return_msg("data_error", '购买权益金已完成或已取消');
         }
 
         //修改购买数据
@@ -641,7 +643,8 @@ class Account extends IController implements userAuthorization
         $flag = $buyinfoObj->update('id = "' . $buy_id . '" and status=0');
         if (!$flag) {
             $buyinfoObj->rollback();
-            IError::show(403, '取消支付失败');
+            // IError::show(403, '取消支付失败');
+            $this->return_msg("data_error", '取消支付失败');
         }
 
         //回退转让权益金信息
@@ -653,11 +656,13 @@ class Account extends IController implements userAuthorization
         $flag = $changeObj->update('nid = "' . $buyRow['nid'] . '"');
         if (!$flag) {
             $changeObj->rollback();
-            IError::show(403, '取消支付失败');
+            // IError::show(403, '取消支付失败');
+            $this->return_msg("data_error", '取消支付失败');
         }
 
         $changeObj->commit();
-        $this->buy();
+        // $this->buy();
+        $this->return_msg("deal_succ", '支付成功', '/account/buy_detail&buy_id='.$buy_id);
     }
 
     //我发布的权益金转让记录
