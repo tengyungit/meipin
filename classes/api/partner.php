@@ -37,7 +37,7 @@ class APIPartner
         $query  = new IQuery('partner_account as a');
         $query->join   = "left join partner as b on a.appid = b.appid";
         $query->where  = "a.user_id =" . $userid;
-        $query->fields = "a.balance,b.partner_name,b.appid,a.account_type,a.id";
+        $query->fields = "a.balance,b.partner_name,b.appid,a.account_type,a.id,a.account_type";
         $query->order = 'a.balance desc';
         return $query->find();
     }
