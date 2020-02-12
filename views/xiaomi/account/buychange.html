@@ -14,7 +14,7 @@
 		{/if}
 		<h3>订单信息</h3>
 		<table>
-			<col width="100">
+			<col width="140">
 			<col>
 			<tr><th>权益金编号：</th><td>{$buy_detail['nid']}</td></tr>
 			<tr><th>购买权益金数量：</th><td>{$buy_detail['num']}</td></tr>
@@ -31,15 +31,26 @@
 
 		</table>
 
-		<form action='{url:/account/paychange}' method='post'>
+		<!-- <form class="" action='{url:/account/paychange}' method='post'> -->
 			<input type="hidden" name='timeKey' value="{echo:time()}"/>
 			<input type="hidden"  name="buy_id" value="{$buy_id}" />
-			<input type="submit" value="立即支付" />
-		</form>
+			<input type="submit" class="gobank_pay_btns" value="立即支付" />
+		<!-- </form> -->
 	
 	</div>
 </section>
-
+<!-- 弹框 -->
+<div class="model" style="display:none">
+	<div class="model-con">
+		<div class="model-close close-btn">×</div>
+		<div class="model-title"></div>
+		<div class="model-cons"></div>
+		<div>
+			<a class="model-btn color1 close-btn qr-link1" href="javascript:void(0)">重新支付</a>
+			<a class="model-btn color2 qr-link" href="">确认</a>
+		</div>
+	</div>
+</div>
 
 <script>
 $(function(){
@@ -49,6 +60,38 @@ $(function(){
 		$(this).toggleClass('unfold');
 		$('#order_detail').toggle();
 	});
+	$('.gobank_pay_btns').click(function(){
+		$.ajax({
+			url:"/account/paychange",
+			type:"post",
+			dataType:"json",
+			data:{
+				timeKey: $("input[name='timeKey']").val(),
+				buy_id: $("input[name='buy_id']").val(),
+			},
+			success:function(res){
+				if(res.code == 1){
+					$('.model-title').text(res.msg)
+					$('.model-cons').text(res.info)
+					$('.qr-link').attr('href',res.data)
+					$('.qr-link1').css('display','none')
+					$('.model-close').css('display','none')
+					$('.model').fadeIn()
+				}else{
+					$('.model-title').text(res.msg)
+					$('.model-cons').text(res.info)
+					$('.qr-link').css('display','none')
+					$('.model').fadeIn()
+				}
+			},
+			error:function(res){
+
+			}
+		})
+	})
+	$('.close-btn').click(function(){
+		$('.model').fadeOut()
+	})
 });
 function dopay(){
 	confirm('支付是否成功',"window.location.href='{url:/ucenter/order}';");

@@ -64,7 +64,7 @@
 	<div class="model-con">
 		<div class="model-close close-btn">×</div>
 		<div class="model-title">取消转让</div>
-		<div class="model-cons">当前已成功卖出 个权益金，剩余库存  个<br>
+		<div class="model-cons">当前已成功卖出<span class="ym"></span>个权益金，剩余库存 <span class="sy"></span> 个<br>
 			取消成功后，剩余库存权益金返回到账户。</div>
 		<div>
 			<a class="model-btn color1 close-btn" href="javascript:void(0)">再想想</a>
@@ -75,9 +75,12 @@
 
 <script>
 	$('.qyj_style_btn').click(function(){
-		console.info()
-		var nid = '',url = '',arr = [];
+		var nid = '',url = '',yimai = '',sy = '',arr = [];
 		nid = $(this).attr('nid');
+		yimai = $(this).attr('yimai');
+		sy = $(this).attr('sy');
+		$('.ym').text(yimai);
+		$('.sy').text(sy);
 		url = $('.link_url').attr('href');
 		arr = url.split('=')
 		arr.splice([arr.length - 1],1,nid)

@@ -5,49 +5,58 @@
 <section class="uc_table">
 	<table>
 		<col width="100px" />
-		<col width="100px" />
-	    <col width="580px" />
-		<col width="180px" />
-		<col width="50px" />
-		<col width="50px" />
-		<col width="100px" />
-		<col width="100px" />
-		<col width="100px" />
-		<col width="150px" />
+        <col width="100px" />
+        <col width="580px" />
+        <col width="180px" />
+        <col width="50px" />
+        <col width="50px" />
+        <col width="100px" />
+        <col width="100px" />
+        <col width="100px" />
+        <col width="150px" />
 		<thead>
 			<tr>
-				<th>平台</th><th>编号</th><th>标题</th><th>购买日期</th><th>数量</th><th>折扣</th><th>实付金额</th><th>转让人</th><th>状态</th><th>操作</th>
+				<th>平台</th>
+                <th>编号</th>
+                <th>标题</th>
+                <th>购买日期</th>
+                <th>数量</th>
+                <th>折扣</th>
+                <th>实付金额</th>
+                <th>转让人</th>
+                <th>状态</th>
+                <th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
-			{foreach:items = $buy->find()}
-			<tr class="<?php if ($item['status'] == 0) { ?>c00<?php } else { ?>c8a<?php } ?>">
-				<td style="text-align:center;">{$item['partner_name']}</td>
-				<td style="text-align:center;">{$item['nid']}</td>
-				<td style="text-align:center;">{$item['title']}</td>
-				<<td style="text-align:center;">{$item['buy_time']}</td>
-				<td>{$item['num']}</td>
-				<td>{$item['discount']}</td>
-				<td>{$item['money']}</td>
-				<td>{echo:substr($item['change_username'],0,3)}****{echo:substr($item['change_username'],-4)}</td>
-				<td><?php if ($item['status'] == 0) { ?>
-					待支付
-				<?php } elseif ($item['status'] == 2) { ?>
-					已取消
-				<?php } elseif ($item['status'] == 1) { ?>
-					已完成
-				<?php } ?></td>
-				<td><a class="ff0000" href='{url:/account/buy_detail?buy_id=$item["id"]}'>查看详情</a c></td>
-			</tr>
-			{/foreach}
+            {foreach:items = $buy->find()}
+            <tr class="<?php if ($item['status'] == 0) { ?>c00<?php } else { ?>c8a<?php } ?>">
+                <td style="text-align:center;">{$item['partner_name']}</td>
+                <td style="text-align:center;">{$item['nid']}</td>
+                <td style="text-align:center;">{$item['title']}</td>
+                <<td style="text-align:center;">{$item['buy_time']}</td>
+                <td>{$item['num']}</td>
+                <td>{$item['discount']}</td>
+                <td>{$item['money']}</td>
+                <td>{echo:substr($item['change_username'],0,3)}****{echo:substr($item['change_username'],-4)}</td>
+                <td><?php if ($item['status'] == 0) { ?>
+                    待支付
+                <?php } elseif ($item['status'] == 2) { ?>
+                    已取消
+                <?php } elseif ($item['status'] == 1) { ?>
+                    已完成
+                <?php } ?></td>
+                <td><a class="ff0000" href='{url:/account/buy_detail?buy_id=$item["id"]}'>查看详情</a c></td>
+            </tr>
+            {/foreach}
 		</tbody>
 	</table>
 
-    {$buy->getPageBar()}
+	{$buy->getPageBar()}
 
-    {if:!$items}
-    <div class="no_tip">
-    	暂无记录
-    </div>
-    {/if}
+	{if:!$items}
+	<div class="no_tip">
+		暂无记录
+	</div>
+	{/if}
 </section>

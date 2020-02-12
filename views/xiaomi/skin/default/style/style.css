@@ -446,6 +446,8 @@ abbr[title], acronym[title] { border-bottom: 1px dotted; cursor: help; }
 
 .gobank_pay_btn { width: 120px; margin: 20px 0; float: left; }
 
+.gobank_pay_btns{display: block; float: left;outline: none;border: none; overflow: hidden; background: #FF8225; position: relative; margin: 20px 20px 20px 0; padding: 0 20px; min-width: 140px; height: 40px; color: #fff; line-height: 40px; cursor: pointer; }
+
 .cart_3_con { width: 1000px; margin: 20px auto; }
 .cart_3_con h3 { font-size: 14px; padding: 10px; }
 .cart_3_con table { width: 100%; }
@@ -1686,7 +1688,7 @@ text-align: left;font-weight: bold;position: relative;}
 
 .qyj_con_left .qyj_con_table_title_item{background: #f9f9f9;padding: 10px;}
 .qyj_con_table_dds{float: left;font-size:14px;color: #555;}
-.qyj_con_table_dd1{width: 350px;}
+.qyj_con_table_dd1{width: 268px;}
 .qyj_con_table_dd2{width: 82px;}
 .qyj_con_table_dd3{width: 90px;}
 .qyj_con_table_dd4{width: 85px;}
@@ -1700,7 +1702,7 @@ text-align: left;font-weight: bold;position: relative;}
 .qyj_con_left .qyj_con_table_body .qyj_con_table_tr .qyj_con_table_dd_left{float: left;width: 100px;height: 100px;}
 .qyj_con_left .qyj_con_table_body .qyj_con_table_tr .qyj_con_table_dd_left img{width: 100%;height: 100%;}
 .qyj_con_left .qyj_con_table_body .qyj_con_table_tr .qyj_con_table_dd_right{float: left;margin-left: 20px;}
-.qyj_con_left .qyj_con_table_body .qyj_con_table_tr .qyj_con_table_dd_right .qyj_con_table_dd_right_color{width:220px;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
+.qyj_con_left .qyj_con_table_body .qyj_con_table_tr .qyj_con_table_dd_right .qyj_con_table_dd_right_color{width:148px;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
 .qyj_con_left .qyj_con_table_body .qyj_con_table_tr .qyj_con_table_dd_right .qyj_con_table_dd_right_color1{color: #232323;font-size: 16px;font-weight: bold;margin-top: 10px;}
 .qyj_con_left .qyj_con_table_body .qyj_con_table_tr .qyj_con_table_dd_right .qyj_con_table_dd_right_color2{color: #232323;font-size: 15px;margin: 20px 0 16px 0;}
 .qyj_con_left .qyj_con_table_body .qyj_con_table_tr .qyj_con_table_dd_right .qyj_con_table_dd_right_color3{color: #ff8225;font-size: 15px;}
