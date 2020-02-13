@@ -185,7 +185,7 @@ class Account extends IController implements userAuthorization
 
         //如果有购买未付款的
         $num_totoal_no_pay = 0;
-        if (!empty($array_buy)) {
+        if (!empty($array_buy) &&  $array_buy['0']['num_total']!=NULL) {
             //修改购买数据
             $buyinfoObj = new IModel('partner_account_buy');
             $num_totoal_no_pay = $array_buy['0']['num_total'];
