@@ -21,7 +21,8 @@
 
 	<div class="order_info">订单号为： {$buy_detail['nid']}   下单日期：{$buy_detail['buy_time']}</div>
 
-	<?php if ($buy_detail['status'] == 0) { ?><div><a class="color1 qyj_style_btn2" buy_id="{$buy_detail['id']}" href="javascript:void(0)">立即支付</a><a href="{url:/account/cancelpay&buy_id=$buy_detail['id']}">取消</a></div><?php } ?>
+	<?php if ($buy_detail['status'] == 0) { ?><div><a class="color1 qyj_style_btn2" buy_id="{$buy_detail['id']}" href="javascript:void(0)">立即支付</a>
+		<a class="quxiao" buy_id="{$buy_detail['id']}" href="javascript:void(0)">取消</a></div><?php } ?>
 </div>
 
 <div class="qyj_detail_title">转让详情</div>
@@ -65,6 +66,34 @@
 	$('.qyj_style_btn2').click(function(){
 		$.ajax({
 			url:"/account/paychange",
+			type:"post",
+			dataType:"json",
+			data:{
+				buy_id:$(this).attr('buy_id')
+			},
+			success:function(res){
+				if(res.code == 1){
+					$('.model-title').text(res.msg)
+					$('.model-cons').text(res.info)
+					$('.qr-link').attr('href',res.data)
+					$('.qr-link1').css('display','none')
+					$('.model-close').css('display','none')
+					$('.model').fadeIn()
+				}else{
+					$('.model-title').text(res.msg)
+					$('.model-cons').text(res.info)
+					$('.qr-link').css('display','none')
+					$('.model').fadeIn()
+				}
+			},
+			error:function(res){
+
+			}
+		})
+	})
+	$('.quxiao').click(function(){
+		$.ajax({
+			url:"/account/cancelpay",
 			type:"post",
 			dataType:"json",
 			data:{
