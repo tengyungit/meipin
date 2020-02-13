@@ -267,7 +267,7 @@ class APIPartner
     public function getBuyInfo($userid = '', $buy_id = 0)
     {
         $userid = $userid ? IFilter::act($userid, 'int') : 0;
-        $buy_id   = IReq::get('buy_id') ? IFilter::act(IReq::get('buy_id'), 'int') : 0;
+        $buy_id = $buy_id ? IFilter::act($buy_id, 'int') : 0;
         $query  = new IQuery('partner_account_buy as a');
         $query->join = "left join partner_account_change as b on a.nid=b.nid left join partner_account_config as c on b.account_type=c.code";
         $query->fields = 'a.do_time,a.buy_user_id,a.buy_username,a.id,a.nid,a.money,a.num,a.status,a.buy_time,b.title,b.account_type,b.appid,b.discount,b.change_username,b.title,c.percent';

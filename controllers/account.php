@@ -662,7 +662,7 @@ class Account extends IController implements userAuthorization
 
         $changeObj->commit();
         // $this->buy();
-        $this->return_msg("deal_succ", '支付成功', '/account/buy_detail&buy_id='.$buy_id);
+        $this->return_msg("deal_succ", '取消成功', '/account/buy_detail&buy_id='.$buy_id);
     }
 
     //我发布的权益金转让记录
