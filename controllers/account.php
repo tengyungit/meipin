@@ -609,7 +609,7 @@ class Account extends IController implements userAuthorization
 
         
         // $this->buy();
-        $this->return_msg("deal_succ", '支付成功', '/account/buy_detail&buy_id='.$buy_id);
+        $this->return_msg("deal_succ", '支付成功', '/index.php?controller=account&amp;action=buy_detail&amp;buy_id='.$buy_id);
     }
 
     //取消支付
