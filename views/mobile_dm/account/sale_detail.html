@@ -1,0 +1,100 @@
+
+<div class="page" id="page-order">
+    <header class="bar bar-nav pl-0 bg-red">
+        <a class="fa fa-arrow-left pull-left c-white external" href="{url:/ucenter/index}"></a>
+        <h1 class="title c-white">购买的权益金列表</h1>
+        <a class="fa fa-user pull-right c-white external" href="{url:/ucenter/index}"></a>
+    </header>
+
+    <div class="content bottom-0 bg-white p-101">
+        <div>
+            <div class="qyj_detail_title">我购买的权益金转让详情</div>
+            <div class="qyj_detail_head  p-101 mt-10 mb-10">
+                <div class="qyj_detail_list">
+                    <div><span class="active">1</span>   {$change_detail['change_time']} 发起{$change_detail['discount']}折{$change_detail['account_type']}类{$change_detail['num']}个权益金转让</div>
+                    {foreach:items = $buy_list}
+                    <div><span class="active">{echo:$key+2}</span class="active">{$item['buy_time']} 用户：<span class="color1">{echo:substr($item['buy_username'],0,3)}****{echo:substr($item['buy_username'],-4)}</span> 成功购买{$item['num']}个权益金，您获得<span class="color2">￥{$item['money']}</span> <?php if ($item['status'] == 0) { ?>
+                        待支付
+                    <?php } elseif ($item['status'] == 2) { ?>
+                        已取消
+                    <?php } elseif ($item['status'] == 1) { ?>
+                        已到账户余额
+                    <?php } ?></div>
+                    {/foreach}
+                </div>
+                
+            
+                <div class="order_info">单号为：{$change_detail['nid']}</div>
+                <div class="order_info">发布日期：{$change_detail['change_time']}  </div>   
+                <div class="order_info">状态：<?php if($change_detail['status']==0){?>
+                    上架中
+                    <?php }elseif($change_detail['status']==2){?>
+                    已取消
+                    <?php }elseif($change_detail['status']==1){?>
+                    已售罄
+                    <?php }?></div>
+            
+                    <?php if($change_detail['status']==0){?><div class='f-r mt-10'><a class="qyj_style_btn1" href="javascript:void(0)">取消转让</a></div><?php }?>
+                    <div style="clear:both"></div>
+            </div>
+            
+            <div class="qyj_detail_title">转让详情</div>
+            <section class="qyj_detail_table">
+                <table>
+                    <tr>
+                        <td class="bgfafafa">转让标题</td><td class="bold">{$change_detail['title']}</td>
+                    </tr>
+                    <tr>
+                        <td class="bgfafafa">转让折扣</td class="bgfafafa"><td>{$change_detail['discount']}折</td>
+                    </tr>
+                    <tr>
+                        <td class="bgfafafa">转让权益金等级</td class="bgfafafa"><td>{$change_detail['account_type']}（{$configRow['percent']}%抵扣购物金额）</td>
+                    </tr>
+                    <tr>
+                        <td class="bgfafafa">转让权益金数量</td class="bgfafafa"><td>{$change_detail['num']}个</td>
+                    </tr>
+                    <tr>
+                        <td class="bgfafafa">预计卖出总额</td class="bgfafafa"><td>{echo:$change_detail['num']*$change_detail['discount']/10}元</td>
+                    </tr>
+                    <tr>
+                        <td class="bgfafafa">已售权益金数量</td class="bgfafafa"><td>{$change_detail['sale_num']}个</td>
+                    </tr>
+                    <tr>
+                        <td class="bgfafafa">剩余库存</td class="bgfafafa"><td>{echo:$change_detail['num']-$change_detail['sale_num']}个</td>
+                    </tr>
+                    <tr>
+                        <td class="bgfafafa">当前卖出金额</td class="bgfafafa"><td>￥{$change_detail['get_money']}</td>
+                    </tr>
+                    
+                </table>
+            
+            </section>
+
+
+            <!-- 弹框 -->
+            <div class="model" style="display:none">
+                <div class="model-con">
+                    <div class="model-close close-btn">×</div>
+                    <div class="model-title">取消转让</div>
+                    <div class="model-cons" style='padding-left:0.625rem;padding-right:0.625rem'>当前已成功卖出 {$change_detail['sale_num']} 个权益金，剩余库存 {echo:$change_detail['num']-$change_detail['sale_num']} 个取消成功后，剩余库存权益金返回到账户。</div>
+                    <div>
+                        <a class="model-btn color1 close-btn" href="javascript:void(0)">再想想</a>
+                        <a class="model-btn color2" href="{url:/account/cancel?nid=$change_detail['nid']}">确认取消</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+     
+    </div>
+</div>
+
+<script>
+	$('.qyj_style_btn1').click(function(){
+		$('.model').fadeIn()
+	})
+	$('.close-btn').click(function(){
+		$('.model').fadeOut()
+	})
+</script>

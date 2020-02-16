@@ -1,0 +1,27 @@
+<div class="page" id="page-restore_password">
+    <header class="bar bar-nav pl-0 bg-red">
+        <a class="fa fa-arrow-left pull-left c-white" href="{url:/ucenter/index}"></a>
+        <h1 class="title c-white">完成发布</h1>
+        <a class="fa fa-user pull-right c-white external" href="{url:/ucenter/index}"></a>
+    </header>
+    <div class="content bg-white bottom-0">
+        <div class="open-style"><img src="{skin:image/qyj-fb2.jpg}" ></div>
+        <form action="" method="POST" role="form">
+            <style>
+                .open-style{width: 100%;}
+                .open-style img{width: 100%;}
+               .list-block{text-align: center;}
+               .list-block img{width:30%;margin: 1rem 0;}
+               .qyj-open-suc-btn{margin-top: 1rem;}
+               .qyj-open-suc-btn a{ width: 33%;display: inline-block;padding: 0.1rem;border-radius: 0.2rem;}
+               .qyj-open-suc-btn a.color1{ background-color: #ec5151;color: #fff;border: 1px solid #ec5151;margin-right: 0.5rem;}
+               .qyj-open-suc-btn a.color2{ background-color: #fff;color: #ec5151;border: 1px solid #ec5151;}
+            </style>
+            <div class="list-block p-10 f-14 m-0">
+                <img src="{skin:image/success.jpg}" >
+                <div class="qyj-open-suc-tips f-12">恭喜您 您的权益金转让发布成功！<br>已扣除{echo:IFilter::act(IReq::get('num'))}个权益金托管到系统，其他用户<br>购买成功后资金会自动到达商城账户<br>余额，可进行提现操作。</div>
+                <div class="qyj-open-suc-btn "><a class="color1" href="{url:/account/sale}">去看看</a><a class="color2" href="{url:/ucenter/index}">个人中心</a></div>
+            </div>
+        </form>
+    </div>
+</div>

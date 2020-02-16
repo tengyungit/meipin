@@ -1,0 +1,131 @@
+<div class="page" id="page-order">
+    <header class="bar bar-nav pl-0 bg-red">
+        <a class="fa fa-arrow-left pull-left c-white external" href="{url:/ucenter/index}"></a>
+        <h1 class="title c-white">权益金列表</h1>
+        <a class="fa fa-user pull-right c-white external" href="{url:/ucenter/index}"></a>
+        <div class="qyj-fiexd">
+            <div class="f-l qyj_w" attr-id='lx'>权益金类型 <span class="fa fa-sort-desc qyj_jt"></span></div>
+            <div class="f-l qyj_w" attr-id='zk'>折扣 <span class="fa fa-sort-desc qyj_jt"></span></div>
+            <div class="f-l qyj_w" attr-id='jg'>价格 <span class="fa fa-sort-desc qyj_jt"></span></div>
+            <div class="f-l qyj_w" attr-id='px'>排序 <span class="fa fa-sort-desc qyj_jt"></span></div>
+            <div style="clear: both;"></div>
+        </div>
+        <div class="qyj-fff p-10 f-14" style="display: none;">
+            <div class="qjy-cc" id='lx' style='display: none;'>
+                <div class='currt'><a href="">全部1</a></div>
+                <div><a href="">全部123</a></div>
+                <div><a href="">全部456</a></div>
+            </div>
+            <div class="qjy-cc" id='zk' style='display: none;'>
+                <div><a href="">全部2</a></div>
+                <div><a href="">全部123</a></div>
+                <div><a href="">全部456</a></div>
+            </div>
+            <div class="qjy-cc" id='jg' style='display: none;'>
+                <div><a href="">全部3</a></div>
+                <div><a href="">全部123</a></div>
+                <div><a href="">全部456</a></div>
+            </div>
+            <div class="qjy-cc" id='px' style='display: none;'>
+                <div><a href="">全部4</a></div>
+                <div><a href="">全部123</a></div>
+                <div><a href="">全部456</a></div>
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="content" style='top: 3.4rem!important;bottom: 4.5rem!important;'>
+        <div class="qyj_list_banner"><img src="{skin:image/qyj_list_banner.jpg}" ></div>
+        <div class="mt-10">
+            
+			{foreach:items=$change->find()}
+            <div class="qyj_buy_items">
+                <div class="qyj_user_con">
+                    <div class="qyj_user_img mr-10">
+                        <img src="{skin:image/user_ico.jpg}" >
+                        <div class="qyj_style f-10 t-c" style="top: 5.1rem;">
+                            <div></div>
+                            <div class="c-gray">编号：0000253</div>
+                        </div>
+                    </div>
+                    <div class="qyj_user_word">
+                        <div class="f-12 <?php if($item['status']==0){?>c-252525<?php }else{?>c-6f6f6f<?php }?>">{$item['title']}</div>
+                        <div class="t-c mt-15 c-6f6f6f">
+                            <div class="f-10 f-l mr-5">
+                                <div>{$item['sale_num']}个</div>
+                                <div>转让数量</div>
+                            </div>
+                            <div class="f-10 f-l">
+                                <div>￥{$item['get_money']}</div>
+                                <div>剩余数量</div>
+                            </div>
+                            <div class="f-10 f-l">
+                                <div class=""><a class="qyj_style_btn external" {if: $item['status']==0}href='{url:/site/pubdetail?nid=$item["nid"]}'{/if}>立即购买</a></div>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div class="f-10 p-5-0 c-6f6f6f">
+                    <div class="f-l"></div>
+                    <div class="f-r">{echo:date("Y年m月d日",strtotime($item['change_time']))}</div>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+			{/foreach}
+            
+        </div>
+    
+
+       
+    </div>
+
+    <nav class="bar bar-tab qyj_bar">
+        <div class="qyj_help"><span class="fa fa-info-circle mr-5"></span>帮助中心</div>
+        <a class="tab-item external active" href="#">
+            <span class="tab-label">转让规则</span>
+        </a>
+        <a class="tab-item external" href="#">
+            <span class="tab-label">转让流程</span>
+        </a>
+        <a class="tab-item external" href="#">
+            <span class="tab-label">购买规则</span>
+        </a>
+        <a class="tab-item external" href="#">
+            <span class="tab-label">购买流程</span>
+        </a>
+    </nav>
+    <div class="qyj-dd1" style="background-color: #fff;"></div></div>
+    <nav class="bar bar-tab qyj_dd">
+        <a class="tab-item external active qyj-ccc1" href="{url:/account/publish_page}">
+            <span class="fa fa-telegram"></span>
+            <span class="tab-label">发布转让 </span>
+        </a>
+        <a class="tab-item external" href="#">
+            <span class="fa fa-user-circle-o"></span>
+            <span class="tab-label">我的</span>
+        </a>
+    </nav>
+    
+</div>
+
+<script>
+
+    $('.qyj_w').click(function(){
+        var attid = $(this).attr('attr-id');
+        // $('.qyj_w').find('span').removeClass('fa-sort-asc').removeClass('qyj_jt1').addClass('fa-sort-desc').addClass('qyj_jt')
+        if($(this).find('span').hasClass('fa-sort-desc')){
+            $('.qyj_w').find('span').removeClass('fa-sort-asc').removeClass('qyj_jt1').addClass('fa-sort-desc').addClass('qyj_jt')
+            $(this).find('span').removeClass('fa-sort-desc').removeClass('qyj_jt').addClass('fa-sort-asc').addClass('qyj_jt1')
+            $('.qyj-fff').css('display','block')
+            $('.qjy-cc').css('display','none')
+            $('#'+attid).css('display','block')
+        }else{
+            $(this).find('span').removeClass('fa-sort-asc').removeClass('qyj_jt1').addClass('fa-sort-desc').addClass('qyj_jt')
+            $('.qyj-fff').css('display','none')
+        }
+        
+    })
+</script>

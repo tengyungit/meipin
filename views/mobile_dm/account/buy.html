@@ -1,0 +1,78 @@
+<div class="page" id="page-order">
+    <header class="bar bar-nav pl-0 bg-red">
+        <a class="fa fa-arrow-left pull-left c-white external" href="{url:/ucenter/index}"></a>
+        <h1 class="title c-white">购买的权益金列表</h1>
+        <a class="fa fa-user pull-right c-white external" href="{url:/ucenter/index}"></a>
+    </header>
+
+    <div class="content bottom-0">
+
+        <div class="mt-10">
+            {foreach:items = $buy->find()}
+            <div class="qyj_buy_items">
+                <a href="{url:/account/buy_detail?buy_id=$item["id"]}">
+                    <div class="qyj_user_con">
+                        <div class="qyj_user_img mr-10"><img src="{skin:image/user_ico.jpg}" ></div>
+                        <div class="qyj_user_word">
+                            <div class="f-12 <?php if ($item['status'] == 0) { ?>c-252525<?php } else { ?>c-6f6f6f<?php } ?>">{$item['title']} <?php if ($item['status'] == 0) { ?>
+                                <span class="color1">待支付</span>
+                            <?php } elseif ($item['status'] == 2) { ?>
+                                <span class="color2">已取消</span>
+                            <?php } elseif ($item['status'] == 1) { ?>
+                                <span class="color2">已完成</span>
+                            <?php } ?></div>
+                            <div class="t-c mt-15 c-6f6f6f">
+                                <div class="f-10 f-l mr-10">
+                                    <div>{$item['num']}个</div>
+                                    <div>购买数量</div>
+                                </div>
+                                <div class="f-10 f-l">
+                                    <div>￥{$item['money']}</div>
+                                    <div>实付金额</div>
+                                </div>
+                                <div style="clear: both;"></div>
+                            </div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                    <div class="f-10 p-5-0 c-6f6f6f">
+                        <div class="f-l">订单编号：{$item['nid']}</div>
+                        <div class="f-r">{$item['buy_time']}</div>
+                        <div style="clear: both;"></div>
+                    </div>
+                </a>
+            </div>
+            {/foreach}
+            <!-- <div class="qyj_buy_items">
+                <a href="">
+                    <div class="qyj_user_con">
+                        <div class="qyj_user_img mr-10"><img src="{skin:image/user_ico.jpg}" ></div>
+                        <div class="qyj_user_word">
+                            <div class="f-12 c-6f6f6f">5000权益金,现85折转让5000权益金 <span class="color2">已完成</span></div>
+                            <div class="t-c mt-15 c-6f6f6f">
+                                <div class="f-10 f-l mr-10">
+                                    <div>25000个</div>
+                                    <div>购买数量</div>
+                                </div>
+                                <div class="f-10 f-l">
+                                    <div>￥11000.00</div>
+                                    <div>实付金额</div>
+                                </div>
+                                <div style="clear: both;"></div>
+                            </div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                    <div class="f-10 p-5-0 c-6f6f6f">
+                        <div class="f-l">订单编号：000565254</div>
+                        <div class="f-r">2019-01-01</div>
+                        <div style="clear: both;"></div>
+                    </div>
+                </a>
+            </div> -->
+        </div>
+    
+
+       
+    </div>
+</div>

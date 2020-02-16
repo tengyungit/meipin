@@ -1,0 +1,69 @@
+<form action='{url:/simple/cart3}' class="form" method='post' name='order_form' onsubmit='return orderFormInstance.isSubmit()'>
+    <div class="page" id="page-cart2">
+        <header class="bar bar-nav pl-0 bg-red">
+            <a class="fa fa-arrow-left pull-left c-white" href="{url:/}"></a>
+            <h1 class="title c-white">核对订单信息</h1>
+            <a class="fa fa-home pull-right c-white external" href="{url:/site/index}"></a>
+        </header>
+        <div class="content bottom-0 bg-white p-101">
+            <!--配送和支付方式 开始-->
+            <div class="cart_sect cart_2_delivery">
+                <div class="qyj_detail_title f-14" style="font-weight: normal;">购买的商品</div>
+                <section class="qyj_detail_table">
+                    <table>
+                        <tr>
+                            <td class="bgfafafa">商品名称</td><td class="bold">123折</td>
+                        </tr>
+                        <tr>
+                            <td class="bgfafafa">折扣</td><td class="bold">123折</td>
+                        </tr>
+                        <tr>
+                            <td class="bgfafafa">权益金类型</td><td>钻石权益金（权益金百分百兑换物品）</td>
+                        </tr>
+                        <tr>
+                            <td class="bgfafafa">权益金单价</td><td>123折</td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="bgfafafa">购买数量</td><td>123个</td>
+                        </tr>
+                        <tr>
+                            <td class="bgfafafa">应付金额</td><td>100元</td>
+                        </tr>
+                        
+                    </table>
+                
+                
+                </section>
+                <div id="paymentBox">
+                    <div class="p-5 f-14 border-b">
+                        支付方式
+                    </div>
+                    <div class="p-10 f-12 mt-5 mb-5">
+                    {foreach:items = Api::run('getPaymentList')}
+                    <label class="mr-5">
+                        <input class="d-none" name="payment" type="radio" value="{$item['id']}" title="{$item['name']}" />
+                        <span class="bg-gray p-5 bd-radius info">{$item['name']} {$item['note']} </span>
+                    </label>
+                    {/foreach}
+                    </div>
+                </div>
+            
+            </div>
+            <!--配送和支付方式 结束-->
+        </div>
+    </div>
+    <nav class="bar bar-tab" style="background-color: #fff;">
+        <div class="row no-gutter">
+            <div class="final-sum col-60 f-14 t-l p-5 mt-5">
+                <span class="ml-5">实付金额:</span>
+                <em id='final_sum' class="c-red">{$this->final_sum}</em>元
+            </div>
+            <div class="col-40">
+                <input id="submitForm" type="submit" class="button button-big d-block button-fill button-danger" value="提交订单" />
+            </div>
+        </div>
+    </nav>
+    </form>
+    {js:artTemplate}
+    {js:my97date}

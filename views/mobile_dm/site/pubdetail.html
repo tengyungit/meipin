@@ -1,0 +1,162 @@
+<script src="{webroot:public/javascript/products.js}"></script>
+<link rel="stylesheet" href="{theme:javascript/swiper/swiper-3.4.2.min.css}"> {js:artTemplate}
+<div class="page" id="page-product">
+    <header class="bar bar-nav pl-0 bg-red">
+        <a class="fa fa-arrow-left pull-left c-white back" onclick="window.history.back(-1)"></a>
+        <h1 class="title c-white">详情</h1>
+        <a class="fa fa-home pull-right c-white external" href="{url:/site/index}"></a>
+    </header>
+    <div class="content infinite-scroll infinite-scroll-bottom">
+        <!--货品ID，当为商品时值为空-->
+        <input type='hidden' id='product_id' alt='货品ID' value='' />
+        <div class="tabs">
+            <div id="product" class="tab active">
+                <!-- 幻灯片 开始 -->
+                <div class="swiper-container1">
+                    <img src="{skin:image/index-left-img.png}" >
+                </div>
+                <!-- 幻灯片 结束 -->
+                <section class="good_info">
+                    <header class="good_info_title p-5 bg-white f-14">
+                        <h1 class="f-16">123</h1>
+                        <!--当前用户有会员价-->
+                        <em class="price qyj-price f-14">
+                            <span class="color1">转让单价：￥0.5</span>/每个权益金
+                        </em>
+                        
+                        <div>
+                            <p class="mt-10 f-10 c-gray flex-item-4">
+                                折扣：<span>123</span>
+                            </p>
+                            <p class="mt-10 f-10 c-gray flex-item-4 t-c">
+                                库存：<span>123</span>
+                            </p>
+                            <p class="mt-10 f-10 c-gray flex-item-4 t-r">
+                                已售：<span>123</span>
+                            </p>
+                            <div style="clear: both;"></div>
+                        </div>
+                    </header>
+
+
+                    <header class="good_info_title p-5 bg-white f-14 mt-5">
+                        <div>
+                            <p class="f-12 p-5-0 c-242424">
+                                权益金类型：<span class="c-red">80权益金</span>  <span class="c-gray">（可100%抵扣购物金额）</span> 
+                            </p>
+                            <p class="f-12 p-5-0 c-242424">
+                                支付方式： 余额支付<span class="c-gray f-10 ml-10"><span class="c-red">*</span> 需用支付宝或微信充值到余额进行购买</span> 
+                            </p>
+                            <p class="f-12 p-5-0 c-242424">
+                                保障服务：  已托管交易，购买后立即到账
+                            </p>
+                        </div>
+                    </header>
+                   
+                    <section class="good_type p-5 mt-5 mb-5 bg-white f-12 clearfix">
+                        <dl>
+                            <dt>购买数量:</dt>
+                            <dd>
+                                <div class="quantity">
+                                    <em class="sub" id="buyReduceButton">-</em>
+                                    <input class="num" id="buyNums" type="number" value="1">
+                                    <em class="add" id="buyAddButton">+</em>
+                                </div>
+                            </dd>
+                        </dl>
+                    </section>
+                    
+                    <header class="good_info_title p-5 mb-5 bg-white f-14">
+                        <h1 class="f-16">购买指南</h1>
+                        <div>
+                            <p class="mt-10 f-10 c-gray flex-item-6">
+                                商品编号：SD157803836668-5
+                            </p>
+                            <p class="mt-10 f-10 c-gray flex-item-6">
+                                商品类型：白银级权益金
+                            </p>
+                            <div style="clear: both;"></div>
+                        </div>
+                    </header>
+
+                    <header class="mb-5 bg-white f-14 qyj_icon_img">
+                        <img src="{skin:image/qyj-gw.jpg}" >
+                    </header>
+
+                    <header class="good_info_title p-5 mb-5 bg-white f-14">
+                        <h1 class="f-16">温馨提示</h1>
+                        <div>
+                            <p class="mt-10 f-10 c-242424">
+                                》关于购买数量填写错误
+                            </p>
+                            <p class="f-10 mt-5 c-gray">
+                                请大家仔细核对购买数量，交易由系统托管自动充值，一旦付款成功无法撤销订单，若有错误，概不负责。
+                            </p>
+                        </div>
+                        <div>
+                            <p class="mt-10 f-10 c-242424">
+                                》购买到账时间
+                            </p>
+                            <p class="f-10 mt-5 c-gray">
+                                交易由系统自动托管，付款成功后立即到账，入几分钟内账户未查询到购买的权益金，请立即联系在线客服。
+                            </p>
+                        </div>
+                        <div>
+                            <p class="mt-10 f-10 c-242424">
+                                》购买的权益金还能再次交易吗？
+                            </p>
+                            <p class="f-10 mt-5 c-gray">
+                                购买的权益金不能二次交易，仅限于购物使用。
+                            </p>
+                        </div>
+                    </header>
+
+                    
+                </section>
+                <!-- 加载提示符 -->
+                <div class="infinite-scroll-preloader" style="display: none">
+                    <div class="preloader"></div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+    <nav class="bar bar-tab" style="background: #f7f7f7;">
+        <div class="row no-gutter">
+	        <div id="joinCarButton" class="col-40">
+	            <a href="#" class="button button-big button-fill button-danger">立即购买</a>
+	        </div>
+		</div>
+	</nav>
+</div>
+<script type='text/javascript' src="{theme:javascript/swiper/swiper-3.4.2.min.js}"></script>
+<script>
+    $(function () {
+        //初始化商品详情对象
+        var productInstance = new productClass("{$id}", "{$this->user['user_id']}", "{$promo}", "{$active_id}","{$type}");
+        $(".buttons-row").on('click', 'a', function () {
+            var t = $(this),
+                i = t.index();
+            //滑动按钮绑定事件
+            switch (i) {
+                case 2:
+                    productInstance.comment_ajax();
+                    break;
+                case 3:
+                    productInstance.refer_ajax();
+                    break;
+            }
+        });
+    	$(".article_detail").find('*').each(function(){
+    		var t = $(this);
+    		if (t.attr("style")){t.attr("style","")};
+    		if (t.attr("width")){t.attr("width","")};
+    		if (t.attr("height")){t.attr("height","")};
+        });
+        //促销活动或者虚拟商品隐藏购物车按钮
+		if((productInstance.promo && productInstance.active_id) || productInstance.type != 'default') {
+			$('#buyNowButton').css('width', '50%');
+			$('#favButton').css({'width': '50%'}).find('a').css({'background-color': '#eee'}).find("i").text("点我收藏");
+		}
+    })
+</script>

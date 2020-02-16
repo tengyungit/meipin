@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>{$this->_siteConfig->name}</title>
+    <link type="image/x-icon" href="{webroot:favicon.ico}" rel="icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="apple-touch-icon-precomposed" href="{skin:image/logo.png}">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/??sm.min.css">
+    <link rel="stylesheet" href="{skin:css/style.css}">
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>{js:jquery}{js:validate}{js:artTemplate}{js:dialog}
+    <script type='text/javascript' src='{webroot:public/javascript/public.js}'></script> {js:layer_mobile} {js:lazyLoad}
+</head>
+
+<body id="site">
+
+    <div class="page-group">
+        {viewcontent}
+    </div>
+
+    <script type='text/javascript' src="{theme:javascript/site.js}"></script>
+    <script type='text/javascript' src="{theme:javascript/fx.js}"></script>
+    <script>
+        $.config = {
+            autoInit: true,
+            router:false,
+        }
+
+        $(function () {
+            'use strict';
+            //搜索列表页
+            $(document).on("pageInit", "#page-search", function (e) {
+                $(".popup-search").hide();
+                $("#page-home").css("z-index", 1987);
+            });
+            $(document).on("pageAnimationEnd", "#page-search", function (e) {
+                $.hidePreloader();
+            });
+            // 搜索弹出层
+            $(document).on('open', '.popup-search', function () {
+                $("#page-home").css("z-index", 10201);
+            });
+            $(document).on('opened', '.popup-search', function () {
+                $("body").scrollTop(0);
+            });
+            $(document).on('close', '.popup-search', function () {
+                $("#page-home").css("z-index", 1987);
+            });
+
+        });
+        window.onload = function() {
+            //轮播图
+            if (typeof (Swiper) == 'function') {
+                var swiper = new Swiper('.swiper-container', {
+                    pagination: '.swiper-pagination',
+                    paginationClickable: true,
+                    spaceBetween: 0,
+                    centeredSlides: true,
+                    autoplay: 2500,
+                    autoplayDisableOnInteraction: false
+                });
+            }
+
+            // 资讯滚动
+            Zepto(".text-slidebox").length > 0 && Zepto(".text-slidebox").textSlider({
+                speed: 200 //数值越大，速度越慢
+            });
+        }
+    </script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/??sm.min.js' charset='utf-8'></script>
+	<script>(function() {var _53code = document.createElement("script");_53code.src = "https://tb.53kf.com/code/code/fbf8b426941b361df9e9b5be6788c1ac9/1";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(_53code, s);})();</script>
+</body>
+
+</html>
