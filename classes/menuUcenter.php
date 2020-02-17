@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright(c) 2016 aircheng.com
  * @file menuUcenter.php
@@ -25,12 +26,13 @@ class menuUcenter
 		"在线充值"   => "fa fa-sign-in",
 		"地址管理"   => "fa fa-map-marker",
 		"个人资料"   => "fa fa-table",
-		"权益金转让"   => "fa fa-exchange",
+		"我发布的权益金转让"   => "fa fa-exchange",
+		"我购买的权益金转让"   => "fa fa-exchange",
 		"修改密码"   => "fa fa-key",
 		"发票管理"   => "fa fa-ticket",
 	);
 
-    //菜单的配制数据
+	//菜单的配制数据
 	public static $menu = array(
 		"交易记录" => array(
 			"/ucenter/order" => "我的订单",
@@ -69,15 +71,15 @@ class menuUcenter
 		),
 	);
 
-    /**
-     * @brief 根据权限初始化菜单
-     * @param int $roleId 角色ID
-     * @return array 菜单数组
-     */
-    public static function init($roleId = "")
-    {
+	/**
+	 * @brief 根据权限初始化菜单
+	 * @param int $roleId 角色ID
+	 * @return array 菜单数组
+	 */
+	public static function init($roleId = "")
+	{
 		//菜单创建事件触发
 		plugin::trigger("onUcenterMenuCreate");
 		return self::$menu;
-    }
+	}
 }

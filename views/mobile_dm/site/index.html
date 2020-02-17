@@ -1,0 +1,361 @@
+<link rel="stylesheet" href="{theme:javascript/swiper/swiper-3.4.2.min.css}">
+<div class="page" id="page-home">
+	
+	<div class="content">
+
+		<div class="index-header-wrapper">
+			<div class='index-header-con index-header-w-left index-header-w-img'><a href="{url:/site/sitemap}"><img src="{skin:image/index-left-img.png}" ></a></div>
+			<div class='index-header-con index-header-center'><img src="{skin:image/index-header-logo.png}" ></div>
+			<div class='index-header-con index-header-w-right index-header-w-img'><a href="{url:/simple/login}"><img src="{skin:image/index-right-img.png}" >登录</a></div>
+		</div>
+
+
+		<div class="bar1-box">
+			<div class="bar1 bar-nav1">
+				<a class="search-bar f-12 open-search" href="{url:/site/search}"><span class="fa fa-search"></span> 家纺家具 全场四折起</a>
+			</div>
+		</div>
+		
+		<!-- 导航栏 -->
+		<div id='nag-header' class="nag-header">
+			<ul>
+				<li class="active"><a href="{url:/site/index}">首页</a></li>
+				<li><a href="{url:/site/publist}">购买权益金</a></li>
+				{foreach:items=Api::run('getGuideList')}
+				<li><a href="{url:$item[link]}">{$item['name']}</a></li>
+				{/foreach}
+			</ul>
+		</div>
+
+		<!-- 幻灯片 开始 -->
+		<div class="swiper-container" data-autoplay-disable-on-interaction=false>
+			{if:$this->index_slide}
+			<div class="swiper-wrapper">
+				{foreach:items=$this->index_slide}
+				<div class="swiper-slide">
+					<a href="{$item['url']}" target="_blank"><img src="{url:/pic/thumb/img/$item[img]}" onerror="this.src='{skin:image/pro_default.jpg}'" alt="{$item['name']}"></a>
+				</div>
+				{/foreach}
+			</div>
+			{/if}
+			<div class="swiper-pagination"></div>
+		</div>
+		<!-- 幻灯片 结束 -->
+		<div class="index-gg">
+			<div><img src="{skin:image/index-gg.png}" alt="">官方商城</div>
+			<div class="t-c"><img src="{skin:image/index-gg.png}" alt="">正品保证</div>
+			<div class="t-r"><img src="{skin:image/index-gg.png}" alt="">售后无忧</div>
+		</div>
+
+		<!-- 菜单栏 开始 -->
+		<div class="row no-gutter bg-white p-10-10-0-10 f-12 t-c">
+			<div class="col-20">
+				<a href="{url:/site/pro_list/cat/70}" class="c-text"><span class="fa user-icon-img c-white">
+					<img src="{skin:image/index-icon1.png}" ></span>超值套餐</a>
+			</div>
+			<div class="col-20">
+				<a href="{url:/site/pro_list/cat/9}" class="c-text"><span class="fa user-icon-img c-white">
+					<img src="{skin:image/index-icon2.png}" ></span>家纺家居</a>
+			</div>
+			<div class="col-20">
+				<a href="{url:/site/pro_list/cat/52}" class="c-text"><span class="fa user-icon-img c-white">
+					<img src="{skin:image/index-icon3.png}" ></span>钟表珠宝</a>
+			</div>
+			<div class="col-20">
+				<a href="{url:/site/pro_list/cat/86}" class="c-text external"><span class="fa user-icon-img c-white">
+					<img src="{skin:image/index-icon4.png}" ></span>手机通讯</a>
+			</div>
+			<div class="col-20">
+				<a href="{url:/site/pro_list/cat/12}" class="c-text"><span class="fa user-icon-img c-white">
+					<img src="{skin:image/index-icon5.png}" >
+					</span>家用电器</a>
+			</div>
+			<div class="col-20">
+				<a href="{url:/site/pro_list/cat/1}" class="c-text"><span class="fa user-icon-img c-white">
+					<img src="{skin:image/index-icon6.png}" ></span>中外名酒</a>
+			</div>
+			<div class="col-20">
+				<a href="{url:/site/pro_list/cat/35}" class="c-text"><span class="fa user-icon-img c-white">
+					<img src="{skin:image/index-icon7.png}" ></span>健康医疗</a>
+			</div>
+			<div class="col-20">
+				<a href="{url:/site/pro_list/cat/73}" class="c-text external"><span class="fa user-icon-img c-white">
+					<img src="{skin:image/index-icon8.png}" ></span>智能设备</a>
+			</div>
+			<div class="col-20">
+				<a href="{url:/site/pro_list/cat/6}" class="c-text"><span class="fa user-icon-img c-white">
+					<img src="{skin:image/index-icon9.png}" ></span>美妆个护</a>
+			</div>
+			<div class="col-20">
+				<a href="{url:/site/pro_list/cat/64}" class="c-text external"><span class="fa user-icon-img c-white">
+					<img src="{skin:image/index-icon10.png}" ></span>运动户外</a>
+			</div>
+		</div>
+		<!-- 菜单栏 结束 -->
+	
+	
+
+		<!-- 资讯 开始 -->
+		{set:$newList = Api::run('getArtList',5)}
+		{if:$newList}
+		<div class="content-padded text-slidebox c-red f-12 mt-5 mb-5 bg-white ">
+			<ul class="f-14">
+				{foreach:items=$newList}
+				<li class="f-12">
+					<a class="c-text" href="{url:/site/article_detail/id/$item['id']}">{echo:Article::showTitle($item['title'],$item['color'],$item['style'])}</a>
+				</li>
+				{/foreach}
+			</ul>
+			<a href="{url:/site/article}">更多</a>
+		</div>
+		{/if}
+		<!-- 资讯 结束 -->
+
+		<!-- nav切换 -->
+		<div class="bg-white">
+			<div class="index-nav">
+				<div class='index-nav-header'>
+					<span class="index-nav-header-items flex-item-3 active" attr-id='xxqg-items'>限时抢购</span>
+					<span class='index-nav-header-items flex-item-3' attr-id='tjtg-items'>特价团购</span>
+					{set:$pinitems=Api::run('getAssembleList',10);}
+					{if:$pinitems}<span class='index-nav-header-items flex-item-3' attr-id='ptsp-items'>拼团商品</span>{/if}
+					{set:$jifen=Api::run('getCostPointList',10);}
+					{if:$jifen}<span class='index-nav-header-items flex-item-3' attr-id='jfdh-items'>积分兑换</span>{/if}
+				</div>
+			</div>
+			{set:$qiangitems=Api::run('getPromotionList',10);}
+			{if:$qiangitems}
+			<div id='xxqg-items' class="index-nav-con">
+				<!-- 限时抢购 开始 -->
+				<div class="flex-item-13 mb-10 bg-fcb8b9">
+					<div class='flex-col-w'>
+						{foreach:items=$qiangitems}
+						{set:$free_time = ITime::getDiffSec($item['end_time'])}
+						{set:$countNumsItem[] = $item['p_id'];}
+						<div class="flex-item-21 flex-bottom bg-white ml-10">
+							<a href="{url:/site/products/id/$item['goods_id']}" class="pos-r link-box">
+							
+								<img class="goods_photo" src="{url:/pic/thumb/img/$item[img]/w/175/h/175}" onerror="this.src='{skin:image/pro_default.jpg}'" alt="{$item['name']}" title="{$item['name']}">
+								
+								<p class="f-14 goods_name mt-5 p-0-10">
+									{$item['name']}
+								</p>
+								<div class="countdown ml-10 mt-5 mb-5">
+									<b id='cd_hour_{$item["p_id"]}'>{echo:floor($free_time/3600);}</b> : <b id='cd_minute_{$item["p_id"]}'>{echo:floor(($free_time%3600)/60);}</b> : <b id='cd_second_{$item["p_id"]}'>{echo:$free_time%60;}</b>
+								</div>
+								{set:$exp=explode('.',$item['award_value'])}
+								<em class="f-18 c-red d-block p-0-10"><i class="f-12">￥</i>{$exp[0]}{if:isset($exp[1])&&$exp[1]!='00'}{$exp[1]}{/if} 
+								{set:$exp=explode('.',$item['market_price'])}
+								<del class="color-999 f-10"><i class="f-12">￥</i>{$exp[0]}{if:isset($exp[1])&&$exp[1]!='00'}{$exp[1]}{/if}</del></em>
+							</a>
+						</div>
+						{/foreach}
+					</div>
+				</div>
+			</div>
+			{/if}
+
+			{set:$tuanitems=Api::run('getRegimentList',10)}
+			{if:$tuanitems}
+			<div id='tjtg-items' class="index-nav-con none">
+				<!-- 团购 开始 -->
+				<div class="flex-item-13 mb-10 bg-fcb8b9">
+					<div class='flex-col-w'>
+					{foreach:items=$tuanitems}
+						<div class="flex-item-21 flex-bottom bg-white ml-10">
+								<a href="{url:/site/products/id/$item['goods_id']}" class="pos-r link-box">
+									<img class="goods_photo" src="{url:/pic/thumb/img/$item[img]/w/200/h/200}" onerror="this.src='{skin:image/pro_default.jpg}'" alt="{$item['title']}">
+									<p class="f-14 goods_name mt-5 p-0-10">
+										{$item['title']}
+									</p>
+									{set:$exp=explode('.',$item['regiment_price'])}
+									<em class="f-18 c-red d-block p-0-10"><i class="f-12">￥</i>{$exp[0]}{if:isset($exp[1])&&$exp[1]!='00'}{$exp[1]}{/if}
+									{set:$exp=explode('.',$item['sell_price'])}
+										<del class="color-999 f-10"><i class="f-12">￥</i>{$exp[0]}{if:isset($exp[1])&&$exp[1]!='00'}{$exp[1]}{/if}</del></em>
+								</a>
+						</div>
+					{/foreach}
+					</div>
+				</div>
+				<!-- 团购 结束 -->
+			</div>
+			{/if}
+
+			{if:$pinitems}
+			<div id='ptsp-items' class="index-nav-con none">
+				<!-- 拼团商品 -->
+				<div class="flex-item-13 mb-10 bg-fcb8b9">
+					<div class='flex-col-w'>
+						{foreach:items=$pinitems}
+							<div class="flex-item-21 flex-bottom bg-white ml-10">
+									<a href="{url:/site/products/id/$item['goods_id']}" class="pos-r link-box">
+										<img class="goods_photo" src="{url:/pic/thumb/img/$item[img]/w/200/h/200}" onerror="this.src='{skin:image/pro_default.jpg}'" alt="{$item['title']}">
+										<p class="f-14 goods_name mt-5 p-0-10">
+											{$item['title']}
+										</p>
+										{set:$exp=explode('.',$item['assemble_price'])}
+										<em class="f-18 c-red d-block p-0-10"><i class="f-12">￥</i>{$exp[0]}{if:isset($exp[1])&&$exp[1]!='00'}{$exp[1]}{/if} 
+										{set:$exp=explode('.',$item['sell_price'])}
+											<del class="color-999 f-10"><i class="f-12">￥</i>{$exp[0]}{if:isset($exp[1])&&$exp[1]!='00'}{$exp[1]}{/if}</del></em>
+									</a>
+							</div>
+						{/foreach}
+					</div>
+				</div>
+			</div>
+			{/if}
+
+			{if:$pointData = $jifen}
+			<div id='jfdh-items' class="index-nav-con none">
+				<!-- 积分兑换 开始 -->
+				<div class="flex-item-13 mb-10 bg-fcb8b9">
+					<div class='flex-col-w'>
+					{foreach:items=$pointData}
+					<div class="flex-item-21 flex-bottom bg-white ml-10">
+							<a href="{url:/site/products/id/$item['goods_id']}" class="pos-r link-box">
+								<img class="goods_photo" src="{url:/pic/thumb/img/$item[img]/w/200/h/200}" onerror="this.src='{skin:image/pro_default.jpg}'" alt="{$item['title']}">
+								<p class="f-14 goods_name mt-5 p-0-10">
+								{$item['name']}
+								</p>
+								<em class="f-18 c-red d-block p-0-10">{$item['point']}积分 
+									{set:$exp=explode('.',$item['sell_price'])}
+									<del class="color-999 f-10"><i class="f-12">￥</i>{$exp[0]}{if:isset($exp[1])&&$exp[1]!='00'}{$exp[1]}{/if}</del></em>
+						</a>
+					</div>
+					{/foreach}
+					</div>
+				</div>
+				<!-- 积分兑换 结束 -->
+			</div>
+			{/if}
+		</div>
+
+		<!-- 家具家纺 开始 -->
+		{foreach:items=Api::run('getCategoryListTopByVis') item=$first}
+		<div class="index-titles p10">{$first['name']} <span><a href="{url:/site/pro_list/cat/$first[id]}">更多</a></span></div>
+		<div class="flex-col mb-10 p10 bg-white">
+			{set:$products=Api::run('getCategoryExtendList',array('#categroy_id#',$first['id']),6)}
+			{if:$products}
+			{foreach:items=$products}
+			<div class="flex-item-47 bg-white flex-bottom pos-r mb-10 {if:$key%2 == 0}mr-10{/if}">
+				<a href="{url:/site/products/id/$item['id']}" class="pos-r c-text link-box">
+					<img class="goods_photo" src="{url:/pic/thumb/img/$item[img]/w/200/h/200}" onerror="this.src='{skin:image/pro_default.jpg}'" alt="{$item['name']}">
+					<p class="f-14 goods_name mt-5 p-0-10">
+						{$item['name']}
+					</p>
+					{set:$exp=explode('.',$item['sell_price'])}
+					<em class="f-18 c-red d-block mt-5 p-0-10">￥{$exp[0]}{if:isset($exp[1])&&$exp[1]!='00'}{$exp[1]}{/if} 
+						{set:$exp=explode('.',$item['market_price'])}
+					<del class="color-999 f-10">￥{$exp[0]}{if:isset($exp[1])&&$exp[1]!='00'}{$exp[1]}{/if} </del></em>
+					<div class="f-10 p-0-10 pb-10">
+						<div class="pull-left color-999">已售:{echo:$item['sale']+$item['virtual_sale']}</div>
+						<div style="clear:both"></div>
+					</div>
+				</a>
+			</div>
+			{/foreach}
+			{/if}
+		</div>
+		{/foreach}
+		<!-- 家具家纺 结束 -->
+
+
+		<div class="index-title p-10-0">猜你喜欢</div>
+		<!-- 猜你喜欢 开始 -->
+		<div class="flex-col mb-10 m10">
+			{foreach:items = Api::run('getCommendRecom',8)}
+			<div class="flex-item-47 bg-white flex-bottom pos-r mb-10 {if:$key%2 == 0}mr-10{/if}">
+				<a href="{url:/site/products/id/$item['id']}" class="pos-r c-text link-box">
+					<img class="goods_photo" src="{url:/pic/thumb/img/$item[img]/w/200/h/200}" onerror="this.src='{skin:image/pro_default.jpg}'" alt="{$item['name']}">
+					<p class="f-14 goods_name mt-5 p-0-10">
+						{$item['name']}
+					</p>
+					<em class="f-18 c-red d-block mt-5 p-0-10">￥{$item['sell_price']} <del class="color-999 f-10">￥100</del></em>
+					<div class="f-10 p-0-10 pb-10">
+						<div class="pull-left color-999">已售:{echo:$item['sale']+$item['virtual_sale']}</div>
+						<div style="clear:both"></div>
+					</div>
+				</a>
+			</div>
+			{/foreach}
+		</div>
+		<!-- 猜你喜欢 结束 -->
+
+	
+	</div>
+	<nav class="bar bar-tab">
+		<a class="tab-item active external" href="javascript:;">
+			<span class="fa fa-home d-block"></span>
+			<span class="tab-label">首页</span>
+		</a>
+		<a class="tab-item external" href="{url:/site/sitemap}">
+			<span class="fa fa-list d-block"></span>
+			<span class="tab-label">分类</span>
+		</a>
+		<a class="tab-item external" href="{url:/simple/cart}">
+			<span class="fa fa-shopping-cart d-block"></span>
+			<span class="tab-label">购物车</span>
+		</a>
+		<a class="tab-item external" href="{url:/ucenter/index}">
+			<span class="fa fa-user d-block"></span>
+			<span class="tab-label">我的</span>
+		</a>
+	</nav>
+</div>
+
+<script type='text/javascript' src="{theme:javascript/swiper/swiper-3.4.2.min.js}"></script>
+<script type='text/javascript' src="{theme:javascript/zepto.textSlider.js}"></script>
+<script type='text/javascript'>
+$(function () {
+	console.info('yy')
+	
+	$('.content').scroll(function(){
+			var b=$('.content').scrollTop();//获取滚动的高度
+			var a=$(".swiper-container").offset().top;//获取元素距离顶部的距离
+			if(a <= 0){
+				$("#nag-header").removeClass('nag-header-relative')
+				$("#nag-header").addClass('nag-header-fixed')
+			}else{
+				$("#nag-header").removeClass('nag-header-fixed')
+				$("#nag-header").addClass('nag-header-relative')
+			}
+	});
+
+
+
+	//显示抢购倒计时
+	var cd_timer = new countdown();
+	{if:isset($countNumsItem) && $countNumsItem}
+		{foreach:items = $countNumsItem}
+		cd_timer.add({$item});
+		{/foreach}
+	{/if}
+	
+	$('.index-nav-header-items').click(function(){	
+		$(this).addClass('active').siblings('.index-nav-header-items').removeClass('active');
+		var idval= $(this).attr('attr-id');
+		$(".index-nav-con").addClass('none');
+		$("#"+idval).removeClass('none');
+	});
+	
+});
+</script>
+<!-- <script type='text/javascript'>
+	window.onscroll=function(){
+		console.info(1)
+		var topScroll =document.body.scrollTop;//滚动的距离,距离顶部的距离
+		var bignav = document.getElementById("nag-header");//获取到导航栏id
+		console.info(topScroll)
+		console.info(bignav)
+		if(topScroll <= 250){
+				//当滚动距离小于250的时候执行下面的内容，也就是让导航栏恢复原状    
+				bignav.style.position = 'static';
+		}else{      
+				//当滚动距离大于250px时执行下面的东西
+				bignav.style.position = 'fixed';
+				bignav.style.top = '6%';
+				bignav.style.right = '6%';
+				console.log(topScroll)
+		}
+	}
+	</script> -->
