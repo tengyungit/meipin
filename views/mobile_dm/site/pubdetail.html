@@ -12,7 +12,7 @@
         <div class="tabs">
             <div id="product" class="tab active">
                 <!-- 幻灯片 开始 -->
-                <div class="swiper-container1">
+                <div class="swiper-container1 qyj-a">
                     <!-- <img src="{skin:image/index-left-img.png}" > -->
                     <img src="" >
                 </div>
@@ -27,13 +27,13 @@
                         
                         <div>
                             <p class="mt-10 f-10 c-gray flex-item-4">
-                                折扣：<span>{$change['discount']}</span>
+                                折扣：<span>{$change['discount']}折</span>
                             </p>
                             <p class="mt-10 f-10 c-gray flex-item-4 t-c">
-                                库存：<span>{$change['num']}</span>
+                                库存：<span>{$change['num']}元</span>
                             </p>
                             <p class="mt-10 f-10 c-gray flex-item-4 t-r">
-                                已售：<span>{$change['sale_num']}</span>
+                                已转让：<span>{$change['sale_num']}个</span>
                             </p>
                             <div style="clear: both;"></div>
                         </div>
@@ -43,7 +43,7 @@
                     <header class="good_info_title p-5 bg-white f-14 mt-5">
                         <div>
                             <p class="f-12 p-5-0 c-242424">
-                                权益金类型：<span class="c-red">{$change['account_type']}</span>  <span class="c-gray">（可100%抵扣购物金额）</span> 
+                                权益金等级：<span class="c-red">{$change['account_type']}</span>级  <span class="c-gray">（可100%抵扣购物金额）</span> 
                             </p>
                             <p class="f-12 p-5-0 c-242424">
                                 支付方式： 余额支付<span class="c-gray f-10 ml-10"><span class="c-red">*</span> 需用支付宝或微信充值到余额进行购买</span> 

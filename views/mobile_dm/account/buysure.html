@@ -18,20 +18,20 @@
                             <td class="bgfafafa">商品名称</td><td class="bold">{$change['title']}</td>
                         </tr>
                         <tr>
-                            <td class="bgfafafa">折扣</td><td class="bold">{$change['discount']}</td>
+                            <td class="bgfafafa">折扣</td><td class="bold">{$change['discount']}折</td>
                         </tr>
                         <tr>
-                            <td class="bgfafafa">权益金类型</td><td>{$change['account_type']}</td>
+                            <td class="bgfafafa">权益金等级</td><td>{$change['account_type']}级（*可100%抵扣购物金额。）</td>
                         </tr>
                         <tr>
-                            <td class="bgfafafa">权益金单价</td><td>{echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)}</td>
+                            <td class="bgfafafa">权益金单价</td><td>{echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)}/权益金</td>
                         </tr>
                         
                         <tr>
-                            <td class="bgfafafa">购买数量</td><td>{$num}</td>
+                            <td class="bgfafafa">购买数量</td><td>{$num}个</td>
                         </tr>
                         <tr>
-                            <td class="bgfafafa">应付金额</td><td>{echo:$num*$change['discount']/10}</td>
+                            <td class="bgfafafa">应付金额</td><td>{echo:$num*$change['discount']/10}元</td>
                         </tr>
                         
                     </table>
