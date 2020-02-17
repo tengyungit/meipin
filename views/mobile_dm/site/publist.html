@@ -34,7 +34,7 @@
             
         </div>
     </header>
-
+    <style>.qyj_style{position: absolute;width: 6rem;top: 5rem;text-align: left;}</style>
     <div class="content" style='top: 3.4rem!important;bottom: 4.5rem!important;'>
         <div class="qyj_list_banner"><img src="{skin:image/qyj_list_banner.jpg}" ></div>
         <div class="mt-10">
@@ -46,18 +46,18 @@
                         <img src="{skin:image/user_ico.jpg}" >
                         <div class="qyj_style f-10 t-c" style="top: 5.1rem;">
                             <div></div>
-                            <div class="c-gray">编号：0000253</div>
+                            <div class="c-gray">编号：{$item['nid']}</div>
                         </div>
                     </div>
                     <div class="qyj_user_word">
                         <div class="f-12 <?php if($item['status']==0){?>c-252525<?php }else{?>c-6f6f6f<?php }?>">{$item['title']}</div>
                         <div class="t-c mt-15 c-6f6f6f">
                             <div class="f-10 f-l mr-5">
-                                <div>{$item['sale_num']}个</div>
+                                <div>{$item['num']}</div>
                                 <div>转让数量</div>
                             </div>
                             <div class="f-10 f-l">
-                                <div>￥{$item['get_money']}</div>
+                                <div>{$item['now_num']}</div>
                                 <div>剩余数量</div>
                             </div>
                             <div class="f-10 f-l">
@@ -103,7 +103,7 @@
             <span class="fa fa-telegram"></span>
             <span class="tab-label">发布转让 </span>
         </a>
-        <a class="tab-item external" href="#">
+        <a class="tab-item external" href="{url:/account/sale}">
             <span class="fa fa-user-circle-o"></span>
             <span class="tab-label">我的</span>
         </a>

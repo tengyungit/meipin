@@ -1,4 +1,7 @@
-<form action='{url:/simple/cart3}' class="form" method='post' name='order_form' onsubmit='return orderFormInstance.isSubmit()'>
+<form action='{url:/account/buychange}' class="form" method='post' name='order_form' onsubmit='return orderFormInstance.isSubmit()'>
+    <input type="hidden" name='timeKey' value="{echo:time()}"/>
+    <input type="hidden" name='nid' value="{$change['nid']}"/>
+    <input type="hidden" name='num' value="{$num}"/>
     <div class="page" id="page-cart2">
         <header class="bar bar-nav pl-0 bg-red">
             <a class="fa fa-arrow-left pull-left c-white" href="{url:/}"></a>
@@ -12,23 +15,23 @@
                 <section class="qyj_detail_table">
                     <table>
                         <tr>
-                            <td class="bgfafafa">商品名称</td><td class="bold">123折</td>
+                            <td class="bgfafafa">商品名称</td><td class="bold">{$change['title']}</td>
                         </tr>
                         <tr>
-                            <td class="bgfafafa">折扣</td><td class="bold">123折</td>
+                            <td class="bgfafafa">折扣</td><td class="bold">{$change['discount']}</td>
                         </tr>
                         <tr>
-                            <td class="bgfafafa">权益金类型</td><td>钻石权益金（权益金百分百兑换物品）</td>
+                            <td class="bgfafafa">权益金类型</td><td>{$change['account_type']}</td>
                         </tr>
                         <tr>
-                            <td class="bgfafafa">权益金单价</td><td>123折</td>
+                            <td class="bgfafafa">权益金单价</td><td>{echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)}</td>
                         </tr>
                         
                         <tr>
-                            <td class="bgfafafa">购买数量</td><td>123个</td>
+                            <td class="bgfafafa">购买数量</td><td>{$num}</td>
                         </tr>
                         <tr>
-                            <td class="bgfafafa">应付金额</td><td>100元</td>
+                            <td class="bgfafafa">应付金额</td><td>{echo:$num*$change['discount']/10}</td>
                         </tr>
                         
                     </table>
@@ -57,7 +60,7 @@
         <div class="row no-gutter">
             <div class="final-sum col-60 f-14 t-l p-5 mt-5">
                 <span class="ml-5">实付金额:</span>
-                <em id='final_sum' class="c-red">{$this->final_sum}</em>元
+                <em id='final_sum' class="c-red">{echo:$num*$change['discount']/10}</em>元
             </div>
             <div class="col-40">
                 <input id="submitForm" type="submit" class="button button-big d-block button-fill button-danger" value="提交订单" />

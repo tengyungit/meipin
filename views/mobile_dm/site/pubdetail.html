@@ -13,26 +13,27 @@
             <div id="product" class="tab active">
                 <!-- 幻灯片 开始 -->
                 <div class="swiper-container1">
-                    <img src="{skin:image/index-left-img.png}" >
+                    <!-- <img src="{skin:image/index-left-img.png}" > -->
+                    <img src="" >
                 </div>
                 <!-- 幻灯片 结束 -->
                 <section class="good_info">
                     <header class="good_info_title p-5 bg-white f-14">
-                        <h1 class="f-16">123</h1>
+                        <h1 class="f-16">{$change['title']}</h1>
                         <!--当前用户有会员价-->
                         <em class="price qyj-price f-14">
-                            <span class="color1">转让单价：￥0.5</span>/每个权益金
+                            <span class="color1">转让单价：￥{echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)}</span>/每个权益金
                         </em>
                         
                         <div>
                             <p class="mt-10 f-10 c-gray flex-item-4">
-                                折扣：<span>123</span>
+                                折扣：<span>{$change['discount']}</span>
                             </p>
                             <p class="mt-10 f-10 c-gray flex-item-4 t-c">
-                                库存：<span>123</span>
+                                库存：<span>{$change['num']}</span>
                             </p>
                             <p class="mt-10 f-10 c-gray flex-item-4 t-r">
-                                已售：<span>123</span>
+                                已售：<span>{$change['sale_num']}</span>
                             </p>
                             <div style="clear: both;"></div>
                         </div>
@@ -42,7 +43,7 @@
                     <header class="good_info_title p-5 bg-white f-14 mt-5">
                         <div>
                             <p class="f-12 p-5-0 c-242424">
-                                权益金类型：<span class="c-red">80权益金</span>  <span class="c-gray">（可100%抵扣购物金额）</span> 
+                                权益金类型：<span class="c-red">{$change['account_type']}</span>  <span class="c-gray">（可100%抵扣购物金额）</span> 
                             </p>
                             <p class="f-12 p-5-0 c-242424">
                                 支付方式： 余额支付<span class="c-gray f-10 ml-10"><span class="c-red">*</span> 需用支付宝或微信充值到余额进行购买</span> 
@@ -70,10 +71,10 @@
                         <h1 class="f-16">购买指南</h1>
                         <div>
                             <p class="mt-10 f-10 c-gray flex-item-6">
-                                商品编号：SD157803836668-5
+                                商品编号：{$change['nid']}
                             </p>
                             <p class="mt-10 f-10 c-gray flex-item-6">
-                                商品类型：白银级权益金
+                                商品类型：{$change['account_type']}
                             </p>
                             <div style="clear: both;"></div>
                         </div>
@@ -123,8 +124,8 @@
     </div>
     <nav class="bar bar-tab" style="background: #f7f7f7;">
         <div class="row no-gutter">
-	        <div id="joinCarButton" class="col-40">
-	            <a href="#" class="button button-big button-fill button-danger">立即购买</a>
+	        <div class="col-40">
+	            <a href="{url:/account/buysure&nid=$change['nid']}&num=10" class="button button-big button-fill button-danger qyj_link">立即购买</a>
 	        </div>
 		</div>
 	</nav>
@@ -132,6 +133,7 @@
 <script type='text/javascript' src="{theme:javascript/swiper/swiper-3.4.2.min.js}"></script>
 <script>
     $(function () {
+       
         //初始化商品详情对象
         var productInstance = new productClass("{$id}", "{$this->user['user_id']}", "{$promo}", "{$active_id}","{$type}");
         $(".buttons-row").on('click', 'a', function () {
@@ -157,6 +159,27 @@
 		if((productInstance.promo && productInstance.active_id) || productInstance.type != 'default') {
 			$('#buyNowButton').css('width', '50%');
 			$('#favButton').css({'width': '50%'}).find('a').css({'background-color': '#eee'}).find("i").text("点我收藏");
-		}
+        }
+        
+        $('.sub').click(function(){
+            change()
+            console.info($('#buyNums').val())
+        })
+        $('.add').click(function(){
+            change()
+            console.info($('#buyNums').val())
+        })
+        $('#buyNums').keyup(function(){
+            change()
+            console.info($('#buyNums').val())
+        })
+        function change(){
+            var money = '',url = '',arr = [];
+            money = $('#buyNums').val();
+            url = $('.qyj_link').attr('href');
+            arr = url.split('=')
+            arr.splice([arr.length - 1],1,money)
+            $('.qyj_link').attr('href',arr.join('='))
+        }
     })
 </script>

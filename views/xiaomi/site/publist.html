@@ -1,3 +1,5 @@
+
+<script src="{theme:javascript/jquery.marquee.js}"></script>
 {set:$breadGuide = goods_class::catRecursion($this->catId)}
 {set:$goodsObj = search_goods::find(array('category_extend' => $this->childId),20);$resultData = $goodsObj->find()}
 
@@ -70,12 +72,12 @@
                 {foreach:items=$change->find()}
                 <div class="qyj_con_table_tr {if: $item['status']!=0}qyj_con_table_tr_gary{/if}">
                     <div class="qyj_con_table_dds qyj_con_table_dd1">
-                        <div class="qyj_con_table_dd_left">
-                            <img src="{skin:image/default_head_img.png}" >
+                        <div class="qyj_con_table_dd_left qyj-a">
+                            <!-- <img src="{skin:image/default_head_img.png}" > -->
                         </div>
                         <div class="qyj_con_table_dd_right">
                             <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color1">{$item['title']}</div>
-                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color2">类型：{$item['account_type']}类</div>
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color2">级别：{$item['account_type']}级</div>
                             <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color3">可抵扣购物金额比例：{$item['percent']}%</div>
                         </div>
                         <div style="clear: both;"></div>
@@ -102,20 +104,47 @@
         </div>
         <div class="qyj_con_right">
             <div class="qyj_con_right_one">
-                <div class="qyj_con_right_help"><a class="qyj_con_right_help_gm" href="">购买帮助</a><a class='qyj_con_right_help_mc' href="">卖出-帮助</a></div>
+                <div class="qyj_con_right_help">
+                    <a class="qyj_con_right_help_mc active" attr-id='gm' href="javascript:void(0)">购买帮助</a>
+                    <a class='qyj_con_right_help_mc' attr-id='mc' href="javascript:void(0)">卖出-帮助</a>
+                </div>
 
                 <div class="change-icon">
-                    <div class="change-icon-items">
-                        <img src="{skin:image/qyj_change1.png}" >
-                        <div>卖家规则</div> 
-                    </div>
-                    <div class="change-icon-items">
-                        <img src="{skin:image/qyj_change2.png}" >
-                        <div>交易流程</div> 
-                    </div>
-                    <div style="clear: both;"></div>
-
+                   <div class="zzz" id='gm'>
+                        <div class="change-icon-items">
+                            <img src="{skin:image/qyj_change1.png}" >
+                            <div>卖家规则</div> 
+                        </div>
+                        <div class="change-icon-items">
+                            <img src="{skin:image/qyj_change2.png}" >
+                            <div>交易流程</div> 
+                        </div>
+                        <div style="clear: both;"></div>
+                   </div>
+                   <div class="zzz none" id="mc">
+                       <div class="zznim">
+                            <div class="change-icon-items">
+                                <img src="{skin:image/qyj_change1.png}" >
+                                <div>购买规则</div> 
+                            </div>
+                            <div class="change-icon-items">
+                                <img src="{skin:image/qyj_change2.png}" >
+                                <div>交易流程</div> 
+                            </div>
+                            <div class="change-icon-items">
+                                <img src="{skin:image/qyj_change1.png}" >
+                                <div>转让规则</div> 
+                            </div>
+                            <div class="change-icon-items">
+                                <img src="{skin:image/qyj_change2.png}" >
+                                <div>交易流程</div> 
+                            </div>
+                            <div style="clear: both;"></div>
+                       </div>
                 </div>
+                   
+                </div>
+
 
                 <div class="qyj_con_right_change">
                     <a class="qyj_con_right_change_go" href="{url:/account/publish_page}" target="_blank">发布转让</a>
@@ -161,16 +190,42 @@
                     实时转让记录
                 </div>
 
-                <div class="three-list">
-                    {foreach:items=$buy->find()}
-                    <div class="three-list-items">
-                        <div class="three-list-items1">用户：<span>{echo:substr($item['buy_username'],0,3)}****{echo:substr($item['buy_username'],-4)}</span> 在 {$item['buy_time']}</div>
-                        <div class="three-list-items2">成功购买了 <span>{$item['num']}个</span> 权益金</div>
-                    </div>
-                    {/foreach}
+                <div id='three-list' class="three-list">
+                    <ul>
+                        
+                        {foreach:items=$buy->find()}
+                        <li class="three-list-items">
+                            <div class="three-list-items1">用户：<span>{echo:substr($item['buy_username'],0,3)}****{echo:substr($item['buy_username'],-4)}</span> 在 {$item['buy_time']}</div>
+                            <div class="three-list-items2">成功购买了 <span>{$item['num']}个</span> 权益金</div>
+                        </li>
+                        {/foreach}
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 
 </div>
+
+<script>
+    $(function(){
+        $('.qyj_con_right_help_mc').click(function(){
+            $('.qyj_con_right_help_mc').removeClass('active')
+            $(this).addClass('active')
+            var id = $(this).attr('attr-id')
+            $('.zzz').addClass('none')
+            $('#'+id).removeClass('none')
+        })
+
+
+        $('#three-list').kxbdSuperMarquee({
+            isMarquee:true,
+            isEqual:true,
+            distance:105,
+            duration:500,
+            time:1,
+            loop:0,
+            direction:'up',
+        });
+    })
+</script>
