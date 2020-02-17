@@ -4,7 +4,6 @@
 
 <section class="uc_table">
 	<table>
-		<col width="100px" />
         <col width="100px" />
         <col width="580px" />
         <col width="180px" />
@@ -16,7 +15,6 @@
         <col width="150px" />
 		<thead>
 			<tr>
-				<th>平台</th>
                 <th>编号</th>
                 <th>标题</th>
                 <th>购买日期</th>
@@ -31,9 +29,8 @@
 		<tbody>
             {foreach:items = $buy->find()}
             <tr class="<?php if ($item['status'] == 0) { ?>c00<?php } else { ?>c8a<?php } ?>">
-                <td style="text-align:center;">{$item['partner_name']}</td>
                 <td style="text-align:center;">{$item['nid']}</td>
-                <td style="text-align:center;">{$item['title']}</td>
+                <td style="text-align:center;"><a href="">{$item['title']}</a></td>
                 <<td style="text-align:center;">{$item['buy_time']}</td>
                 <td>{$item['num']}</td>
                 <td>{$item['discount']}</td>

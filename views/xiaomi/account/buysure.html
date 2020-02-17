@@ -26,25 +26,24 @@
 						</tr>
 						<tr>
 							<td class="bgfafafa">折扣</td>
-							<td><em>{$change['discount']}</em></td>
+							<td><em>{$change['discount']}折</em></td>
 						</tr>
 						<tr>
-							<td class="bgfafafa">权益金类型</td>
-							<td><em>{$change['account_type']}</em></td>
+							<td class="bgfafafa">权益金等级</td>
+							<td><em>{$change['account_type']}级</em>（*可100%抵扣购物金额。）</td>
 						</tr>
 						<tr>
 							<td class="bgfafafa">权益金单价</td>
-							<td>￥{echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)}</td>
+							<td>￥{echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)}元/权益金</td>
 						</tr>
 						<tr>
 							<td class="bgfafafa">购买数量</td>
-							<td>{$num}</td>
+							<td>{$num}个</td>
 						</tr>
 						<tr>
 							<td class="bgfafafa">应付金额</td>
 							<td><em>￥{echo:$num*$change['discount']/10}</em></td>
 						</tr>
-					
 				
 					<!-- 权益金展示 结束-->
 				</table>

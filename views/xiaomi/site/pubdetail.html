@@ -8,29 +8,26 @@
 		<a href='{url:/site/publist}'>权益金购买</a>
 	</section>
 	<section class="goods_base">
-
+		<div class="qyj-img-detail qyj-a"></div>
 		<section class="goods_info">
 			<h1 class="goods_info_title">{$change['title']}</h1>
 			<div style="clear: both;"></div>
 			<!--基本信息区域-->
 			<ul class="goods_ul qyj_good_ul">
 				<li>
-    			    <span class="bold">平台：</span class="bold">{$partner['partner_name']}
-				</li>
-				<li>
-    			    <span class="bold">转让单价：</span>{echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)}元
+    			    <span class="bold">转让单价：</span>{echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)}元/权益金
 				</li>
     			<li>
-    			    <span class="bold">折扣：</span class="bold">{$change['discount']}
+    			    <span class="bold">折扣：</span class="bold">{$change['discount']}折
 				</li>
 				<li>
-    			    <span class="bold">库存：</span class="bold">{$change['num']}
+    			    <span class="bold">库存：</span class="bold">{$change['num']}元
 				</li>
     			<li>
-					<span class="bold"> 已售：</span class="bold">{$change['sale_num']}
+					<span class="bold"> 已转让：</span class="bold">{$change['sale_num']}个
 				</li>
 				<li>
-    			    <span class="bold">权益金类型：</span class="bold">{$change['account_type']}
+    			    <span class="bold">权益金等级：</span class="bold">{$change['account_type']}级
 				</li>
 				<li>
 					<span class="bold">保障服务：</span class="bold"> 已托管交易，购买后立即到账
@@ -62,7 +59,7 @@
 					<ul class="goods_infos">
 						<li>权益金编号：{$change['nid']}</li>
 
-						<li>权益金类型：{$change['account_type']}</li>
+						<li>权益金等级：{$change['account_type']}级</li>
 						
 					</ul>
 				</div>

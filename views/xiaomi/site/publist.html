@@ -57,7 +57,6 @@
             <div class="qyj_con_table_title">
                 <div class="qyj_con_table_title_item">
                     <div class="qyj_con_table_dds qyj_con_table_dd1">标题</div>
-                    <div class="qyj_con_table_dds qyj_con_table_dd2">平台</div>
                     <div class="qyj_con_table_dds qyj_con_table_dd2">折扣</div>
                     <div class="qyj_con_table_dds qyj_con_table_dd3">转让数量</div>
                     <div class="qyj_con_table_dds qyj_con_table_dd4">剩余库存</div>
@@ -76,13 +75,12 @@
                             <!-- <img src="{skin:image/default_head_img.png}" > -->
                         </div>
                         <div class="qyj_con_table_dd_right">
-                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color1">{$item['title']}</div>
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color1" title="{$item['title']}">{$item['title']}</div>
                             <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color2">级别：{$item['account_type']}级</div>
                             <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color3">可抵扣购物金额比例：{$item['percent']}%</div>
                         </div>
                         <div style="clear: both;"></div>
                     </div>
-                    <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd2 qyj_con_table_zk">{$item['partner_name']}</div>
                     <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd2 qyj_con_table_zk">{$item['discount']}折</div>
                     <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd3 qyj_con_table_gg">{$item['num']}</div>
                     <div class="qyj_con_table_dds qyj_con_table_t46 qyj_con_table_dd4 qyj_con_table_gg">{$item['now_num']}</div>
