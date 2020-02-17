@@ -30,7 +30,19 @@
 						</tr>
 						<tr>
 							<td class="bgfafafa">权益金等级</td>
-							<td><em>{$change['account_type']}级</em>（*可100%抵扣购物金额。）</td>
+							<td><em>{if: $change['account_type']=='A'}
+                                钻石级
+                            {elseif: $change['account_type']=='B'}
+                                铂金级
+                            {elseif: $change['account_type']=='C'}
+                                黄金级
+                            {elseif: $change['account_type']=='D'}
+                                白银级
+                            {elseif: $change['account_type']=='E'}
+                                青铜级
+                            {elseif: $change['account_type']=='F'}
+                                尊享级
+                            {/if}</em>（*可100%抵扣购物金额。）</td>
 						</tr>
 						<tr>
 							<td class="bgfafafa">权益金单价</td>

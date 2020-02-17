@@ -71,12 +71,36 @@
                 {foreach:items=$change->find()}
                 <div class="qyj_con_table_tr {if: $item['status']!=0}qyj_con_table_tr_gary{/if}">
                     <div class="qyj_con_table_dds qyj_con_table_dd1">
-                        <div class="qyj_con_table_dd_left qyj-a">
+                        <div class="qyj_con_table_dd_left {if: $item['account_type']=='A'}
+                        qyj-a
+                    {elseif: $item['account_type']=='B'}
+                        qyj-b
+                    {elseif: $item['account_type']=='C'}
+                        qyj-c
+                    {elseif: $item['account_type']=='D'}
+                        qyj-d
+                    {elseif: $item['account_type']=='E'}
+                        qyj-e
+                    {elseif: $item['account_type']=='F'}
+                        qyj-f
+                    {/if}">
                             <!-- <img src="{skin:image/default_head_img.png}" > -->
                         </div>
                         <div class="qyj_con_table_dd_right">
                             <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color1" title="{$item['title']}">{$item['title']}</div>
-                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color2">级别：{$item['account_type']}级</div>
+                            <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color2">级别：{if: $item['account_type']=='A'}
+                                钻石级
+                            {elseif: $item['account_type']=='B'}
+                                铂金级
+                            {elseif: $item['account_type']=='C'}
+                                黄金级
+                            {elseif: $item['account_type']=='D'}
+                                白银级
+                            {elseif: $item['account_type']=='E'}
+                                青铜级
+                            {elseif: $item['account_type']=='F'}
+                                尊享级
+                            {/if}</div>
                             <div class="qyj_con_table_dd_right_color qyj_con_table_dd_right_color3">可抵扣购物金额比例：{$item['percent']}%</div>
                         </div>
                         <div style="clear: both;"></div>

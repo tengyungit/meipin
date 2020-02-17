@@ -23,11 +23,23 @@
                                     <?php }elseif($item['status']==1){?>
                                     已售罄
                                     <?php }?></span></div>
-                                <div>10次浏览</div>
+                                <div></div>
                             </div>
                         </div>
                         <div class="qyj_user_word">
-                            <div class="f-12 <?php if($item['status']==0){?>c-252525<?php }else{?>c-6f6f6f<?php }?>">{$item['title']} <span class="color1">A</span></div>
+                            <div class="f-12 <?php if($item['status']==0){?>c-252525<?php }else{?>c-6f6f6f<?php }?>">{$item['title']} <span class="color1">{if: $item['account_type']=='A'}
+                                钻石级
+                            {elseif: $item['account_type']=='B'}
+                                铂金级
+                            {elseif: $item['account_type']=='C'}
+                                黄金级
+                            {elseif: $item['account_type']=='D'}
+                                白银级
+                            {elseif: $item['account_type']=='E'}
+                                青铜级
+                            {elseif: $item['account_type']=='F'}
+                                尊享级
+                            {/if}</span></div>
                             <div class="t-c mt-15 c-6f6f6f">
                                 <div class="f-10 f-l mr-10">
                                     <div>{$item['sale_num']}个</div>

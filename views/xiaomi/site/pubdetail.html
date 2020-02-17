@@ -8,7 +8,19 @@
 		<a href='{url:/site/publist}'>权益金购买</a>
 	</section>
 	<section class="goods_base">
-		<div class="qyj-img-detail qyj-a"></div>
+		<div class="qyj-img-detail {if: $change['account_type']=='A'}
+		qyj-a
+	{elseif: $change['account_type']=='B'}
+		qyj-b
+	{elseif: $change['account_type']=='C'}
+		qyj-c
+	{elseif: $change['account_type']=='D'}
+		qyj-d
+	{elseif: $change['account_type']=='E'}
+		qyj-e
+	{elseif: $change['account_type']=='F'}
+		qyj-f
+	{/if}"></div>
 		<section class="goods_info">
 			<h1 class="goods_info_title">{$change['title']}</h1>
 			<div style="clear: both;"></div>
@@ -27,7 +39,19 @@
 					<span class="bold"> 已转让：</span class="bold">{$change['sale_num']}个
 				</li>
 				<li>
-    			    <span class="bold">权益金等级：</span class="bold">{$change['account_type']}级
+    			    <span class="bold">权益金等级：</span class="bold">{if: $change['account_type']=='A'}
+						钻石级
+					{elseif: $change['account_type']=='B'}
+						铂金级
+					{elseif: $change['account_type']=='C'}
+						黄金级
+					{elseif: $change['account_type']=='D'}
+						白银级
+					{elseif: $change['account_type']=='E'}
+						青铜级
+					{elseif: $change['account_type']=='F'}
+						尊享级
+					{/if}
 				</li>
 				<li>
 					<span class="bold">保障服务：</span class="bold"> 已托管交易，购买后立即到账
@@ -59,7 +83,19 @@
 					<ul class="goods_infos">
 						<li>权益金编号：{$change['nid']}</li>
 
-						<li>权益金等级：{$change['account_type']}级</li>
+						<li>权益金等级：{if: $change['account_type']=='A'}
+							钻石级
+						{elseif: $change['account_type']=='B'}
+							铂金级
+						{elseif: $change['account_type']=='C'}
+							黄金级
+						{elseif: $change['account_type']=='D'}
+							白银级
+						{elseif: $change['account_type']=='E'}
+							青铜级
+						{elseif: $change['account_type']=='F'}
+							尊享级
+						{/if}</li>
 						
 					</ul>
 				</div>

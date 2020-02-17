@@ -48,7 +48,19 @@
             <div class="qyj_buy_items">
                 <div class="qyj_user_con">
                     <div class="qyj_user_img mr-10">
-                        <div class="qyj-img-items qyj-a"></div>
+                        <div class="qyj-img-items {if: $item['account_type']=='A'}
+                        qyj-a
+                    {elseif: $item['account_type']=='B'}
+                        qyj-b
+                    {elseif: $item['account_type']=='C'}
+                        qyj-c
+                    {elseif: $item['account_type']=='D'}
+                        qyj-d
+                    {elseif: $item['account_type']=='E'}
+                        qyj-e
+                    {elseif: $item['account_type']=='F'}
+                        qyj-f
+                    {/if}"></div>
                         
                         <div class="qyj_style f-10 t-c" style="top: 5.1rem;">
                             <div></div>

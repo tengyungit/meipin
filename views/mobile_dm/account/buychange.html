@@ -25,7 +25,19 @@
                 </tr>
                 <tr>
                     <td>权益金等级:</td>
-                    <td>{$buy_detail['account_type']}级（*可100%抵扣购物金额。）</td>
+                    <td>{if: $buy_detail['account_type']=='A'}
+                        钻石级
+                    {elseif: $buy_detail['account_type']=='B'}
+                        铂金级
+                    {elseif: $buy_detail['account_type']=='C'}
+                        黄金级
+                    {elseif: $buy_detail['account_type']=='D'}
+                        白银级
+                    {elseif: $buy_detail['account_type']=='E'}
+                        青铜级
+                    {elseif: $buy_detail['account_type']=='F'}
+                        尊享级
+                    {/if}（*可100%抵扣购物金额。）</td>
                 </tr>
                 
                 <tr>

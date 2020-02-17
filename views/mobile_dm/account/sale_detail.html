@@ -11,14 +11,26 @@
             <div class="qyj_detail_title">我购买的权益金转让详情</div>
             <div class="qyj_detail_head  p-101 mt-10 mb-10">
                 <div class="qyj_detail_list">
-                    <div><span class="active">1</span>   {$change_detail['change_time']} 发起{$change_detail['discount']}折{$change_detail['account_type']}类{$change_detail['num']}个权益金转让</div>
+                    <div><span class="active">1</span>   {$change_detail['change_time']} 发起{$change_detail['discount']}折{if: $change_detail['account_type']=='A'}
+                        钻石级
+                    {elseif: $change_detail['account_type']=='B'}
+                        铂金级
+                    {elseif: $change_detail['account_type']=='C'}
+                        黄金级
+                    {elseif: $change_detail['account_type']=='D'}
+                        白银级
+                    {elseif: $change_detail['account_type']=='E'}
+                        青铜级
+                    {elseif: $change_detail['account_type']=='F'}
+                        尊享级
+                    {/if}{$change_detail['num']}个权益金转让</div>
                     {foreach:items = $buy_list}
-                    <div><span class="active">{echo:$key+2}</span class="active">{$item['buy_time']} 用户：<span class="color1">{echo:substr($item['buy_username'],0,3)}****{echo:substr($item['buy_username'],-4)}</span> 成功购买{$item['num']}个权益金，您获得<span class="color2">￥{$item['money']}</span> <?php if ($item['status'] == 0) { ?>
+                    <div><span class="active">{echo:$key+2}</span class="active">{$item['buy_time']} 用户：<span class="color1">{echo:substr($item['buy_username'],0,3)}****{echo:substr($item['buy_username'],-4)}</span> 购买{$item['num']}个权益金，订单金额<span class="color2">￥{$item['money']}</span> 状态：<?php if ($item['status'] == 0) { ?>
                         待支付
                     <?php } elseif ($item['status'] == 2) { ?>
                         已取消
                     <?php } elseif ($item['status'] == 1) { ?>
-                        已到账户余额
+                        已支付
                     <?php } ?></div>
                     {/foreach}
                 </div>
@@ -48,7 +60,19 @@
                         <td class="bgfafafa">转让折扣</td class="bgfafafa"><td>{$change_detail['discount']}折</td>
                     </tr>
                     <tr>
-                        <td class="bgfafafa">转让权益金等级</td class="bgfafafa"><td>{$change_detail['account_type']}（{$configRow['percent']}%抵扣购物金额）</td>
+                        <td class="bgfafafa">转让权益金等级</td class="bgfafafa"><td>{if: $change_detail['account_type']=='A'}
+                            钻石级
+                        {elseif: $change_detail['account_type']=='B'}
+                            铂金级
+                        {elseif: $change_detail['account_type']=='C'}
+                            黄金级
+                        {elseif: $change_detail['account_type']=='D'}
+                            白银级
+                        {elseif: $change_detail['account_type']=='E'}
+                            青铜级
+                        {elseif: $change_detail['account_type']=='F'}
+                            尊享级
+                        {/if}（{$configRow['percent']}%抵扣购物金额）</td>
                     </tr>
                     <tr>
                         <td class="bgfafafa">转让权益金数量</td class="bgfafafa"><td>{$change_detail['num']}个</td>

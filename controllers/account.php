@@ -96,9 +96,23 @@ class Account extends IController implements userAuthorization
             $this->redirect('error&msg=超过可转让数量(购买的不可转让)');
             exit();
         }
-
+        if($partnerRow['account_type'] == 'A'){
+            $account_type='钻石级';
+        }elseif($partnerRow['account_type'] == 'B'){
+            $account_type='铂金级';
+        }elseif($partnerRow['account_type'] == 'C'){
+            $account_type='黄金级';
+        }elseif($partnerRow['account_type'] == 'D'){
+            $account_type='白银级';
+        }elseif($partnerRow['account_type'] == 'E'){
+            $account_type='青铜级';
+        }elseif($partnerRow['account_type'] == 'F'){
+            $account_type='尊享级';
+        }else{
+            $account_type='尊享级';
+        }
         //标题[折扣]转让[数量]个，[类别]类权益金,大家赶紧购买吧
-        $title = "[{$discount}折]转让[{$num}]个,[{$partnerRow['account_type']}]类权益金,大家赶紧购买吧";
+        $title = "{$discount}折转让{$num}元{$account_type}权益金,大家赶紧购买吧!";
 
         //构造数据
         $data = array(

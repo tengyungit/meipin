@@ -21,7 +21,19 @@
                             <td class="bgfafafa">折扣</td><td class="bold">{$change['discount']}折</td>
                         </tr>
                         <tr>
-                            <td class="bgfafafa">权益金等级</td><td>{$change['account_type']}级（*可100%抵扣购物金额。）</td>
+                            <td class="bgfafafa">权益金等级</td><td>{if: $change['account_type']=='A'}
+                                钻石级
+                            {elseif: $change['account_type']=='B'}
+                                铂金级
+                            {elseif: $change['account_type']=='C'}
+                                黄金级
+                            {elseif: $change['account_type']=='D'}
+                                白银级
+                            {elseif: $change['account_type']=='E'}
+                                青铜级
+                            {elseif: $change['account_type']=='F'}
+                                尊享级
+                            {/if}（*可100%抵扣购物金额。）</td>
                         </tr>
                         <tr>
                             <td class="bgfafafa">权益金单价</td><td>{echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)}/权益金</td>

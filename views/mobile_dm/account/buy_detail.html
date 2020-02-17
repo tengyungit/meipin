@@ -38,13 +38,25 @@
             <section class="qyj_detail_table">
                 <table>
                     <tr>
-                        <td class="bgfafafa">转让标题</td><td class="bold">{$buy_detail['title']}</td>
+                        <td class="bgfafafa">转让标题</td><td class="bold"><a href="{url:/site/pubdetail?nid=$buy_detail['nid']}">{$buy_detail['title']}</a></td>
                     </tr>
                     <tr>
-                        <td class="bgfafafa">转让人</td><td>  111</td>
+                        <td class="bgfafafa">转让人</td><td>{echo:substr($buy_detail['change_username'],0,3)}****{echo:substr($buy_detail['change_username'],-4)}</td>
                     </tr>
                     <tr>
-                        <td class="bgfafafa">权益金等级</td><td>{$buy_detail['account_type']}（{$buy_detail['percent']}%抵扣购物金额）</td>
+                        <td class="bgfafafa">权益金等级</td><td> {if: $buy_detail['account_type']=='A'}
+                            钻石级
+                        {elseif: $buy_detail['account_type']=='B'}
+                            铂金级
+                        {elseif: $buy_detail['account_type']=='C'}
+                            黄金级
+                        {elseif: $buy_detail['account_type']=='D'}
+                            白银级
+                        {elseif: $buy_detail['account_type']=='E'}
+                            青铜级
+                        {elseif: $buy_detail['account_type']=='F'}
+                            尊享级
+                        {/if}（{$buy_detail['percent']}%抵扣购物金额）</td>
                     </tr>
                     <tr>
                         <td class="bgfafafa">转让折扣</td><td>{$buy_detail['discount']}折</td>

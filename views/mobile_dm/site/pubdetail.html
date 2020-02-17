@@ -12,7 +12,19 @@
         <div class="tabs">
             <div id="product" class="tab active">
                 <!-- 幻灯片 开始 -->
-                <div class="swiper-container1 qyj-a">
+                <div class="swiper-container1 {if: $change['account_type']=='A'}
+                qyj-a
+            {elseif: $change['account_type']=='B'}
+                qyj-b
+            {elseif: $change['account_type']=='C'}
+                qyj-c
+            {elseif: $change['account_type']=='D'}
+                qyj-d
+            {elseif: $change['account_type']=='E'}
+                qyj-e
+            {elseif: $change['account_type']=='F'}
+                qyj-f
+            {/if}">
                     <!-- <img src="{skin:image/index-left-img.png}" > -->
                     <img src="" >
                 </div>
@@ -43,7 +55,19 @@
                     <header class="good_info_title p-5 bg-white f-14 mt-5">
                         <div>
                             <p class="f-12 p-5-0 c-242424">
-                                权益金等级：<span class="c-red">{$change['account_type']}</span>级  <span class="c-gray">（可100%抵扣购物金额）</span> 
+                                权益金等级：<span class="c-red">{if: $change['account_type']=='A'}
+                                    钻石
+                                {elseif: $change['account_type']=='B'}
+                                    铂金
+                                {elseif: $change['account_type']=='C'}
+                                    黄金
+                                {elseif: $change['account_type']=='D'}
+                                    白银
+                                {elseif: $change['account_type']=='E'}
+                                    青铜
+                                {elseif: $change['account_type']=='F'}
+                                    尊享
+                                {/if}</span>级  <span class="c-gray">（可100%抵扣购物金额）</span> 
                             </p>
                             <p class="f-12 p-5-0 c-242424">
                                 支付方式： 余额支付<span class="c-gray f-10 ml-10"><span class="c-red">*</span> 需用支付宝或微信充值到余额进行购买</span> 
@@ -74,7 +98,19 @@
                                 商品编号：{$change['nid']}
                             </p>
                             <p class="mt-10 f-10 c-gray flex-item-6">
-                                商品类型：{$change['account_type']}
+                                商品类型：{if: $change['account_type']=='A'}
+                                钻石级
+                            {elseif: $change['account_type']=='B'}
+                                铂金级
+                            {elseif: $change['account_type']=='C'}
+                                黄金级
+                            {elseif: $change['account_type']=='D'}
+                                白银级
+                            {elseif: $change['account_type']=='E'}
+                                青铜级
+                            {elseif: $change['account_type']=='F'}
+                                尊享级
+                            {/if}
                             </p>
                             <div style="clear: both;"></div>
                         </div>
