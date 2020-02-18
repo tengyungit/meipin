@@ -171,6 +171,14 @@ ALTER TABLE `mpyg_partner_account_buy`
 ADD COLUMN `do_time`  varchar(50) NOT NULL DEFAULT '' COMMENT '支付或取消时间' AFTER `buy_time`;
 
 
+2.18
+ALTER TABLE `mpyg_order`
+ADD COLUMN `partner_account_json`  text NULL COMMENT '权益金使用json' AFTER `account_type`;
+
+ALTER TABLE `mpyg_order`
+MODIFY COLUMN `appid`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '权益金appid' AFTER `use_partner`,
+MODIFY COLUMN `partner_name`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '合作方名称' AFTER `appid`;
+
 
 
 

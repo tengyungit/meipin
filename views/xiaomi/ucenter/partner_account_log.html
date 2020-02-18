@@ -2,7 +2,19 @@
 	<h3 class="current"><a href="{url:/ucenter/account_log}">交易记录</a></h3>
 	<span class="money">
 	{foreach:items=$partner_account}
-	<em>{$item['partner_name']}权益金{$item['account_type']} : {$item['balance']}|</em>
+	<em> {if: $item['account_type']=='A'}
+		钻石级
+	{elseif: $item['account_type']=='B'}
+		铂金级
+	{elseif: $item['account_type']=='C'}
+		黄金级
+	{elseif: $item['account_type']=='D'}
+		白银级
+	{elseif: $item['account_type']=='E'}
+		青铜级
+	{elseif: $item['account_type']=='F'}
+		尊享级
+	{/if}权益金: {$item['balance']}|</em>
 	{/foreach}</span>
 </header>
 

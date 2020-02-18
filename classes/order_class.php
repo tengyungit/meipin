@@ -1714,48 +1714,62 @@ class Order_Class
 
 		//回退权益金
         if($orderRow['use_partner'] > 0){
-             //检测账号
-            $query = new IQuery("partner_account as a");
-            $query->join   = 'left join partner as b on a.appid = b.appid';
-            $query->where  = 'a.user_id="' . $orderRow['user_id'] . '" and b.appid="'.$orderRow['appid'].'" and a.account_type="'.$orderRow['account_type'].'" for update';
-            $query->fields = 'a.balance,a.user_id,b.partner_name,b.appid';
-            $array_user = $query->find();
-            if(empty($array_user)){
-                $tb_order_log->rollback();
-				return '用户信息不存在';
-            }
+			$tui_total = $orderRow['use_partner'];
+			$partner_account = json_decode($orderRow['partner_account_json'],true);
+			foreach($partner_account as $k=>$v){
+				if($tui_total > 0 ){
+					if($v['balance'] >= $tui_total){
+						$tui = $tui_total;
+					}else{
+						$tui = $v['balance'];
+					}
 
-            $user_info = $array_user[0];
-            $amount = $user_info['balance'] + $orderRow['use_partner'];
-
-            //资金增加
-            $tb_partner_account = new IModel("partner_account");
-            $tb_partner_account->setData(array("balance" => $amount));
-            $flag = $tb_partner_account->update("user_id = " . $user_info['user_id']." and appid='".$orderRow['appid']."' and account_type='".$orderRow['account_type']."'");
-            if (!$flag) {
-                $tb_partner_account->rollback();
-                return '退款权益金失败';
-            }
-
-            $tb_account_log = new IModel("account_log");
-            $insertData = array(
-                'admin_id'  => 0,
-                'user_id'   => $user_info['user_id'],
-                'event'     => '8',
-                'note'      => "取消订单[{$orderRow['order_no']}],回退权益金{$orderRow['use_partner']}元",
-                'amount'    => $orderRow['use_partner'],
-                'amount_log' => $amount,
-                'type'      => '0',
-                'time'      => ITime::getDateTime(),
-				'appid'     =>  $user_info['appid'],
-				'account_type' => $orderRow['account_type']
-            );
-            $tb_account_log->setData($insertData);
-            $flag = $tb_account_log->add();
-            if (!$flag) {
-                $tb_account_log->rollback();
-                return '退款权益金失败';
-            }
+					$tui_total -= $v['balance'];
+	
+					 //检测账号
+					 $query = new IQuery("partner_account as a");
+					 $query->join   = 'left join partner as b on a.appid = b.appid';
+					 $query->where  = 'a.user_id="' . $orderRow['user_id'] . '" and b.appid="'.$v['appid'].'" and a.account_type="'.$orderRow['account_type'].'" for update';
+					 $query->fields = 'a.balance,a.user_id,b.partner_name,b.appid';
+					 $array_user = $query->find();
+					 if(empty($array_user)){
+						 $tb_order_log->rollback();
+						 return '用户信息不存在';
+					 }
+		 
+					 $user_info = $array_user[0];
+					 $amount = $user_info['balance'] + $tui;
+		 
+					 //资金增加
+					 $tb_partner_account = new IModel("partner_account");
+					 $tb_partner_account->setData(array("balance" => $amount));
+					 $flag = $tb_partner_account->update("user_id = " . $user_info['user_id']." and appid='".$v['appid']."' and account_type='".$orderRow['account_type']."'");
+					 if (!$flag) {
+						 $tb_partner_account->rollback();
+						 return '退款权益金失败';
+					 }
+		 
+					 $tb_account_log = new IModel("account_log");
+					 $insertData = array(
+						 'admin_id'  => 0,
+						 'user_id'   => $user_info['user_id'],
+						 'event'     => '8',
+						 'note'      => "取消订单[{$orderRow['order_no']}],回退权益金{$tui}元",
+						 'amount'    => $tui,
+						 'amount_log' => $amount,
+						 'type'      => '0',
+						 'time'      => ITime::getDateTime(),
+						 'appid'     =>  $v['appid'],
+						 'account_type' => $orderRow['account_type']
+					 );
+					 $tb_account_log->setData($insertData);
+					 $flag = $tb_account_log->add();
+					 if (!$flag) {
+						 $tb_account_log->rollback();
+						 return '退款权益金失败';
+					 }
+				}
+			}
 
             $tb_account_log->commit();
         }

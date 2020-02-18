@@ -24,7 +24,19 @@
 		<li>优惠券：<strong>{$propData['prop_num']} 张</strong></li>
 		<li>经验值：<strong>{$user['exp']}</strong></li>
 		{foreach:items=$partner_account}
-		<li>{$item['partner_name']}{$item['account_type']}类权益金余额 : {$item['balance']}</li>
+		<li>{$item['partner_name']} {if: $item['account_type']=='A'}
+			钻石级
+		{elseif: $item['account_type']=='B'}
+			铂金级
+		{elseif: $item['account_type']=='C'}
+			黄金级
+		{elseif: $item['account_type']=='D'}
+			白银级
+		{elseif: $item['account_type']=='E'}
+			青铜级
+		{elseif: $item['account_type']=='F'}
+			尊享级
+		{/if}权益金余额 : {$item['balance']}</li>
 		{/foreach}
 	</ol>
 	<ol class="user_stat">

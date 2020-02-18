@@ -8,7 +8,19 @@
         <div class="bg-red p-10">
             <div class="col-100 c-white t-c p-5">
                 {foreach:items=$partner_account}
-                <span class="f-18"><em class="d-block f-12">{$item['partner_name']}权益金{$item['account_type']}</em>￥{$item['balance']}</span>
+                <span class="f-18"><em class="d-block f-12"> {if: $item['account_type']=='A'}
+                    钻石级
+                {elseif: $item['account_type']=='B'}
+                    铂金级
+                {elseif: $item['account_type']=='C'}
+                    黄金级
+                {elseif: $item['account_type']=='D'}
+                    白银级
+                {elseif: $item['account_type']=='E'}
+                    青铜级
+                {elseif: $item['account_type']=='F'}
+                    尊享级
+                {/if}权益金</em>￥{$item['balance']}</span>
                 {/foreach}
             </div>
         </div>

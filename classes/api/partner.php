@@ -35,11 +35,16 @@ class APIPartner
     {
         $userid = $userid ? IFilter::act($userid, 'int') : 0;
         $query  = new IQuery('partner_account as a');
-        $query->join   = "left join partner as b on a.appid = b.appid";
+        $query->fields = "sum(a.balance) as balance,a.account_type";
+        $query->order = 'a.account_type asc';
         $query->where  = "a.user_id =" . $userid;
-        $query->fields = "a.balance,b.partner_name,b.appid,a.account_type,a.id,a.account_type";
-        $query->order = 'a.balance desc';
+        $query->group = 'a.account_type';
         return $query->find();
+        // $query->join   = "left join partner as b on a.appid = b.appid";
+        // $query->where  = "a.user_id =" . $userid;
+        // $query->fields = "a.balance,b.partner_name,b.appid,a.account_type,a.id";
+        // $query->order = 'a.balance desc';
+        // return $query->find();
     }
 
     ///用户中心-账户余额

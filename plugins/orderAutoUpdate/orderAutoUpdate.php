@@ -35,7 +35,7 @@ class orderAutoUpdate extends pluginBase
         	//订单不删除
             // $result = $orderModel->del(" status = 1 and if_del = 0 and pay_type > 0 and timestampdiff(minute,create_time,NOW()) >= {$order_del_time} ");
         }
-		$orderCancelData = $order_cancel_time > 0 ? $orderModel->query(" status = 1 and if_del = 0 and pay_type > 0 and timestampdiff(minute,create_time,NOW()) >= {$order_cancel_time} ","account_type,id,order_no,use_partner,user_id,appid,4 as type_data") : array();
+		$orderCancelData = $order_cancel_time > 0 ? $orderModel->query(" status = 1 and if_del = 0 and pay_type > 0 and timestampdiff(minute,create_time,NOW()) >= {$order_cancel_time} ","account_type,id,order_no,partner_account_json,use_partner,user_id,appid,4 as type_data") : array();
 		$orderCreateData = $order_finish_time > 0 ? $orderModel->query(" status in(1,2) and if_del = 0 and distribution_status = 1 and timestampdiff(minute,send_time,NOW()) >= {$order_finish_time} and takeself = 0 ","id,order_no,5 as type_data") : array();
 
 		$resultData = array_merge($orderCreateData,$orderCancelData);
@@ -90,50 +90,53 @@ class orderAutoUpdate extends pluginBase
 
 					//回退权益金
 			        if($val['use_partner'] > 0){
-			             //检测账号
-			            $query = new IQuery("partner_account as a");
-			            $query->join   = 'left join partner as b on a.appid = b.appid';
-			            $query->where  = 'a.user_id="' . $val['user_id'] . '" and b.appid="'.$val['appid'].'" and a.account_type="'.$val['account_type'].'" for update';
-			            $query->fields = 'a.balance,a.user_id,b.partner_name,b.appid';
-			            $array_user = $query->find();
-			            if(empty($array_user)){
-			                $tb_order_log->rollback();
-							return '用户信息不存在';
-			            }
+						$partner_account = json_decode($val['partner_account_json'],true);
+						foreach($partner_account as $k=>$v){
+							//检测账号
+							$query = new IQuery("partner_account as a");
+							$query->join   = 'left join partner as b on a.appid = b.appid';
+							$query->where  = 'a.user_id="' . $val['user_id'] . '" and b.appid="'.$v['appid'].'" and a.account_type="'.$val['account_type'].'" for update';
+							$query->fields = 'a.balance,a.user_id,b.partner_name,b.appid';
+							$array_user = $query->find();
+							if(empty($array_user)){
+								$tb_order_log->rollback();
+								return '用户信息不存在';
+							}
 
-			            $user_info = $array_user[0];
-			            $amount = $user_info['balance'] + $val['use_partner'];
+							$user_info = $array_user[0];
+							$amount = $user_info['balance'] + $v['balance'];
 
-			            //资金增加
-			            $tb_partner_account = new IModel("partner_account");
-			            $tb_partner_account->setData(array("balance" => $amount));
-			            $flag = $tb_partner_account->update("user_id = " . $user_info['user_id']." and appid='".$val['appid']."' and account_type='".$val['account_type']."'");
-			            if (!$flag) {
-			                $tb_partner_account->rollback();
-			                return '退款权益金失败';
-			            }
+							//资金增加
+							$tb_partner_account = new IModel("partner_account");
+							$tb_partner_account->setData(array("balance" => $amount));
+							$flag = $tb_partner_account->update("user_id = " . $user_info['user_id']." and appid='".$v['appid']."' and account_type='".$val['account_type']."'");
+							if (!$flag) {
+								$tb_partner_account->rollback();
+								return '退款权益金失败';
+							}
 
-			            $tb_account_log = new IModel("account_log");
-			            $insertData = array(
-			                'admin_id'  => 0,
-			                'user_id'   => $user_info['user_id'],
-			                'event'     => '8',
-			                'note'      => "取消订单[{$order_no}],回退权益金{$val['use_partner']}元",
-			                'amount'    => $val['use_partner'],
-			                'amount_log' => $amount,
-			                'type'      => '0',
-			                'time'      => ITime::getDateTime(),
-							'appid'     =>  $user_info['appid'],
-							'account_type'     =>  $val['account_type'],
-			            );
-			            $tb_account_log->setData($insertData);
-			            $flag = $tb_account_log->add();
-			            if (!$flag) {
-			                $tb_account_log->rollback();
-			                return '退款权益金失败';
-			            }
+							$tb_account_log = new IModel("account_log");
+							$insertData = array(
+								'admin_id'  => 0,
+								'user_id'   => $user_info['user_id'],
+								'event'     => '8',
+								'note'      => "取消订单[{$order_no}],回退权益金{$v['balance']}元",
+								'amount'    => $v['balance'],
+								'amount_log' => $amount,
+								'type'      => '0',
+								'time'      => ITime::getDateTime(),
+								'appid'     =>  $v['appid'],
+								'account_type'     =>  $val['account_type'],
+							);
+							$tb_account_log->setData($insertData);
+							$flag = $tb_account_log->add();
+							if (!$flag) {
+								$tb_account_log->rollback();
+								return '退款权益金失败';
+							}
 
-			            $tb_account_log->commit();
+							$tb_account_log->commit();
+						}
 			        }
 				}
 

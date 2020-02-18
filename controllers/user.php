@@ -288,7 +288,7 @@ class User extends IController
 
 		$query = new IQuery("order as a");
 		$query->join   = 'left join order_goods as b on a.id=b.order_id left join partner_account as c on a.user_id=c.user_id left join user as d on a.user_id=d.id';
-		$query->where  = 'a.status in (2,5) and d.username="' . $data['mobile'] . '" and a.appid="' . $data['appid'] . '"';
+		$query->where  = 'a.status in (2,5) and d.username="' . $data['mobile'] . '" and a.appid INSTR (appid,"' . $data['appid'] . '")';
 		$query->fields = 'a.real_freight,a.order_no,b.goods_array,b.goods_nums,a.real_amount,use_partner';
 		$array_log = $query->find();
 		if (empty($array_log)) {

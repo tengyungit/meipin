@@ -268,7 +268,19 @@ $(function(){
 					</div>
 					{foreach:items=$this->partner_account}
 					<div style='margin:10px 0'>
-						<em><input  type="radio" name="appids" onclick='orderFormInstance.changeqyprice();' atter-id="{$item['id']}" attr-oldprice='{$item['balance']}' value='{$item['balance']}' {if:$key==0}checked="checked"{/if}  />{$item['partner_name']}权益金{$item['account_type']} : <span>{$item['balance']}</span>元</em>
+						<em><input  type="radio" name="appids" onclick='orderFormInstance.changeqyprice();' atter-id="{$item['account_type']}" attr-oldprice='{$item['balance']}' value='{$item['balance']}' {if:$key==0}checked="checked"{/if}  /> {if: $item['account_type']=='A'}
+							钻石级
+						{elseif: $item['account_type']=='B'}
+							铂金级
+						{elseif: $item['account_type']=='C'}
+							黄金级
+						{elseif: $item['account_type']=='D'}
+							白银级
+						{elseif: $item['account_type']=='E'}
+							青铜级
+						{elseif: $item['account_type']=='F'}
+							尊享级
+						{/if} 权益金: <span>{$item['balance']}</span>元</em>
 					</div>
 					{/foreach}
 					<input type="hidden" name="appid" value="" />

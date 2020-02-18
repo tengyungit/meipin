@@ -757,8 +757,7 @@ class Account extends IController implements userAuthorization
     {
         $changeObj = new IModel('partner_account_change');
         $changeRow = $changeObj->getObj(false, 'max(id) as id,nid');
-
-        if (!empty($changeRow)) {
+        if (!empty($changeRow) && !empty($changeRow['id'])) {
             $max_data = $changeObj->getObj("id=".$changeRow['id'], 'nid');
             $today = date('Ym');
             $pid = str_replace($today, '', $max_data['nid']);
