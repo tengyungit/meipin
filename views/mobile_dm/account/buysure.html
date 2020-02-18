@@ -57,7 +57,7 @@
                     <div class="p-10 f-12 mt-5 mb-5">
                     {foreach:items = Api::run('getPaymentList')}
                     <label class="mr-5">
-                        <input class="d-none" name="payment" type="radio" value="{$item['id']}" title="{$item['name']}" />
+                        <input class="d-none" name="payment" type="radio" value="{$item['id']}" checked title="{$item['name']}" />
                         <span class="bg-gray p-5 bd-radius info">{$item['name']} {$item['note']} </span>
                     </label>
                     {/foreach}
