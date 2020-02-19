@@ -38,7 +38,19 @@
 				<td>{echo:$item['amount'] > 0 ? $item['amount'].'元' : ''}</td>
 				<td>{echo:$item['amount'] < 0 ? $item['amount'].'元' : ''}</td>
 				<td><span class="red">{$item['amount_log']} 元</span></td>
-				<td>{$item['account_type']}</td>
+				<td>{if: $item['account_type']=='A'}
+					钻石级
+				{elseif: $item['account_type']=='B'}
+					铂金级
+				{elseif: $item['account_type']=='C'}
+					黄金级
+				{elseif: $item['account_type']=='D'}
+					白银级
+				{elseif: $item['account_type']=='E'}
+					青铜级
+				{elseif: $item['account_type']=='F'}
+					尊享级
+				{/if}</td>
 				<td>{$item['time']}</td>
 				<td>{$item['note']}</td>
 			</tr>

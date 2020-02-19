@@ -29,7 +29,7 @@ class Ucenter extends IController implements userAuthorization
 
 		//查询平台资金
 		$partner_account = Api::run("getPartnerAccount", $this->user['user_id']);
-		print_r($partner_account);
+
 		$this->setRenderData(array(
 			"user"       => $user,
 			"statistics" => $statistics,

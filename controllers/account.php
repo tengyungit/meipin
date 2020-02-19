@@ -8,16 +8,16 @@
 class Account extends IController implements userAuthorization
 {
     private function return_msg($code, $info = '', $data = array())
-	{
-		$error_arr = array(
-			'deal_succ' => array('code' => '1', 'msg' => '操作成功', 'info' => $info, 'data' => $data),
-			'server_error' => array('code' => "001001", 'msg' => '服务端错误', 'info' => $info),
-			'data_error' => array('code' => "001002", 'msg' => '数据错误', 'info' => $info),
-		);
-		echo JSON::encode($error_arr[$code]);
-		exit;
+    {
+        $error_arr = array(
+            'deal_succ' => array('code' => '1', 'msg' => '操作成功', 'info' => $info, 'data' => $data),
+            'server_error' => array('code' => "001001", 'msg' => '服务端错误', 'info' => $info),
+            'data_error' => array('code' => "001002", 'msg' => '数据错误', 'info' => $info),
+        );
+        echo JSON::encode($error_arr[$code]);
+        exit;
     }
-    
+
     public $layout = 'ucenter';
 
     public function init()
@@ -25,25 +25,28 @@ class Account extends IController implements userAuthorization
     }
 
     //发布页面
-    function publish_page(){
+    function publish_page()
+    {
         $this->layout = 'site';
         //获取个人可转让权益金
-        $account_data =  Api::run("getPartnerCanChange",$this->user['user_id']);
+        $account_data =  Api::run("getPartnerCanChange", $this->user['user_id']);
         $this->setRenderData(array(
-			'account_data' => $account_data,
+            'account_data' => $account_data,
         ));
-        
+
         $this->redirect('publish_page');
     }
 
     //转让失败
-    function error(){
+    function error()
+    {
         $this->layout = 'site';
         $this->redirect('error');
     }
 
     // 转让成功
-    function success(){
+    function success()
+    {
         $this->layout = 'site';
         $this->redirect('success');
     }
@@ -96,20 +99,20 @@ class Account extends IController implements userAuthorization
             $this->redirect('error&msg=超过可转让数量(购买的不可转让)');
             exit();
         }
-        if($partnerRow['account_type'] == 'A'){
-            $account_type='钻石级';
-        }elseif($partnerRow['account_type'] == 'B'){
-            $account_type='铂金级';
-        }elseif($partnerRow['account_type'] == 'C'){
-            $account_type='黄金级';
-        }elseif($partnerRow['account_type'] == 'D'){
-            $account_type='白银级';
-        }elseif($partnerRow['account_type'] == 'E'){
-            $account_type='青铜级';
-        }elseif($partnerRow['account_type'] == 'F'){
-            $account_type='尊享级';
-        }else{
-            $account_type='尊享级';
+        if ($partnerRow['account_type'] == 'A') {
+            $account_type = '钻石级';
+        } elseif ($partnerRow['account_type'] == 'B') {
+            $account_type = '铂金级';
+        } elseif ($partnerRow['account_type'] == 'C') {
+            $account_type = '黄金级';
+        } elseif ($partnerRow['account_type'] == 'D') {
+            $account_type = '白银级';
+        } elseif ($partnerRow['account_type'] == 'E') {
+            $account_type = '青铜级';
+        } elseif ($partnerRow['account_type'] == 'F') {
+            $account_type = '尊享级';
+        } else {
+            $account_type = '尊享级';
         }
         //标题[折扣]转让[数量]个，[类别]类权益金,大家赶紧购买吧
         $title = "{$discount}折转让{$num}元{$account_type}权益金,大家赶紧购买吧!";
@@ -199,7 +202,7 @@ class Account extends IController implements userAuthorization
 
         //如果有购买未付款的
         $num_totoal_no_pay = 0;
-        if (!empty($array_buy) &&  $array_buy['0']['num_total']!=NULL) {
+        if (!empty($array_buy) &&  $array_buy['0']['num_total'] != NULL) {
             //修改购买数据
             $buyinfoObj = new IModel('partner_account_buy');
             $num_totoal_no_pay = $array_buy['0']['num_total'];
@@ -266,8 +269,9 @@ class Account extends IController implements userAuthorization
     }
 
     //购买前确认页面
-    function buysure(){
-        $this->layout='site';
+    function buysure()
+    {
+        $this->layout = 'site';
 
         $nid = IFilter::act(IReq::get('nid'));
         if (empty($nid)) {
@@ -296,7 +300,7 @@ class Account extends IController implements userAuthorization
     //购买权益金
     function buychange()
     {
-        $this->layout='site';
+        $this->layout = 'site';
 
         //防止表单重复提交
         if (IReq::get('timeKey')) {
@@ -348,7 +352,8 @@ class Account extends IController implements userAuthorization
         $can_buy_num = $changeRow['num'] - $changeRow['sale_num'];
 
         if ($num > $can_buy_num) {
-            IError::show(403, '购买数量不足');
+            // IError::show(403, '购买数量不足');
+            $num = $can_buy_num;
         }
 
         //增加转让已卖数量
@@ -384,12 +389,12 @@ class Account extends IController implements userAuthorization
         $buyObj->commit();
 
 
-        $query = Api::run("getBuyInfo", $this->user['user_id'],$buy_id);
+        $query = Api::run("getBuyInfo", $this->user['user_id'], $buy_id);
         $this->setRenderData(array(
             'buy_id' => $buy_id,
             'buy_detail' => $query[0],
         ));
-        
+
         $this->redirect('buychange');
     }
 
@@ -537,7 +542,7 @@ class Account extends IController implements userAuthorization
 
         //修改购买信息
         $buyinfoObj = new IModel('partner_account_buy');
-        $buyinfoObj->setData(array('status' => 1,'do_time'=>ITime::getDateTime()));
+        $buyinfoObj->setData(array('status' => 1, 'do_time' => ITime::getDateTime()));
         $flag = $buyinfoObj->update('buy_user_id = "' . $buyRow['buy_user_id'] . '" and id=' . $buy_id);
         if (!$flag) {
             $buyinfoObj->rollback();
@@ -621,9 +626,9 @@ class Account extends IController implements userAuthorization
 
         $tb_account_log->commit();
 
-        
+
         // $this->buy();
-        $this->return_msg("deal_succ", '支付成功', '/index.php?controller=account&action=buy_detail&buy_id='.$buy_id);
+        $this->return_msg("deal_succ", '支付成功', '/index.php?controller=account&action=buy_detail&buy_id=' . $buy_id);
     }
 
     //取消支付
@@ -653,7 +658,7 @@ class Account extends IController implements userAuthorization
 
         //修改购买数据
         $buyinfoObj = new IModel('partner_account_buy');
-        $buyinfoObj->setData(array('status' => 2,'do_time'=>ITime::getDateTime()));
+        $buyinfoObj->setData(array('status' => 2, 'do_time' => ITime::getDateTime()));
         $flag = $buyinfoObj->update('id = "' . $buy_id . '" and status=0');
         if (!$flag) {
             $buyinfoObj->rollback();
@@ -676,7 +681,7 @@ class Account extends IController implements userAuthorization
 
         $changeObj->commit();
         // $this->buy();
-        $this->return_msg("deal_succ", '取消成功', '/account/buy_detail&buy_id='.$buy_id);
+        $this->return_msg("deal_succ", '取消成功', '/account/buy_detail&buy_id=' . $buy_id);
     }
 
     //我发布的权益金转让记录
@@ -700,7 +705,7 @@ class Account extends IController implements userAuthorization
 
         $changeObj = new IModel('partner_account_change');
         $changeRow = $changeObj->getObj('change_user_id = "' . $this->user['user_id'] . '" and nid="' . $nid . '"');
-        if(empty($changeRow)){
+        if (empty($changeRow)) {
             IError::show(403, '转让权益金详情不存在');
         }
 
@@ -709,12 +714,12 @@ class Account extends IController implements userAuthorization
         $configRow = $configObj->getObj('code="' . $changeRow['account_type'] . '"');
 
         //购买者信息
-        $buyquery = Api::run("getBuyListByNid",$nid);
+        $buyquery = Api::run("getBuyListByNid", $nid);
 
         $this->setRenderData(array(
             'change_detail' => $changeRow,
             'buy_list' => $buyquery,
-            'configRow'=>$configRow
+            'configRow' => $configRow
         ));
 
 
@@ -740,11 +745,11 @@ class Account extends IController implements userAuthorization
             IError::show(403, '购买权益金详情不存在');
         }
 
-        $query = Api::run("getBuyInfo", $this->user['user_id'],$buy_id);
-        if(empty($query)){
+        $query = Api::run("getBuyInfo", $this->user['user_id'], $buy_id);
+        if (empty($query)) {
             IError::show(403, '购买权益金详情不存在');
         }
-        
+
         $this->setRenderData(array(
             'buy_detail' => $query[0],
         ));
@@ -758,7 +763,7 @@ class Account extends IController implements userAuthorization
         $changeObj = new IModel('partner_account_change');
         $changeRow = $changeObj->getObj(false, 'max(id) as id,nid');
         if (!empty($changeRow) && !empty($changeRow['id'])) {
-            $max_data = $changeObj->getObj("id=".$changeRow['id'], 'nid');
+            $max_data = $changeObj->getObj("id=" . $changeRow['id'], 'nid');
             $today = date('Ym');
             $pid = str_replace($today, '', $max_data['nid']);
             if (strlen($pid) == strlen($max_data['nid'])) {
