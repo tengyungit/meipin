@@ -320,12 +320,6 @@ class Account extends IController implements userAuthorization
             IError::show(403, '参数错误');
         }
 
-        $num = IFilter::act(IReq::get('num'));
-        $exp_num = explode(".", $num);
-        if (empty($num) || count($exp_num) > 2 || $num < 100) {
-            IError::show(403, '请填写正确的数量');
-        }
-
         $changeObj = new IModel('partner_account_change');
         $changeRow = $changeObj->getObj('nid="' . $nid . '"');
         if (empty($changeRow)) {
@@ -345,6 +339,26 @@ class Account extends IController implements userAuthorization
             IError::show(403, '参数错误');
         }*/
 
+        $can_buy_num = $changeRow['num'] - $changeRow['sale_num'];
+
+        if ($can_buy_num == '0') {
+            IError::show(403, '购买数量不足');
+        }
+
+        $num = IFilter::act(IReq::get('num'));
+        $exp_num = explode(".", $num);
+        if (empty($num) ||  count($exp_num) > 2){
+            IError::show(403, '请填写正确的数量');
+        }
+
+        if($can_buy_num >= 100 && $num < 100){
+            IError::show(403, '最少购买数量为100');
+        }
+
+
+        if($num >= $can_buy_num){
+            $num = $can_buy_num;
+        }
 
         //购买者余额检测
         $memberObj  = new IModel('member');
@@ -352,17 +366,6 @@ class Account extends IController implements userAuthorization
 
         if ($memberRow['balance'] < $num) {
             IError::show(403, '余额不足');
-        }
-
-        $can_buy_num = $changeRow['num'] - $changeRow['sale_num'];
-
-        if($can_buy_num == '0'){
-            IError::show(403, '购买数量不足');
-        }
-
-        if ($num > $can_buy_num) {
-            // IError::show(403, '购买数量不足');
-            $num = $can_buy_num;
         }
 
         //增加转让已卖数量
