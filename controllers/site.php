@@ -50,9 +50,15 @@ class Site extends IController
 		//平台信息
 		$partnerObj = new IModel('partner');
 		$partnerRow = $partnerObj->getObj('appid="' . $changeRow['appid'] . '"');
+
+		 //抵扣比例
+		$configObj = new IModel('partner_account_config');
+		$configRow = $configObj->getObj('code="' . $changeRow['account_type'] . '"');
+
 		$this->setRenderData(array(
 			'change' => $changeRow,
 			'partner' => $partnerRow,
+			'percent' => $configRow['percent'],
 		));
 		$this->redirect('pubdetail');
 	}
