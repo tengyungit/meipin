@@ -33,7 +33,7 @@
                                 青铜级
                             {elseif: $change['account_type']=='F'}
                                 尊享级
-                            {/if}（*可100%抵扣购物金额。）</td>
+                            {/if}（*可{$percent}%抵扣购物金额。）</td>
                         </tr>
                         <tr>
                             <td class="bgfafafa">权益金单价</td><td>{echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)}/权益金</td>

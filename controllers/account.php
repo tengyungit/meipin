@@ -114,8 +114,8 @@ class Account extends IController implements userAuthorization
         } else {
             $account_type = '尊享级';
         }
-        //标题[折扣]转让[数量]个，[类别]类权益金,大家赶紧购买吧
-        $title = "{$discount}折转让{$num}元{$account_type}权益金,大家赶紧购买吧!";
+        //标题[折扣]转让[数量]个，[类别]类权益金
+        $title = "{$discount}折转让{$num}元{$account_type}权益金";
 
         //构造数据
         $data = array(
@@ -289,9 +289,14 @@ class Account extends IController implements userAuthorization
             IError::show(403, '权益金信息不存在');
         }
 
+        //抵扣比例
+        $configObj = new IModel('partner_account_config');
+        $configRow = $configObj->getObj('code="' . $changeRow['account_type'] . '"');
+
         $this->setRenderData(array(
             'change' => $changeRow,
             'num' => $num,
+            'percent' => $configRow['percent'],
         ));
 
         $this->redirect('buysure');
@@ -350,6 +355,10 @@ class Account extends IController implements userAuthorization
         }
 
         $can_buy_num = $changeRow['num'] - $changeRow['sale_num'];
+
+        if($can_buy_num == '0'){
+            IError::show(403, '购买数量不足');
+        }
 
         if ($num > $can_buy_num) {
             // IError::show(403, '购买数量不足');

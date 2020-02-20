@@ -35,7 +35,8 @@ class APIPartner
     {
         $userid = $userid ? IFilter::act($userid, 'int') : 0;
         $query  = new IQuery('partner_account as a');
-        $query->fields = "sum(a.balance) as balance,a.account_type";
+        $query->join   = "left join partner_account_config as b on a.account_type = b.code";
+        $query->fields = "sum(a.balance) as balance,a.account_type,b.percent";
         $query->order = 'a.account_type asc';
         $query->where  = "a.user_id =" . $userid;
         $query->group = 'a.account_type';
@@ -218,6 +219,7 @@ class APIPartner
         $sale_type = IReq::get('sale_type') ? IFilter::act(IReq::get('sale_type')) : '';
         $account_type = IReq::get('account_type') ? IFilter::act(IReq::get('account_type')) : '';
         $discount = IReq::get('discount') ? IFilter::act(IReq::get('discount')) : '';
+        $order_ds = IReq::get('order_ds') ? IFilter::act(IReq::get('order_ds')) : '0';
         $query  = new IQuery('partner_account_change as a');
         $query->join = "left join partner_account_config as b on a.account_type=b.code left join partner as c on a.appid=c.appid";
 
@@ -227,6 +229,12 @@ class APIPartner
 
         if (!empty($account_type)) {
             $where .= " and a.account_type='" . $account_type . "'";
+        }
+
+        if(!empty($order_ds)){
+            $query->order = 'a.status asc,a.discount desc,now_num desc';
+        }else{
+            $query->order = 'a.status asc,a.discount asc,now_num desc';
         }
 
         if (!empty($discount)) {
@@ -247,7 +255,6 @@ class APIPartner
 
         $query->where = $where;
         $query->fields = 'a.*,(a.num - a.sale_num) as now_num,b.percent,c.partner_name';
-        $query->order = 'a.status asc,now_num desc';
         $query->page  = $page;
         return $query;
     }

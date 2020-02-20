@@ -247,7 +247,7 @@
 
 			{foreach:items=$this->partner_account}
 				<div style='margin: 0.5rem 0;'>
-					<input style='vertical-align: middle;margin-right:3px' onclick='orderFormInstance.changeqyprice();' attr-bl='50' type="radio" name="appids" atter-id="{$item['account_type']}"  attr-oldprice="{$item['balance']}" value="{$item['balance']}" {if:$key==0}checked="checked"{/if}  /> {if: $item['account_type']=='A'}
+					<input style='vertical-align: middle;margin-right:3px' onclick='orderFormInstance.changeqyprice();' attr-bl='{$item['percent']}' type="radio" name="appids" atter-id="{$item['account_type']}"  attr-oldprice="{$item['balance']}" value="{$item['balance']}" {if:$key==0}checked="checked"{/if}  /> {if: $item['account_type']=='A'}
 					钻石级
 				{elseif: $item['account_type']=='B'}
 					铂金级
@@ -264,7 +264,7 @@
 			{/foreach}
 			<!-- <div style='margin: 0.5rem 0;'>
 				<input style='vertical-align: middle;margin-right:3px'  type="radio" name="appids" onclick='orderFormInstance.changeqyprice();' atter-id='1'  attr-oldprice='20' value="20" checked="checked" />金桥梁权益金 : 20元
-			</div>
+			</div>w
 			<div style='margin: 0.5rem 0;'>
 				<input style='vertical-align: middle;margin-right:3px'  type="radio" name="appids" onclick='orderFormInstance.changeqyprice();' atter-id='2'  attr-oldprice='120' value="120" />金桥梁权益金 : 120元
 			</div>
