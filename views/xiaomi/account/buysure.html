@@ -19,6 +19,24 @@
 					
 					<!-- 权益金展示 开始-->
 						<tr>
+							<td class="bgfafafa">图片</td>
+							<td>
+								<div class="qyj-img-sure {if: $change['account_type']=='A'}
+										qyj-a
+									{elseif: $change['account_type']=='B'}
+										qyj-b
+									{elseif: $change['account_type']=='C'}
+										qyj-c
+									{elseif: $change['account_type']=='D'}
+										qyj-d
+									{elseif: $change['account_type']=='E'}
+										qyj-e
+									{elseif: $change['account_type']=='F'}
+										qyj-f
+									{/if}"></div>
+							</td>
+						</tr>
+						<tr>
 							<td class="bgfafafa">标题</td>
 							<td>
 								<a class="blue">{$change['title']}</a>

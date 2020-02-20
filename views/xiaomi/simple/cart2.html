@@ -268,7 +268,7 @@ $(function(){
 					</div>
 					{foreach:items=$this->partner_account}
 					<div style='margin:10px 0'>
-						<em><input  type="radio" name="appids" onclick='orderFormInstance.changeqyprice();' atter-id="{$item['account_type']}" attr-oldprice='{$item['balance']}' value='{$item['balance']}' {if:$key==0}checked="checked"{/if}  /> {if: $item['account_type']=='A'}
+						<em><input  type="radio" name="appids" onclick='orderFormInstance.changeqyprice();' attr-bl='50' atter-id="{$item['account_type']}" attr-oldprice='{$item['balance']}' value='{$item['balance']}' {if:$key==0}checked="checked"{/if}  /> {if: $item['account_type']=='A'}
 							钻石级
 						{elseif: $item['account_type']=='B'}
 							铂金级

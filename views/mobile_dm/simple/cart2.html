@@ -247,7 +247,7 @@
 
 			{foreach:items=$this->partner_account}
 				<div style='margin: 0.5rem 0;'>
-					<input style='vertical-align: middle;margin-right:3px' onclick='orderFormInstance.changeqyprice();'  type="radio" name="appids" atter-id="{$item['account_type']}"  attr-oldprice="{$item['balance']}" value="{$item['balance']}" {if:$key==0}checked="checked"{/if}  /> {if: $item['account_type']=='A'}
+					<input style='vertical-align: middle;margin-right:3px' onclick='orderFormInstance.changeqyprice();' attr-bl='50' type="radio" name="appids" atter-id="{$item['account_type']}"  attr-oldprice="{$item['balance']}" value="{$item['balance']}" {if:$key==0}checked="checked"{/if}  /> {if: $item['account_type']=='A'}
 					钻石级
 				{elseif: $item['account_type']=='B'}
 					铂金级
@@ -299,7 +299,7 @@
 		<!-- 发票信息 结束 -->
 	</div>
 </div>
-<nav class="bar bar-tab">
+<nav class="bar bar-tab" style="background: #fff;">
 	<div class="row no-gutter">
 		<div class="final-sum col-60 f-14 t-l p-5 mt-5">
 			<span class="ml-5">实付:</span>
