@@ -33,7 +33,7 @@
     			    <span class="bold">折扣：</span class="bold">{$change['discount']}折
 				</li>
 				<li>
-    			    <span class="bold">库存：</span class="bold">{$change['num']}元
+    			    <span class="bold">库存：</span class="bold"><span class="qyj-xz">{$change['num']}</span> 元
 				</li>
     			<li>
 					<span class="bold"> 已转让：</span class="bold">{$change['sale_num']}个
@@ -65,7 +65,7 @@
 					<input type="text" class="qyj_de_money" placeholder="请输入购买权益金数量">
 				</div>
 				<div class="btn_submit_buy" >
-					<a class='qyj_link' href="{url:/account/buysure&nid=$change['nid']}&num=10"><span style="left:35px!important;color:#fff">立即购买</span style="left:35px!important"></a>
+					<a class='qyj_link' href="{url:/account/buysure&nid=$change['nid']}&num="><span style="left:35px!important;color:#fff">立即购买</span style="left:35px!important"></a>
 				</div>
 
 			</div>
@@ -128,16 +128,31 @@
 <script>
 $(function(){
 	
-	$('.qyj_de_money').keyup(function(){
+	$('.qyj_de_money').blur(function(){
 		var money = '',url = '',arr = [];
-		money = $(this).val();
+		money = Number($(this).val());
 		url = $('.qyj_link').attr('href');
 		arr = url.split('=')
-		// console.info(arr)
-		arr.splice([arr.length - 1],1,money)
-		console.info()
+		var xzVal = Number($('.qyj-xz').text())
+		if(xzVal >= 100){
+			if(money < 100){
+				$(this).val('100')
+				arr.splice([arr.length - 1],1,'100')
+			}else{
+				if(money > xzVal){
+					$(this).val(xzVal)
+					arr.splice([arr.length - 1],1,xzVal)
+				}else{
+					arr.splice([arr.length - 1],1,money)
+				}
+			}
+		}else{
+			$(this).val(xzVal)
+			arr.splice([arr.length - 1],1,xzVal)
+		}
 		$('.qyj_link').attr('href',arr.join('='))
 	})
+
 	//初始化商品详情对象
 	var productInstance = new productClass("{$id}","{$this->user['user_id']}","{$promo}","{$active_id}","{$type}");
 
