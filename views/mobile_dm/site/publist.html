@@ -30,12 +30,12 @@
             </div>
             <div class="qjy-cc" id='jg' style='display: none;'>
                 <div {if: empty(IFilter::act(IReq::get('account_type')))} class="currt" {/if}><a class='external' href="{url:/site/publist?account_type=0&sale_type=".IFilter::act(IReq::get('sale_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">全部</a></div>
-                <div {if: IFilter::act(IReq::get('account_type'))=='A'} class="currt" {/if}> <a class='external' href="{url:/site/publist?account_type=A&sale_type=".IFilter::act(IReq::get('sale_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">A类</a></div>
-                <div {if: IFilter::act(IReq::get('account_type'))=='B'} class="currt" {/if}> <a class='external' href="{url:/site/publist?account_type=B&sale_type=".IFilter::act(IReq::get('sale_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">B类</a></div>
-                <div {if: IFilter::act(IReq::get('account_type'))=='C'} class="currt" {/if}> <a class='external' href="{url:/site/publist?account_type=C&sale_type=".IFilter::act(IReq::get('sale_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">C类</a></div>
-                <div {if: IFilter::act(IReq::get('account_type'))=='D'} class="currt" {/if}> <a class='external' href="{url:/site/publist?account_type=D&sale_type=".IFilter::act(IReq::get('sale_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">E类</a></div>
-                <div {if: IFilter::act(IReq::get('account_type'))=='E'} class="currt" {/if}> <a class='external' href="{url:/site/publist?account_type=E&sale_type=".IFilter::act(IReq::get('sale_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">E类</a></div>
-                <div {if: IFilter::act(IReq::get('account_type'))=='F'} class="currt" {/if}> <a class='external' href="{url:/site/publist?account_type=F&sale_type=".IFilter::act(IReq::get('sale_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">F类</a></div>
+                <div {if: IFilter::act(IReq::get('account_type'))=='A'} class="currt" {/if}> <a class='external' href="{url:/site/publist?account_type=A&sale_type=".IFilter::act(IReq::get('sale_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">钻石级</a></div>
+                <div {if: IFilter::act(IReq::get('account_type'))=='B'} class="currt" {/if}> <a class='external' href="{url:/site/publist?account_type=B&sale_type=".IFilter::act(IReq::get('sale_type'))."&discount=".IFilter::act(IReq::get('discount'))."}"> 铂金级</a></div>
+                <div {if: IFilter::act(IReq::get('account_type'))=='C'} class="currt" {/if}> <a class='external' href="{url:/site/publist?account_type=C&sale_type=".IFilter::act(IReq::get('sale_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">黄金级</a></div>
+                <div {if: IFilter::act(IReq::get('account_type'))=='D'} class="currt" {/if}> <a class='external' href="{url:/site/publist?account_type=D&sale_type=".IFilter::act(IReq::get('sale_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">白银级</a></div>
+                <div {if: IFilter::act(IReq::get('account_type'))=='E'} class="currt" {/if}> <a class='external' href="{url:/site/publist?account_type=E&sale_type=".IFilter::act(IReq::get('sale_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">青铜级</a></div>
+                <div {if: IFilter::act(IReq::get('account_type'))=='F'} class="currt" {/if}> <a class='external' href="{url:/site/publist?account_type=F&sale_type=".IFilter::act(IReq::get('sale_type'))."&discount=".IFilter::act(IReq::get('discount'))."}">尊享级</a></div>
             </div>
         </div>
     </header>
