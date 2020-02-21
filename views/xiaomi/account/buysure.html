@@ -100,7 +100,31 @@
 				</table>
 			</div>
 		</section>
-		
+		<section class="cart_item">
+			<h3>结算信息</h3>
+			<div class="cart_item_count">
+				<div class="count">
+				订单单价：<strong class="mr-10 block_ib">￥{echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)}</strong> 
+				订单数量：<strong class="mr-10 block_ib">{$num}个</strong> 
+				合计：<strong class="mr-10 block_ib">{$num} * {echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)} = ￥{echo:$num*$change['discount']/10}</strong> 
+
+				<div>
+					<div>
+					</div>
+					<table>
+						<col width="220">
+						<col>
+						<col width="250">
+						<tr>
+							<td>
+								<div class="all_count">
+									应付总额：<em>￥<span>{echo:$num*$change['discount']/10}</span></em> 元
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+		</section>
 
 		<div class="qyj_cart_tips">购买权益金下单并支付成功后，无法撤回，下单未付款10分钟自动取消订单。</div>
 		<label class="cart_topay_btn">

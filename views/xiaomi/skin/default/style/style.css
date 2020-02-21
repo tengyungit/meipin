@@ -9,6 +9,7 @@ body, button, input, select, textarea { font-family: tahoma,"Helvetica Neue", Ar
 .gehang { width: 10px; height: 10px; overflow: hidden; text-indent: -9999px; clear: both; display: block; }
 
 .block { display: block; }
+.block_ib { display: inline-block; }
 
 .none { display: none!important; }
 
@@ -1864,3 +1865,4 @@ text-align: left;font-weight: bold;position: relative;}
 .qyj_style_btn{color: #ff0000;border: 1px solid #ff0000;padding:2px 5px;margin-right: 5px;}
 .qyj_style_btn:hover{background: #ff0000;color: #fff;text-decoration: none;}
 
+.mr-10{margin-right: 10px;}

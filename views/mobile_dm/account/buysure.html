@@ -63,6 +63,16 @@
                     {/foreach}
                     </div>
                 </div>
+                <div id="paymentBox" class="border-t">
+                    <div class="p-5 f-14">
+                        结算信息
+                    </div>
+                    <div class="p-10 f-12 mb-5 c-gray">
+                        <div class="mt-5"><span class="qyj-w20">订单单价：</span> ￥{echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)}</div>
+                        <div class="mt-5"><span class="qyj-w20">订单数量：</span>{$num}个</div>
+                        <div class="mt-5"><span class="qyj-w20">合计：</span>{$num}*{echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)}元/个 = ￥{echo:$num*$change['discount']/10}</div>
+                    </div>
+                </div>
             
             </div>
             <!--配送和支付方式 结束-->
