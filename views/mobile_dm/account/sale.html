@@ -13,8 +13,19 @@
             <div class="qyj_buy_items">
                 <a href="{url:/account/sale_detail?nid=$item['nid']}">
                     <div class="qyj_user_con">
-                        <div class="qyj_user_img mr-10">
-                            <img src="{skin:image/user_ico.jpg}" >
+                        <div class="qyj_user_img mr-10 {if: $item['account_type']=='A'}
+                            qyj-a
+                        {elseif: $item['account_type']=='B'}
+                            qyj-b
+                        {elseif: $item['account_type']=='C'}
+                            qyj-c
+                        {elseif: $item['account_type']=='D'}
+                            qyj-d
+                        {elseif: $item['account_type']=='E'}
+                            qyj-e
+                        {elseif: $item['account_type']=='F'}
+                            qyj-f
+                        {/if}">
                             <div class="qyj_style f-10 t-c">
                                 <div><span class="<?php if($item['status']==0){?>qyj_tips1<?php }else{?>qyj_tips2<?php }?>"><?php if($item['status']==0){?>
                                     上架中
@@ -41,16 +52,18 @@
                                 尊享级
                             {/if}</span></div>
                             <div class="t-c mt-15 c-6f6f6f">
-                                <div class="f-10 f-l mr-10">
+                                <div class="f-10 f-l mr-10 <?php if($item['status']==0){?>c-252525<?php }else{?>c-6f6f6f<?php }?>">
                                     <div>{$item['sale_num']}个</div>
                                     <div>已卖出</div>
                                 </div>
-                                <div class="f-10 f-l">
+                                <div class="f-10 f-l <?php if($item['status']==0){?>c-252525<?php }else{?>c-6f6f6f<?php }?>">
                                     <div>￥{$item['get_money']}</div>
                                     <div>实收金额</div>
                                 </div>
                                 <div class="f-10 f-l">
-                                    <div class=""><a nid="{$item['nid']}" yimai='{$item['sale_num']}' sy='{echo:$item['num']-$item['sale_num']}' class="qyj_style_btn" href="javascript:void(0)">取消发布</a></div>
+                                    <?php if($item['status']==0){?>
+                                        <div class=""><a nid="{$item['nid']}" yimai='{$item['sale_num']}' sy='{echo:$item['num']-$item['sale_num']}' class="qyj_style_btn" href="javascript:void(0)">取消发布</a></div>
+                                    <?php }?>
                                 </div>
                                 <div style="clear: both;"></div>
                             </div>

@@ -12,7 +12,19 @@
             <div class="qyj_buy_items">
                 <a href="{url:/account/buy_detail?buy_id=$item["id"]}">
                     <div class="qyj_user_con">
-                        <div class="qyj_user_img mr-10"><img src="{skin:image/user_ico.jpg}" ></div>
+                        <div class="qyj_user_img mr-10 {if: $item['account_type']=='A'}
+                        qyj-a
+                    {elseif: $item['account_type']=='B'}
+                        qyj-b
+                    {elseif: $item['account_type']=='C'}
+                        qyj-c
+                    {elseif: $item['account_type']=='D'}
+                        qyj-d
+                    {elseif: $item['account_type']=='E'}
+                        qyj-e
+                    {elseif: $item['account_type']=='F'}
+                        qyj-f
+                    {/if}"></div>
                         <div class="qyj_user_word">
                             <div class="f-12 <?php if ($item['status'] == 0) { ?>c-252525<?php } else { ?>c-6f6f6f<?php } ?>">{$item['title']} <?php if ($item['status'] == 0) { ?>
                                 <span class="color1">待支付</span>

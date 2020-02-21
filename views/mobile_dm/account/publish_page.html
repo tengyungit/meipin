@@ -22,21 +22,7 @@
                                 <div class="item-input">
                                     <select name="account_id" id="account_id">
                                         {foreach:items=$account_data}
-                                        <option value="{$item['id']}" num="{echo:$item['balance']-$item['buy_total']}">{$item['partner_name']}
-                                        {if: $item['account_type']=='A'}
-                                            钻石级
-                                        {elseif: $item['account_type']=='B'}
-                                            铂金级
-                                        {elseif: $item['account_type']=='C'}
-                                            黄金级
-                                        {elseif: $item['account_type']=='D'}
-                                            白银级
-                                        {elseif: $item['account_type']=='E'}
-                                            青铜级
-                                        {elseif: $item['account_type']=='F'}
-                                            尊享级
-                                        {/if}
-                                        权益金（{$item['percent']}%抵扣购物金额）</option>
+                                        <option value="{$item['id']}" num="{echo:$item['balance']-$item['buy_total']}">{$item['partner_name']}{$item['account_type']}类权益金（{$item['percent']}%抵扣购物金额）</option>
                                         {/foreach}
                                     </select>
                                 </div>
@@ -66,14 +52,14 @@
                             <div class="item-inner">
                                 <div class="item-title label"><span class="c-red">*</span> 转让折扣</div>
                                 <div class="item-input">
-                                    <input type='text' name="discount" placeholder="输入你的转让折扣，如：5.5">
+                                    <input type='text' name="discount" id='input-cc' placeholder="输入你的转让折扣，如：5.5">
                                 </div>
                             </div>
                         </div>
                         <div class="item-content">
                             <div class="item-inner">
                                 <div class="item-title label"></div>
-                                <div class="item-input f-12 c-red">
+                                <div class="item-input f-12 c-red cnm11">
                                     请输入折扣数字，小数点后最多输入一位
                                 </div>
                             </div>
@@ -97,4 +83,29 @@
 	$('#account_id').change(function(){
 		$('.qyj_money').text($('#account_id').find("option:selected").attr('num'))
 	})
+
+    $('#input-cc').keyup(function(){
+        var cccc = $(this).val()
+        if(cccc < 1 ){
+            $(this).val('')
+            $('.cnm11').text('请输入1到10折');
+            return false;
+        }
+        if( $(this).val() == '10.'){
+            $(this).val('')
+            $('.cnm11').text('请输入1到10折');
+            return false;
+        }
+        if(cccc > 10){
+            $(this).val('')
+            $('.cnm11').text('请输入1到10折');
+            return false;
+        }else if(cccc.length > 3){
+            $(this).val('')
+            $('.cnm11').text('只能输入小数点后1位');
+            return false;
+        }else{
+            $('.cnm11').text('请输入折扣数字，小数点后最多输入一位');
+        }
+    })
 </script>

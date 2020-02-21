@@ -8,7 +8,7 @@
             <h1 class="title c-white">核对订单信息</h1>
             <a class="fa fa-home pull-right c-white external" href="{url:/site/index}"></a>
         </header>
-        <div class="content bottom-0 bg-white p-101">
+        <div class="content bg-white p-101">
             <!--配送和支付方式 开始-->
             <div class="cart_sect cart_2_delivery">
                 <div class="qyj_detail_title f-14" style="font-weight: normal;">购买的商品</div>
@@ -33,7 +33,7 @@
                                 青铜级
                             {elseif: $change['account_type']=='F'}
                                 尊享级
-                            {/if}（*可{$percent}%抵扣购物金额。）</td>
+                            {/if}（可{$percent}%抵扣购物金额。）</td>
                         </tr>
                         <tr>
                             <td class="bgfafafa">权益金单价</td><td>{echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)}/权益金</td>
@@ -66,6 +66,7 @@
             
             </div>
             <!--配送和支付方式 结束-->
+            <div class="qyj_cart_tips f-10">购买权益金下单并支付成功后，无法撤回，下单未付款10分钟自动取消订单。</div>
         </div>
     </div>
     <nav class="bar bar-tab" style="background-color: #fff;">

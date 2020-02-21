@@ -4,9 +4,9 @@
         <h1 class="title c-white">权益金列表</h1>
         <a class="fa fa-user pull-right c-white external" href="{url:/ucenter/index}"></a>
         <div class="qyj-fiexd">
-            <div class="f-l qyj_w" attr-id='lx'>交易类型 <span class="fa fa-sort-desc qyj_jt"></span></div>
-            <div class="f-l qyj_w" attr-id='zk'>折扣率 <span class="fa fa-sort-desc qyj_jt"></span></div>
             <div class="f-l qyj_w" attr-id='jg'>权益金等级 <span class="fa fa-sort-desc qyj_jt"></span></div>
+            <div class="f-l qyj_w" attr-id='zk'>折扣率 <span class="fa fa-sort-desc qyj_jt"></span></div>
+            <div class="f-l qyj_w" attr-id='lx'>交易类型 <span class="fa fa-sort-desc qyj_jt"></span></div>
             <div class="f-l qyj_w" attr-id='px'>排序 <span class="fa fa-sort-desc qyj_jt"></span></div>
             <div style="clear: both;"></div>
         </div>
@@ -46,48 +46,55 @@
     </header>
     <style>.qyj_style{position: absolute;width: 6rem;top: 5rem;text-align: left;}</style>
     <div class="content" style='top: 3.4rem!important;bottom: 4.5rem!important;'>
-        <div class="qyj_list_banner"><img src="{skin:image/qyj_list_banner.jpg}" ></div>
-        <div>
-            <!-- 滚动购买信息 -->
-            {foreach:items=$buy->find()}
-            <li class="three-list-items">
-                <div class="three-list-items1">用户：<span>{echo:substr($item['buy_username'],0,3)}****{echo:substr($item['buy_username'],-4)}</span>  {$item['discount']}折购买了{$item['num']}个{if: $item['account_type']=='A'}
-                    钻石级
-                {elseif: $item['account_type']=='B'}
-                    铂金级
-                {elseif: $item['account_type']=='C'}
-                    黄金级
-                {elseif: $item['account_type']=='D'}
-                    白银级
-                {elseif: $item['account_type']=='E'}
-                    青铜级
-                {elseif: $item['account_type']=='F'}
-                    尊享
-                {/if}权益金</div>
-            </li>
-            {/foreach}
+        <div class="qyj_list_banner" style="font-size: 0;"><img src="{skin:image/qyj_list_banner.jpg}" ></div>
+        <div class="swrp-box">
+            <div class="f-l"><span class="fa fa-volume-up" style="color:red"></span></div>
+            <ul class="scrollWraps f-l" style='height:1rem;overflow: hidden;margin-top: 0px!important;'>
+                 <!-- 滚动购买信息 -->
+                {foreach:items=$buy->find()}
+                <li class="three-list-items f-10 mt-2">
+                    <div class="three-list-items1">用户：<span class="c-red">{echo:substr($item['buy_username'],0,3)}****{echo:substr($item['buy_username'],-4)}</span> <span class="c-red">{$item['discount']}</span> 折购买了 <span class="c-red">{$item['num']}</span> 个{if: $item['account_type']=='A'}
+                        钻石级
+                    {elseif: $item['account_type']=='B'}
+                        铂金级
+                    {elseif: $item['account_type']=='C'}
+                        黄金级
+                    {elseif: $item['account_type']=='D'}
+                        白银级
+                    {elseif: $item['account_type']=='E'}
+                        青铜级
+                    {elseif: $item['account_type']=='F'}
+                        尊享
+                    {/if}权益金</div>
+                </li>
+                {/foreach}
+            </ul>
+            <div style="clear: both;"></div>
         </div>
-        <div class="mt-10">
+        <div>
             
 			{foreach:items=$change->find()}
             <div class="qyj_buy_items">
                 <div class="qyj_user_con">
                     <div class="qyj_user_img mr-10">
                         <div class="qyj-img-items {if: $item['account_type']=='A'}
-                        qyj-a
-                    {elseif: $item['account_type']=='B'}
-                        qyj-b
-                    {elseif: $item['account_type']=='C'}
-                        qyj-c
-                    {elseif: $item['account_type']=='D'}
-                        qyj-d
-                    {elseif: $item['account_type']=='E'}
-                        qyj-e
-                    {elseif: $item['account_type']=='F'}
-                        qyj-f
-                    {/if}"></div>
-                        <!-- 折扣 -->
-                        <!-- {$item['discount']} -->
+                                qyj-a
+                            {elseif: $item['account_type']=='B'}
+                                qyj-b
+                            {elseif: $item['account_type']=='C'}
+                                qyj-c
+                            {elseif: $item['account_type']=='D'}
+                                qyj-d
+                            {elseif: $item['account_type']=='E'}
+                                qyj-e
+                            {elseif: $item['account_type']=='F'}
+                                qyj-f
+                            {/if}">
+                            <!-- 折扣 -->
+                            <div class="qyj-zk f-10">{$item['discount']}折</div>
+                        </div>
+                        
+                        
                         <div class="qyj_style f-10 t-c" style="top: 5.1rem;">
                             <div></div>
                             <div class="c-gray">编号：{$item['nid']}</div>
@@ -172,4 +179,16 @@
         }
         
     })
+
+    function scrollInfo() {
+        console.info(123)
+        $('.scrollWraps').each(function () {
+            var $wrap = $(this);
+            var ht = $wrap.children('li:first').outerHeight();
+            $wrap.children('li:first').animate({'marginTop': -ht+'px'}, 'normal', function () {
+                $(this).css({'marginTop': 0}).appendTo($wrap);
+            });
+        });
+    };
+    setInterval(scrollInfo, 1000);
 </script>
