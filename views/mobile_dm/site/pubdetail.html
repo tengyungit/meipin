@@ -42,7 +42,7 @@
                                 折扣：<span>{$change['discount']}折</span>
                             </p>
                             <p class="mt-10 f-10 c-gray flex-item-4 t-c">
-                                库存：<span>{$change['num']}元</span>
+                                库存：<span class="qyj-xz">{$change['num']}</span>元
                             </p>
                             <p class="mt-10 f-10 c-gray flex-item-4 t-r">
                                 已转让：<span>{$change['sale_num']}个</span>
@@ -199,22 +199,35 @@
         
         $('.sub').click(function(){
             change()
-            console.info($('#buyNums').val())
         })
         $('.add').click(function(){
             change()
-            console.info($('#buyNums').val())
         })
-        $('#buyNums').keyup(function(){
+        $('#buyNums').blur(function(){
             change()
-            console.info($('#buyNums').val())
         })
         function change(){
             var money = '',url = '',arr = [];
-            money = $('#buyNums').val();
+            money = Number($('#buyNums').val());
             url = $('.qyj_link').attr('href');
             arr = url.split('=')
-            arr.splice([arr.length - 1],1,money)
+            var xzVal = Number($('.qyj-xz').text())
+            if(xzVal >= 100){
+                if(money < 100){
+                    $('#buyNums').val('100')
+                    arr.splice([arr.length - 1],1,'100')
+                }else{
+                    if(money > xzVal){
+                        $('#buyNums').val(xzVal)
+                        arr.splice([arr.length - 1],1,xzVal)
+                    }else{
+                        arr.splice([arr.length - 1],1,money)
+                    }
+                }
+            }else{
+                $('#buyNums').val(xzVal)
+                arr.splice([arr.length - 1],1,xzVal)
+            }
             $('.qyj_link').attr('href',arr.join('='))
         }
     })
