@@ -231,9 +231,9 @@ class APIPartner
             $where .= " and a.account_type='" . $account_type . "'";
         }
 
-        if(!empty($order_ds)){
+        if (!empty($order_ds)) {
             $query->order = 'a.status asc,a.discount desc,now_num desc';
-        }else{
+        } else {
             $query->order = 'a.status asc,a.discount asc,now_num desc';
         }
 
@@ -293,10 +293,10 @@ class APIPartner
     public function getIndexBuyList()
     {
         $query  = new IQuery('partner_account_buy as a');
-        $query->join = "left join partner_account_change as b on a.nid=b.nid";
-        $query->fields = 'a.buy_user_id,a.buy_username,a.id,a.nid,a.money,a.num,a.status,a.buy_time,b.title,b.account_type,b.appid,b.discount,b.change_username';
+        $query->join = "left join partner_account_change as b on a.nid=b.nid left join partner_account_config as c on b.account_type=c.code";
+        $query->fields = 'a.buy_user_id,a.buy_username,a.id,a.nid,a.money,a.num,a.status,a.buy_time,b.title,b.account_type,b.appid,b.discount,b.change_username,c.percent';
         $query->order = 'a.id desc';
-        $query->limit = '0,7';
+        $query->limit = '0,20';
         return $query;
     }
 

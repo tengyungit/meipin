@@ -8,13 +8,19 @@
     <div class="content bg-white bottom-0">
 		<div class="p-5 f-14 border-b">
 			订单详情
-		</div>
+        </div>
+        <!-- 购买时间 -->
+        <!-- {$buy_detail['buy_time']} -->
         <section class="cart_3 p-5 f-12">
             <table style="table-layout: fixed;">
                 <colgroup>
                     <col width="33%" />
                     <col />
                 </colgroup>
+                <tr>
+                    <td>标题:</td>
+                    <td style="word-break: break-word;">{$buy_detail['title']}</td>
+                </tr>
 				<tr>
                     <td>订单编号:</td>
                     <td style="word-break: break-word;">{$buy_detail['nid']}</td>

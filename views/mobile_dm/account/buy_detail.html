@@ -12,7 +12,7 @@
             <div class="qyj_detail_head p-101 mt-10 mb-10">
                 <div class="qyj_detail_list">
                     <div><span class="active">1</span>   {$buy_detail['buy_time']} 创建购买</div>
-                    <div><span class="active">1</span>   {$buy_detail['do_time']} 	
+                    <div><span class="active">2</span>   {$buy_detail['do_time']} 	
                     <?php if ($buy_detail['status'] == 0) { ?>
                         待支付
                     <?php } elseif ($buy_detail['status'] == 2) { ?>
@@ -67,6 +67,15 @@
                     </tr>
                     <tr>
                         <td class="bgfafafa">订单金额</td><td>{$buy_detail['money']}元</td>
+                    </tr>
+                    <tr>
+                        <td class="bgfafafa">状态</td><td> <?php if ($buy_detail['status'] == 0) { ?>
+                            待支付
+                        <?php } elseif ($buy_detail['status'] == 2) { ?>
+                            取消购买
+                        <?php } elseif ($buy_detail['status'] == 1) { ?>
+                            支付成功
+                        <?php } ?></td>
                     </tr>
                     
                 </table>
