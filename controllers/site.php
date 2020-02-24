@@ -59,6 +59,7 @@ class Site extends IController
 			'change' => $changeRow,
 			'partner' => $partnerRow,
 			'percent' => $configRow['percent'],
+			'fee' => 1,
 		));
 		$this->redirect('pubdetail');
 	}

@@ -43,7 +43,13 @@
                             <td class="bgfafafa">购买数量</td><td>{$num}个</td>
                         </tr>
                         <tr>
-                            <td class="bgfafafa">应付金额</td><td>{echo:$num*$change['discount']/10}元</td>
+                            <td class="bgfafafa">交易手续费</td><td>{$fee}%({echo:$num*$change['discount']/10*$fee/100})</td>
+                        </tr>
+                        <tr>
+                            <td class="bgfafafa">金额</td><td>{echo:$num*$change['discount']/10}元</td>
+                        </tr>
+                        <tr>
+                            <td class="bgfafafa">应付金额</td><td>{echo:$num*$change['discount']/10+$num*$change['discount']/10*$fee/100}元</td>
                         </tr>
                         
                     </table>
@@ -70,7 +76,8 @@
                     <div class="p-10 f-12 mb-5 c-gray">
                         <div class="mt-5"><span class="qyj-w20">订单单价：</span> ￥{echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)}</div>
                         <div class="mt-5"><span class="qyj-w20">订单数量：</span>{$num}个</div>
-                        <div class="mt-5"><span class="qyj-w20">合计：</span>{$num}*{echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)}元/个 = ￥{echo:$num*$change['discount']/10}</div>
+                        <div class="mt-5"><span class="qyj-w20">交易手续费：</span>￥{echo:$num*$change['discount']/10*$fee/100}</div>
+                        <div class="mt-5"><span class="qyj-w20">合计：</span>{$num}*{echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)}元/个 + {echo:$num*$change['discount']/10*$fee/100}手续费= ￥{echo:$num*$change['discount']/10+$num*$change['discount']/10*$fee/100}元</div>
                     </div>
                 </div>
             
@@ -83,7 +90,7 @@
         <div class="row no-gutter">
             <div class="final-sum col-60 f-14 t-l p-5 mt-5">
                 <span class="ml-5">实付金额:</span>
-                <em id='final_sum' class="c-red">{echo:$num*$change['discount']/10}</em>元
+                <em id='final_sum' class="c-red">{echo:$num*$change['discount']/10+$num*$change['discount']/10*$fee/100}</em>元
             </div>
             <div class="col-40">
                 <input id="submitForm" type="submit" class="button button-big d-block button-fill button-danger" value="提交订单" />

@@ -89,6 +89,13 @@
                     <tr>
                         <td class="bgfafafa">当前卖出金额</td class="bgfafafa"><td>￥{$change_detail['get_money']}</td>
                     </tr>
+                    <tr>
+                        <td class="bgfafafa">交易手续费</td class="bgfafafa"><td>{$change_detail['fee']}</td>
+                    </tr>
+                    <tr>
+                        <td class="bgfafafa">实际到账金额</td class="bgfafafa"><td>{echo:$change_detail['get_money']-$change_detail['fee']}</td>
+                    </tr>
+                    
                     
                 </table>
             

@@ -561,6 +561,7 @@ class Ucenter extends IController implements userAuthorization
 			'name'   => IFilter::act(IReq::get('name', 'post'), 'string'),
 			'note'   => IFilter::act(IReq::get('note', 'post'), 'string'),
 			'amount' => $amount,
+			'fee' => $amount*0.006,
 			'user_id' => $user_id,
 			'time'   => ITime::getDateTime(),
 		);

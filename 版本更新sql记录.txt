@@ -180,6 +180,19 @@ MODIFY COLUMN `appid`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMM
 MODIFY COLUMN `partner_name`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '合作方名称' AFTER `appid`;
 
 
+2.24
+ALTER TABLE `mpyg_withdraw`
+ADD COLUMN `fee`  decimal(15,2) NOT NULL DEFAULT 0.00 COMMENT '提现手续费' AFTER `amount`;
+
+ALTER TABLE `mpyg_partner_account_buy`
+ADD COLUMN `fee`  decimal(11,2) NOT NULL DEFAULT 0.00 COMMENT '交易手续费' AFTER `money`;
+
+ALTER TABLE `mpyg_partner_account_change`
+ADD COLUMN `fee`  decimal(11,2) NOT NULL DEFAULT 0.00 COMMENT '交易手续费' AFTER `get_money`;
+
+
+
+
 
 
 

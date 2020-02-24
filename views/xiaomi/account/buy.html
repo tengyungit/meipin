@@ -34,7 +34,7 @@
                 <td style="text-align:center;">{$item['buy_time']}</td>
                 <td>{$item['num']}</td>
                 <td>{$item['discount']}</td>
-                <td>{$item['money']}</td>
+                <td>{echo:$item['money']+$item['fee']}</td>
                 <td>{echo:substr($item['change_username'],0,3)}****{echo:substr($item['change_username'],-4)}</td>
                 <td><?php if ($item['status'] == 0) { ?>
                     待支付

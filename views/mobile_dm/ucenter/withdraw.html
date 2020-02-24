@@ -1,0 +1,103 @@
+<div class="page" id="page-withdraw">
+    <header class="bar bar-nav pl-0 bg-red sortbar">
+        <a class="fa fa-arrow-left pull-left c-white" href="{url:/ucenter/account_log}"></a>
+        <h1 class="title c-white">申请提现</h1>
+        <a class="fa fa-user pull-right c-white external" href="{url:/ucenter/index}"></a>
+    </header>
+    <div class="goods_sort buttons-tab clearfix">
+        <a href="#tab1" class="tab-link active button">申请提现</a>
+        <a href="#tab2" class="tab-link button">提现记录</a>
+    </div>
+    <div class="content bg-white bottom-0">
+        <div class="tabs">
+            <div id="tab1" class="tab active">
+                <div class="p-10">
+                    <div class="col-100 t-c p-5">
+                        <span class="f-18 c-red f-18"><em class="d-block f-12 c-gray">帐户余额</em>￥{$this->memberRow['balance']}</span>
+                    </div>
+                </div>
+                <section class="p-5 f-12">
+                    <form action="{url:/ucenter/withdraw_act}" method="POST" role="form" novalidate="true">
+                        <div class="list-block m-0 p-10 f-14">
+                            <ul>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">姓名</div>
+                                            <div class="item-input">
+                                                <input type="text" name='name' placeholder="收款人姓名" pattern='required' initmsg="" alt="请输入收款人姓名">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">金额</div>
+                                            <div class="item-input">
+                                                <input type="text" name='amount' placeholder="提现金额 提现收取0.6%手续费" pattern='float' initmsg="" alt="请输入提现金额 ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">账号</div>
+                                            <div class="item-input">
+                                                <input type="text" name='note' placeholder="收款账号信息" pattern='required' initmsg="" alt="请输入备注信息">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <p class="mt-10"><input type="submit" class="button button-fill button-danger size-l f-14" value="确认提现"></p>
+                        </div>
+                    </form>
+                </section>
+            </div>
+            <div id="tab2" class="tab">
+                <div class="list-block cards-list mt-10 mb-10">
+                    <ul>
+                        {set:$queryWithdrawList = Api::run('getWithdrawList')}
+                        {foreach:items = $queryWithdrawList->find()}
+                        <li class="card">
+                            <div class="card-header f-14 c-white bg-blue">{echo:AccountLog::getWithdrawStatus($item['status'])}</div>
+                            <div class="card-content f-12">
+                                <div class="card-content-inner">
+                                    <p><strong>提现金额：</strong>￥{$item['amount']}元</p>
+                                    <p><strong>手续费：</strong>￥{$item['fee']}元</p>
+                                    <p><strong>实际到账：</strong>￥{echo:$item['amount']-$item['fee']}元</p>
+                                    <p><strong>我的账号：</strong>{$item['note']}</p>
+                                    {if:$item['re_note']}
+                                    <p><strong>管理员备注：</strong>{$item['re_note']}</p>
+                                    {/if}
+                                </div>
+                            </div>
+                            {if:$item['status']==0}
+                            <div class="card-footer t-r" onclick="delModel({link:'{url:/ucenter/withdraw_del/id/$item['id']}'});">取消</div>
+                            {/if}
+                        </li>
+                        {/foreach}
+                    </ul>
+                    {$queryWithdrawList->getPageBar()}
+                </div>
+
+                {if:!$items}
+                <section class="nothing t-c p-10 mt-10">
+                    <i class="fa fa-smile-o mt-10 c-gray"></i>
+                    <p class="d-block t-c f-14 mb-10">暂时没有提现记录哦~</p>
+                    <div class="content-padded">
+                        <div class="row">
+                            <div class="col-50"> <a class="button button-danger" href="{url:/ucenter/index} ">个人中心</a>
+                            </div>
+                            <div class="col-50"> <a class="button button-danger external" href="{url:/site/index} ">网站首页</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                {/if}
+            </div>
+        </div>
+    </div>
+</div>

@@ -45,10 +45,13 @@
                         尊享级
                     {/if}（*可{$buy_detail['percent']}%抵扣购物金额。）</td>
                 </tr>
-                
+                <tr>
+                    <td>交易手续费:</td>
+                    <td>{$fee}%</td>
+				</tr>
                 <tr>
                     <td>订单金额:</td>
-                    <td>{$buy_detail['money']}元</td>
+                    <td>{echo:$buy_detail['money']+$buy_detail['money']*$fee/100}元</td>
 				</tr>
 				<tr>
                     <td>支付方式:</td>
@@ -56,9 +59,7 @@
                 </tr>
               
             </table>
-            <div style='padding:1rem 0'><a style='color:#eba400' href="{url:/account/buy_detail&buy_id=$buy_id}">[查看订单详细信息]</a></div>
         </section>
-        
     </div>
 </div>
 <nav class="bar bar-tab">

@@ -57,7 +57,10 @@
 			<td class="bgfafafa">购买权益金数量</td><td>{$buy_detail['num']}个</td>
 		</tr>
 		<tr>
-			<td class="bgfafafa">订单金额</td><td>{$buy_detail['money']}元</td>
+			<td class="bgfafafa">交易手续费</td><td>{$buy_detail['fee']}元</td>
+		</tr>
+		<tr>
+			<td class="bgfafafa">订单金额</td><td>{echo:$buy_detail['money']+$buy_detail['fee']}元</td>
 		</tr>
 		
 	</table>

@@ -266,7 +266,7 @@ class APIPartner
         $page   = IReq::get('page') ? IFilter::act(IReq::get('page'), 'int') : 1;
         $query  = new IQuery('partner_account_buy as a');
         $query->join = "left join partner_account_change as b on a.nid=b.nid left join partner as c on b.appid=c.appid";
-        $query->fields = 'a.buy_user_id,a.buy_username,a.id,a.nid,a.money,a.num,a.status,a.buy_time,b.title,b.account_type,b.appid,b.discount,b.change_username,c.partner_name';
+        $query->fields = 'a.fee,a.buy_user_id,a.buy_username,a.id,a.nid,a.money,a.num,a.status,a.buy_time,b.title,b.account_type,b.appid,b.discount,b.change_username,c.partner_name';
         if ($userid) {
             $query->where = "a.buy_user_id = " . $userid;
         }
@@ -282,7 +282,7 @@ class APIPartner
         $buy_id = $buy_id ? IFilter::act($buy_id, 'int') : 0;
         $query  = new IQuery('partner_account_buy as a');
         $query->join = "left join partner_account_change as b on a.nid=b.nid left join partner_account_config as c on b.account_type=c.code";
-        $query->fields = 'a.do_time,a.buy_user_id,a.buy_username,a.id,a.nid,a.money,a.num,a.status,a.buy_time,b.title,b.account_type,b.appid,b.discount,b.change_username,b.title,c.percent';
+        $query->fields = 'a.fee,a.do_time,a.buy_user_id,a.buy_username,a.id,a.nid,a.money,a.num,a.status,a.buy_time,b.title,b.account_type,b.appid,b.discount,b.change_username,b.title,c.percent';
         if ($buy_id) {
             $query->where = "a.id = " . $buy_id . " and a.buy_user_id=" . $userid;
         }

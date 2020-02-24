@@ -71,7 +71,11 @@
 							<td>{$num}个</td>
 						</tr>
 						<tr>
-							<td class="bgfafafa">应付金额</td>
+							<td class="bgfafafa">交易手续费</td>
+							<td>{$fee}%</td>
+						</tr>
+						<tr>
+							<td class="bgfafafa">金额</td>
 							<td><em>￥{echo:$num*$change['discount']/10}</em></td>
 						</tr>
 				
@@ -106,7 +110,8 @@
 				<div class="count">
 				订单单价：<strong class="mr-10 block_ib">￥{echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)}</strong> 
 				订单数量：<strong class="mr-10 block_ib">{$num}个</strong> 
-				合计：<strong class="mr-10 block_ib">{$num} * {echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)} = ￥{echo:$num*$change['discount']/10}</strong> 
+				交易手续费：<strong class="mr-10 block_ib">￥{echo:$num*$change['discount']/10*$fee/100}</strong> 
+				合计：<strong class="mr-10 block_ib">{$num}*{echo:bcdiv($change['num']*$change['discount']/10,$change['num'],2)}元/个 + {echo:$num*$change['discount']/10*$fee/100}手续费= ￥{echo:$num*$change['discount']/10+$num*$change['discount']/10*$fee/100}元</strong> 
 
 				<div>
 					<div>
@@ -118,7 +123,7 @@
 						<tr>
 							<td>
 								<div class="all_count">
-									应付总额：<em>￥<span>{echo:$num*$change['discount']/10}</span></em> 元
+									应付总额：<em>￥<span>{echo:$num*$change['discount']/10+$num*$change['discount']/10*$fee/100}</span></em> 元
 								</div>
 							</td>
 						</tr>

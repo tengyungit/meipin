@@ -32,7 +32,7 @@
 				<td>{$item['num']}</td>
 				<td>{$item['discount']}</td>
 				<td>{$item['sale_num']}</td>
-				<td>{$item['get_money']}</td>
+				<td>{echo:$item['get_money']-$item['fee']}</td>
 				<td><?php if($item['status']==0){?>
 					上架中
 					<?php }elseif($item['status']==2){?>

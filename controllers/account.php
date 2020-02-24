@@ -297,6 +297,7 @@ class Account extends IController implements userAuthorization
             'change' => $changeRow,
             'num' => $num,
             'percent' => $configRow['percent'],
+            'fee'=>1,
         ));
 
         $this->redirect('buysure');
@@ -364,7 +365,14 @@ class Account extends IController implements userAuthorization
         $memberObj  = new IModel('member');
         $memberRow  = $memberObj->getObj('user_id = ' . $this->user['user_id']);
 
-        if ($memberRow['balance'] < $num) {
+        $money = $num * $changeRow['discount'] / 10;
+
+        //手续费
+        $fee= $money * 0.01;
+
+        $total = $money+$fee;
+
+        if ($memberRow['balance'] < $total) {
             IError::show(403, '余额不足');
         }
 
@@ -386,7 +394,8 @@ class Account extends IController implements userAuthorization
             'buy_user_id' => $this->user['user_id'],
             'buy_username' => $this->user['username'],
             'buy_time' =>  ITime::getDateTime(),
-            'money' =>  $num * $changeRow['discount'] / 10,
+            'money' =>  $money,
+            'fee' =>  $money*0.01,
             'status' => 0,
         );
 
@@ -405,6 +414,7 @@ class Account extends IController implements userAuthorization
         $this->setRenderData(array(
             'buy_id' => $buy_id,
             'buy_detail' => $query[0],
+            'fee'=>1,
         ));
 
         $this->redirect('buychange');
@@ -430,7 +440,7 @@ class Account extends IController implements userAuthorization
         $buyObj = new IQuery("partner_account_buy as a");
         $buyObj->join   = 'left join partner_account_change as b on a.nid = b.nid';
         $buyObj->where  = 'a.buy_user_id = "' . $this->user['user_id'] . '" and a.id=' . $buy_id;
-        $buyObj->fields = 'a.status,a.num,a.money,a.nid,a.buy_user_id,a.buy_username,b.nid,b.account_type,b.change_user_id,b.change_username,b.appid,b.get_money,b.num as total_num,b.sale_num';
+        $buyObj->fields = 'a.fee,a.status,a.num,a.money,a.nid,a.buy_user_id,a.buy_username,b.nid,b.account_type,b.change_user_id,b.change_username,b.appid,b.get_money,b.num as total_num,b.sale_num,b.fee as sale_fee';
         $array_buy = $buyObj->find();
 
         if (empty($array_buy)) {
@@ -449,15 +459,19 @@ class Account extends IController implements userAuthorization
         $memberObj  = new IModel('member');
         $memberRow  = $memberObj->getObj('user_id = ' . $buyRow['buy_user_id']);
 
-        if ($memberRow['balance'] < $buyRow['money']) {
+        $fee= $buyRow['fee'];
+        $total = $buyRow['money']+$fee;
+
+        if ($memberRow['balance'] < $total) {
             // IError::show(403, '余额不足');
             $this->return_msg("data_error", '余额不足');
         }
 
         //购买者余额减少
         $amount = $memberRow['balance']  - $buyRow['money'];
+        //一次更新
         $mem_data = array(
-            'balance' => $amount,
+            'balance' => $amount-$fee,
         );
 
         $memberObj->setData($mem_data);
@@ -490,6 +504,28 @@ class Account extends IController implements userAuthorization
             // IError::show(403, '支付失败');
             $this->return_msg("data_error", '支付失败');
         }
+
+        $amount = $amount - $fee;
+        //购买交易费
+        $insertData = array(
+           'admin_id'  => 0,
+           'user_id'   => $buyRow['buy_user_id'],
+           'event'     => '13',
+           'note'      => "购买" . $buyRow['account_type'] . '类权益金，：' . $buyRow['num'] . '个,扣除交易手续费'.$fee."元",
+           'amount'    => -$fee,
+           'amount_log' => $amount,
+           'type'      => '0',
+           'time'      => ITime::getDateTime(),
+           'appid'     =>  $buyRow['appid'],
+           'account_type' => $buyRow['account_type'],
+       );
+       $tb_account_log->setData($insertData);
+       $flag = $tb_account_log->add();
+       if (!$flag) {
+           $tb_account_log->rollback();
+           // IError::show(403, '支付失败');
+           $this->return_msg("data_error", '支付失败');
+       }
 
         //新增购买者权益金账户
         //检测资金账号
@@ -565,6 +601,7 @@ class Account extends IController implements userAuthorization
         //转让信息修改
         $change_data = array(
             'get_money' => $buyRow['get_money'] + $buyRow['money'],
+            'fee' => $buyRow['sale_fee'] + $buyRow['fee'],
         );
 
         //如果没有未支付的购买权益金 售罄
@@ -602,9 +639,10 @@ class Account extends IController implements userAuthorization
         $memberRow  = $memberObj->getObj('user_id = ' . $buyRow['change_user_id']);
 
         $amount = $memberRow['balance']  + $buyRow['money'];
+        //一次更新
         $mem_data = array(
-            'point' => $memberRow['point'] + $buyRow['money'], //积分
-            'balance' => $amount,
+            'point' => $memberRow['point'] + $buyRow['money']-$fee, //积分
+            'balance' => $amount-$fee,
         );
         $memberObj->setData($mem_data);
         $flag = $memberObj->update("user_id = " . $buyRow['change_user_id']);
@@ -621,6 +659,29 @@ class Account extends IController implements userAuthorization
             'event'     => '12',
             'note'      => "售卖" . $buyRow['account_type'] . '类权益金，：' . $buyRow['num'] . '个，获得金额' . $buyRow['money'] . "元",
             'amount'    => $buyRow['money'],
+            'amount_log' => $amount,
+            'type'      => '0',
+            'time'      => ITime::getDateTime(),
+            'appid'     =>  $buyRow['appid'],
+            'account_type' => $buyRow['account_type'],
+        );
+
+        $tb_account_log->setData($insertData);
+        $flag = $tb_account_log->add();
+        if (!$flag) {
+            $tb_account_log->rollback();
+            // IError::show(403, '支付失败');
+            $this->return_msg("data_error", '支付失败');
+        }
+
+        $amount = $amount - $fee;
+         //售卖交易费
+         $insertData = array(
+            'admin_id'  => 0,
+            'user_id'   => $buyRow['change_user_id'],
+            'event'     => '14',
+            'note'      => "售卖" . $buyRow['account_type'] . '类权益金，：' . $buyRow['num'] . '个，扣除交易手续费' . $fee . "元,",
+            'amount'    => -$fee,
             'amount_log' => $amount,
             'type'      => '0',
             'time'      => ITime::getDateTime(),

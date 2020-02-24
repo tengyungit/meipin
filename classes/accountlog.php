@@ -53,7 +53,10 @@ class AccountLog
 		'partner_account_change'=> 9,//转让权益金
 		'partner_account_buy'=> 10,//购买权益金
 		'partner_account_return'=> 11,//撤销权益金转让
-		'partner_account_sale'=> 12,//撤销权益金转让
+		'partner_account_sale'=> 12,//售卖权益金转让
+		'partner_buy_fee'=> 13,//购买权益金交易费
+		'partner_sale_fee'=> 14,//售卖权益金交易费
+		'withdraw_fee'=> 15,//提现手续费
 	);
 
 	private static $event_text = array(
@@ -69,6 +72,9 @@ class AccountLog
 		10 => "购买权益金",
 		11 => "撤销权益金转让",
 		12 => "售卖权益金",
+		13 => "购买权益金交易费",
+		14 => "售卖权益金交易费",
+		15 => "withdraw_fee",
 	);
 
 	//获取事件的文字描述

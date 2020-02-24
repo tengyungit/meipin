@@ -31,7 +31,8 @@
 			{elseif: $buy_detail['account_type']=='F'}
 				尊享级
 			{/if}（*可{$buy_detail['percent']}%抵扣购物金额。）</td></tr>
-			<tr><th>订单金额：</th><td>{$buy_detail['money']}元</td></tr>
+			<tr><th>交易手续费：</th><td>{$fee}%</td></tr>
+			<tr><th>订单金额：</th><td>{echo:$buy_detail['money']+$buy_detail['money']*$fee/100}元</td></tr>
 			<tr><th>支付方式：</th><td>余额支付</td></tr>
 		</table>
 		<table class="none" id='order_detail'>
